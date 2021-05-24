@@ -1,11 +1,33 @@
+:root {
+    --first-color: #A300CF;
+    --second-color: #176087;
+    --black-font: #083046;
+    --main-title: #4A525A;
+    --title: #5B656F;
+    --text: #838B93;
+    --background1: #F4F4F4;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
 html {
     line-height: 1.15;
-    -webkit-text-size-adjust: 100%
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
     margin: 0;
-    font-family: 'Nunito', sans-serif;
+    font-family: IranSans;
 }
 
 a {
@@ -16,9 +38,18 @@ a {
     display: none
 }
 
+img {
+    width: 100%;
+}
+
 html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-    line-height: 1.5
+    line-height: 1.5;
+}
+
+html,
+a,
+input {
+    color: var(--black-font)!important
 }
 
 *,
@@ -31,6 +62,11 @@ html {
 a {
     color: inherit;
     text-decoration: inherit
+}
+
+ul {
+    list-style: none;
+    display: flex;
 }
 
 svg,
@@ -68,6 +104,12 @@ video {
 
 .flex {
     display: flex
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .grid {
@@ -125,6 +167,14 @@ video {
 
 .mt-2 {
     margin-top: .5rem
+}
+
+.mt-8 {
+    margin-top: 2rem
+}
+
+.mt-12 {
+    margin-top: 3rem
 }
 
 .mr-2 {

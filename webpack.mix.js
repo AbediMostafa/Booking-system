@@ -11,5 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').vue()
-    .postCss('resources/css/normal.css', 'public/css');
+mix.disableNotifications()
+
+mix.
+copyDirectory('resources/fonts', 'public/fonts').
+copyDirectory('resources/images', 'public/images').
+js('resources/js/app.js', 'public/js').
+vue().
+postCss('resources/css/app.css', 'public/css').options({
+    processCssUrls: false
+});

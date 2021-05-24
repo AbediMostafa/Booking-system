@@ -9,13 +9,42 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/normal.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 
 </head>
 
 <body>
     <div id="app">
-        <Navbar />
+        <section class="hiro">
+            <div class="container">
+                <Navbar></Navbar>
+                <carousel></carousel>
+            </div>
+        </section>
+
+        <section class="special-rooms">
+            <div class="container">
+                <special-rooms></special-rooms>
+            </div>
+        </section>
+
+        <section class="full-video">
+            <div class="container">
+                <full-video></full-video>
+            </div>
+        </section>
+
+        <section class="learning">
+            <div class="container">
+                <learning></learning>
+            </div>
+        </section>
+
+        <section class="collections">
+            <div class="container">
+                <collections></collections>
+            </div>
+        </section>
     </div>
 
     <script src="{{asset('/js/app.js')}}">
