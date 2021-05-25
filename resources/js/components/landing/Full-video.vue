@@ -25,11 +25,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.full-video-container{
-  margin-top: 3rem;
-  background:url(images/general/raz.jpg) no-repeat center center/auto;
-  height:30rem
-}
-</style>

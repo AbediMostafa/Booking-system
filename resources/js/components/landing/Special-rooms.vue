@@ -34,6 +34,7 @@ export default {
       rooms: [],
       hrStyle: "",
       smallShap1: sot.iconPath("large-shape3.svg"),
+      
       enterAnimations: sot.enterAnimations,
       titles: {
         mainTitle: "با",
@@ -90,13 +91,16 @@ export default {
   position: relative;
 }
 
-.shape-1 {
+.shape-1, .shape-2 {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 30%;
   height: auto;
   z-index: -1;
+}
+
+.shape-1{
+  top: 0;
+  left: 0;
 }
 
 .s-offer-nav-container span:first-child {

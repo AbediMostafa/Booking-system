@@ -1,6 +1,6 @@
 <template>
-  <article class="special-room-card" v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation">
-    <div class="sr-image-container" :style="roomStyle"></div>
+  <article class="special-room-card learning-card" v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation">
+    <div class="sr-image-container sr-learning-image-container" :style="roomStyle"></div>
 
     <div class="sr-text-container">
       <h4>{{card.date}}</h4>
