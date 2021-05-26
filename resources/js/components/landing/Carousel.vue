@@ -18,7 +18,7 @@
           >
         </play-icon>
         <a
-          class="cta hiro-cta"
+          class="cta"
           v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
           >شروع ماجراجویی</a
         >
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import PlayIcon from "../packages/Play-icon.vue";
+import PlayIcon from "./../packages/Play-icon.vue";
 export default {
   components: {
     PlayIcon,
@@ -69,6 +69,13 @@ export default {
 </script>
 
 <style scoped>
+.carousel {
+  position: relative;
+  margin-top: 1rem;
+  overflow: hidden;
+  height: 25rem;
+}
+
 .zoom-in {
   transition: all 10s;
   transform: scale(1.4) !important;
@@ -85,6 +92,17 @@ export default {
   color: white;
   text-align: right;
   width: 80%;
+}
+
+.image-content h1 {
+  margin-bottom: 0;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 1);
+  font-size: 2rem;
+}
+.image-content p {
+  font-size: 0.8rem;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 1);
+  line-height: 2;
 }
 
 .carousel-img {
