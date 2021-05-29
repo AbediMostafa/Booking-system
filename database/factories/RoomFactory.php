@@ -26,7 +26,11 @@ class RoomFactory extends Factory
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->text,
-            'image'=>$this->faker->name.'.png',
+            'image'=>$this->faker->randomElement([
+                'images/carousel/1.jpg',
+                'images/carousel/2.jpg',
+                'images/carousel/3.jpg',
+            ]),
             'banner'=>$this->faker->name.'.png',
             'price'=>$this->faker->numberBetween($min = 100, $max = 350),
             'max_person'=>$this->faker->numberBetween($min = 11, $max = 20),
@@ -34,6 +38,7 @@ class RoomFactory extends Factory
             'game_time'=>$this->faker->numberBetween($min = 60, $max = 120),
             'hardness'=>$this->faker->randomElement([1,2,3,4,5]),
             'status'=>$this->faker->randomElement(['disable' ,'enable']),
+            'type'=>$this->faker->randomElement(['special', 'new']),
             'address' => $this->faker->address,
             'phone' => $this->faker->phoneNumber  ,
             'mobile' => $this->faker->e164PhoneNumber  ,

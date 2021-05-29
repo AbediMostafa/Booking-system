@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import PlayIcon from "../packages/Play-icon.vue";
+import PlayIcon from "./../packages/Play-icon.vue";
 export default {
   components: {
     PlayIcon,

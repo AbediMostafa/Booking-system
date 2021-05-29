@@ -125,14 +125,15 @@ export const sot = {
         },
         discounts: {
             name: 'تخفیفی ها',
-            rooms: [
-
-                {
+            rooms: [{
                     id: 1,
                     image: 'images/carousel/1.jpg',
                     name: 'تخفیف ابدی',
                     collectionName: 'اسکیپ پلاس',
                     collectionAddress: 'شریعتی - ظفر',
+                    amount: 45,
+                    startDate: '',
+                    endDate: '',
                     totalScore: 66
                 },
                 {
@@ -141,6 +142,9 @@ export const sot = {
                     name: 'تخفیف امن من',
                     collectionName: 'زوم پلاس',
                     collectionAddress: 'شریعتی - ظفر',
+                    amount: 15,
+                    startDate: '',
+                    endDate: '',
                     totalScore: 12
                 },
                 {
@@ -149,6 +153,9 @@ export const sot = {
                     name: 'تخفیف ابدی',
                     collectionName: 'هامان پلاس',
                     collectionAddress: 'شریعتی - ظفر',
+                    amount: 16,
+                    startDate: '',
+                    endDate: '',
                     totalScore: 93
                 },
                 {
@@ -157,20 +164,16 @@ export const sot = {
                     name: 'تخفیف',
                     collectionName: 'اسکیپ تالاش',
                     collectionAddress: 'ظفر',
+                    amount: 13,
+                    startDate: '',
+                    endDate: '',
                     totalScore: 33
                 },
             ],
         },
         specials: {
             name: 'پیشنهاد ویژه',
-            rooms: [{
-                id: 1,
-                image: 'images/carousel/1.jpg',
-                name: ' ابدی',
-                collectionName: 'اسکیپ پلاس',
-                collectionAddress: 'شریعتی - ظفر',
-                totalScore: 15
-            },
+            rooms: [
                 
                 {
                     id: 1,

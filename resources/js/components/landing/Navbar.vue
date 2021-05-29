@@ -67,6 +67,10 @@ nav,
   justify-content: space-between;
 }
 
+nav{
+  padding:0 .5rem;
+}
+
 a {
   cursor: pointer;
 }
@@ -118,17 +122,5 @@ a {
   transform: translatex(50%);
 }
 
-.nav-menu-container {
-  position: fixed;
-  height: 100vh;
-  top: 0;
-  background: #fff;
-  width: 60%;
-  right: 0;
-  padding: 2rem 2rem 0 0;
-  transition: all 500ms;
-  transform: translateX(100%);
-  z-index: 5;
-}
 </style>
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NewCotroller;
+use App\Http\Controllers\SpecialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 });
+Route::post('/new',[NewController::class, 'index']);
+Route::post('/special',[SpecialController::class,'index']);

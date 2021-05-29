@@ -70,7 +70,10 @@ export default {
     },
   },
   mounted() {
-    this.specialTypes = sot.specialTypes;
+
+   
+
+this.specialTypes = sot.specialTypes;
 
     let specialTypeKeys = Object.keys(this.specialTypes);
     let lastSpecialTypeKey = specialTypeKeys[specialTypeKeys.length - 1];

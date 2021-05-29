@@ -8,7 +8,8 @@ import SpecialRooms from './components/landing/Special-rooms.vue';
 import ScrollAnimation from './directives/slow-move.js';
 import FullVideo from './components/landing/Full-video.vue';
 import Learning from './components/landing/Learning.vue';
-import Collections from './components/landing/Collections.vue'
+import Collections from './components/landing/Collections.vue';
+import SiteFooter from './components/landing/Site-footer.vue';
 
 Vue.directive('scrollAnimation', ScrollAnimation);
 
@@ -20,6 +21,7 @@ const vue = new Vue({
         SpecialRooms,
         FullVideo,
         Learning,
-        Collections
+        Collections,
+        SiteFooter,
     }
 });

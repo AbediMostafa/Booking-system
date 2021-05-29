@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
-use App\Models\Comment;
-use App\Models\Post;
 use App\Models\Room;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class NewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +14,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $rooms=Room::all();
-      dd($rooms);
-
-      return view('home.special',compact('rooms'));
-        
+        $rooms=Room::with('collection')->where('type','new')->get();
+        return $rooms;
+  
     }
 
     /**

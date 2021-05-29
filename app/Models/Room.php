@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
+    // use HasSoftDelete;
+    protected $table = "rooms";
+    protected $fillable = ['name', 'description', 'banner', 'image', 'published_at', 'price'];
+    protected $casts = ['image' => 'array','banner'=>'array'];
+    protected $deletedAt = 'deleted_at';
     //relation with comment table
     public function comments()
     {
