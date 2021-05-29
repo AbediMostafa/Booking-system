@@ -1,6 +1,8 @@
 <template>
   <div class="carousel">
-    <img
+    <div class="overlay"></div>
+
+    <img 
       :src="carouselImageSources[counter].path"
       :class="['carousel-img', zoom ? 'zoom-in' : 'zoom-out']"
     />
@@ -15,10 +17,11 @@
         <play-icon 
           v-scrollAnimation="enterAnimations.leftWithUltraDelayAnimation"
           size="small"
+          @click.native="showVideoClicked"
           >
         </play-icon>
         <a
-          class="cta"
+          class="cta hiro-cta"
           v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
           >شروع ماجراجویی</a
         >
@@ -39,9 +42,16 @@ export default {
       counter: 0,
       zoom: false,
       carouselImageSources: sot.carouselItems,
+      showVideo:sot.reactiveVars.showVideos
     };
   },
   methods: {
+
+    showVideoClicked(){
+      this.showVideo.landing = true;
+      console.log(sot.reactiveVars)
+    },
+
     /**
      * changes zoom to true after 20ms
      */
@@ -69,12 +79,6 @@ export default {
 </script>
 
 <style scoped>
-.carousel {
-  position: relative;
-  margin-top: 1rem;
-  overflow: hidden;
-  height: 25rem;
-}
 
 .zoom-in {
   transition: all 10s;
@@ -84,30 +88,6 @@ export default {
 .zoom-out {
   transition: all 0s;
   transform: scale(1);
-}
-.image-content {
-  position: absolute;
-  top: 0;
-  right: 5%;
-  color: white;
-  text-align: right;
-  width: 80%;
-}
-
-.image-content h1 {
-  margin-bottom: 0;
-  text-shadow: 1px 1px 8px rgba(0, 0, 0, 1);
-  font-size: 2rem;
-}
-.image-content p {
-  font-size: 0.8rem;
-  text-shadow: 1px 1px 8px rgba(0, 0, 0, 1);
-  line-height: 2;
-}
-
-.carousel-img {
-  height: 100%;
-  width: auto;
 }
 
 .cta-container {

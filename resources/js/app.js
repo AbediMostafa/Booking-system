@@ -23,5 +23,9 @@ const vue = new Vue({
         Learning,
         Collections,
         SiteFooter,
-    }
+    },
+    data: {
+        landingVideoSrc: sot.videoPath('1.mp4'),
+        showVideo: sot.reactiveVars.showVideos
+    },
 });

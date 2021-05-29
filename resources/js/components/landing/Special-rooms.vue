@@ -91,18 +91,6 @@ export default {
   position: relative;
 }
 
-.shape-1, .shape-2 {
-  position: absolute;
-  width: 30%;
-  height: auto;
-  z-index: -1;
-}
-
-.shape-1{
-  top: 0;
-  left: 0;
-}
-
 .s-offer-nav-container span:first-child {
   margin-left: 0;
 }

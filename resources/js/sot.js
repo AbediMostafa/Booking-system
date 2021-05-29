@@ -21,6 +21,22 @@ export const sot = {
         return `../../${this.exactPath}images/general/${img}`
     },
 
+    /**
+     * Get video path
+     * 
+     * @param {string} video 
+     * @returns 
+     */
+    videoPath(video) {
+        return `../../${this.exactPath}videos/${video}`
+    },
+
+    reactiveVars: {
+
+        showVideos: {
+            landing: false,
+        },
+    },
 
     /**
      * spaecial offer items
@@ -138,7 +154,7 @@ export const sot = {
                 },
                 {
                     id: 2,
-                    image: 'images/carousel/1.jpg',
+                    image: 'images/carousel/2.jpg',
                     name: 'تخفیف امن من',
                     collectionName: 'زوم پلاس',
                     collectionAddress: 'شریعتی - ظفر',
@@ -160,7 +176,7 @@ export const sot = {
                 },
                 {
                     id: 4,
-                    image: 'images/carousel/1.jpg',
+                    image: 'images/carousel/3.jpg',
                     name: 'تخفیف',
                     collectionName: 'اسکیپ تالاش',
                     collectionAddress: 'ظفر',
@@ -175,7 +191,7 @@ export const sot = {
             name: 'پیشنهاد ویژه',
             rooms: [{
                     id: 1,
-                    image: 'images/carousel/1.jpg',
+                    image: 'images/general/raz.jpg',
                     name: 'ویژه ابدی',
                     collectionName: 'اسکیپ پلاس',
                     collectionAddress: 'شریعتی - ظفر',
