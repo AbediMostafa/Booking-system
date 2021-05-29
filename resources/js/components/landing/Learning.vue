@@ -5,11 +5,13 @@
       v-scrollAnimation="enterAnimations.topAnimation"
     ></section-header>
 
-    <learning-card
-      v-for="learning in learnings"
-      :key="learning.id"
-      :card="learning"
-    ></learning-card>
+    <div class="learning-card-container">
+      <learning-card
+        v-for="learning in learnings"
+        :key="learning.id"
+        :card="learning"
+      ></learning-card>
+    </div>
   </div>
 </template>
 

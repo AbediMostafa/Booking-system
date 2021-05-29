@@ -16,6 +16,7 @@ mix.disableNotifications()
 mix.
 copyDirectory('resources/fonts', 'public/fonts').
 copyDirectory('resources/images', 'public/images').
+copyDirectory('resources/videos', 'public/videos').
 js('resources/js/app.js', 'public/js').
 vue().
 postCss('resources/css/app.css', 'public/css').options({
