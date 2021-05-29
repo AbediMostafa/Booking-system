@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel</title>
+    <title>Miss escape</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
@@ -15,9 +15,11 @@
 
 <body>
     <div id="app">
-
         <!-- Hiro Section -->
         <section class="hiro">
+            <div :class="['fade-video-modal', showVideo.landing? 'visible-video-modal':'']">
+                <video :src="landingVideoSrc" controls loop ref="landingVideo"></video>
+            </div>
             <div class="container">
                 <Navbar></Navbar>
                 <carousel></carousel>

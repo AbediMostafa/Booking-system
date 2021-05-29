@@ -4,6 +4,16 @@
 .collections .container,
 .footer .container {
     padding: .5rem;
+    max-width: 80rem;
+    margin: 0 auto
+}
+
+.hiro .container {
+    max-width: 90rem;
+}
+
+.hiro {
+    background: #fbf1fe;
 }
 
 section.learning,
@@ -210,6 +220,105 @@ section.footer {
     height: 30rem
 }
 
+.carousel-img {
+    height: 100%;
+    width: auto;
+}
+
+.nav-menu {
+    list-style: none;
+    flex-direction: column;
+    margin: 0;
+    text-align: right;
+}
+
+.cancle-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2rem;
+    top: 1rem;
+    right: 50%;
+    transform: translatex(50%);
+}
+
+.nav-menu li {
+    margin-top: 1rem;
+    border-top: 1px dashed var(--text);
+    padding-top: 1rem;
+}
+
+.nav-menu li a {
+    display: inline-block;
+    cursor: pointer;
+    transition: all 200ms;
+}
+
+.nav-menu li:not(:first-child):hover a {
+    transform: translateX(-0.2rem);
+}
+
+.image-content {
+    position: absolute;
+    top: 0;
+    right: 5%;
+    color: white;
+    text-align: right;
+    width: 80%;
+    z-index: 3;
+}
+
+nav {
+    padding: 0 .5rem;
+}
+
+.shape-1,
+.shape-2 {
+    position: absolute;
+    width: 20%;
+    height: auto;
+    z-index: -1;
+}
+
+.shape-1 {
+    top: 0;
+    left: 0;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    background: linear-gradient( 30deg, rgba(0, 0, 0, 0.24) 10%, #112631, #440e1d 110%);
+}
+
+.fade-video-modal {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: all 500ms;
+    z-index: 0;
+    background: #000000c4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fade-video-modal video {
+    width: 100%;
+}
+
+.visible-video-modal {
+    top: 0%!important;
+    opacity: 1!important;
+    z-index: 240;
+}
+
 @media screen and (min-width:480px) {
     .carousel {
         height: 32rem;
@@ -244,10 +353,100 @@ section.footer {
         display: flex;
         align-items: center;
         height: 20rem;
+        margin: 1rem 0;
     }
     .sr-learning-image-container {
-        height: initial;
         top: initial;
         width: 100%;
+        height: 90%;
+        order: 1;
+        flex: 0 0 50%;
+        right: 3rem;
+    }
+    .sr-learning-text-container {
+        text-align: right;
+        padding-right: 5rem;
+    }
+    .learning-card-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .fade-video-modal video {
+        width: 65%;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .carousel {
+        height: 87vh;
+    }
+    .carousel-img {
+        height: 100%;
+        width: auto;
+    }
+    .hamburger-menu {
+        display: none
+    }
+    .nav-menu-container {
+        position: relative;
+        height: initial;
+        top: 0;
+        background: initial;
+        width: 100%;
+        padding: 0;
+        transition: all 500ms;
+        transform: initial;
+    }
+    .nav-menu {
+        flex-direction: row;
+    }
+    .cancle-icon {
+        display: none
+    }
+    .nav-menu li {
+        margin: 0 2rem 0 0;
+        border-top: none;
+        padding-top: 0;
+    }
+    .nav-menu li a {
+        color: var(--title)!important;
+    }
+    .nav-menu li:hover a {
+        transform: none!important;
+        font-weight: bold;
+    }
+    .image-content {
+        top: 40%;
+        width: 60%;
+        transform: translateY(-50%);
+    }
+    .fade-video-modal video {
+        width: 35%;
+    }
+}
+
+@media screen and (min-width:1024px) {
+    .carousel-img {
+        height: auto;
+        width: 100%;
+    }
+    .hiro .container,
+    .special-rooms .container,
+    .learning .container,
+    .collections .container,
+    .footer .container {
+        padding: 1rem 2rem;
+    }
+    nav {
+        padding: 0 2.5rem;
+    }
+    .image-content {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .image-content {
+        width: 40%;
     }
 }

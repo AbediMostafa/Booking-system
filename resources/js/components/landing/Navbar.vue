@@ -1,5 +1,6 @@
 <template>
   <nav>
+    
     <a class="user-login-icon">
       <img :src="sot.iconPath('user.svg')" />
     </a>
@@ -67,10 +68,6 @@ nav,
   justify-content: space-between;
 }
 
-nav{
-  padding:0 .5rem;
-}
-
 a {
   cursor: pointer;
 }
@@ -88,28 +85,8 @@ a {
   margin-right: 1rem;
 }
 
-.nav-menu {
-  list-style: none;
-  flex-direction: column;
-  margin: 0;
-  text-align: right;
-}
-
 .nav-menu li:first-child {
   border-top: none;
-}
-.nav-menu li {
-  margin-top: 1rem;
-  border-top: 1px dashed var(--text);
-  padding-top: 1rem;
-}
-.nav-menu li a {
-  display: inline-block;
-  cursor: pointer;
-  transition: all 200ms;
-}
-.nav-menu li:not(:first-child):hover a {
-  transform: translateX(-0.2rem);
 }
 
 .cancle-icon {
