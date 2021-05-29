@@ -24,6 +24,7 @@ class CreateRoomsTable extends Migration
             $table->integer('min_person');
             $table->integer('game_time');
             $table->enum('hardness',[1,2,3,4,5]);
+            $table->enum('type',['special', 'new']);
             $table->string('phone',255);
             $table->string('mobile',255);
             $table->string('address',255);
