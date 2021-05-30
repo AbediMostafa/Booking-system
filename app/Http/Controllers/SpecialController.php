@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rate;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class SpecialController extends Controller
      */
     public function index()
     {
-        $rooms=Room::with('collection')->where('type','special')->get();
+        $rooms=Room::select('id','name','image','address','collection_id')->with(['collection'=>function($query){
+            $query->select('id','title');
+        }])->where('type','special')->get();
         return $rooms;
     }
 
