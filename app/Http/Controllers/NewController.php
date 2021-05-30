@@ -14,8 +14,7 @@ class NewController extends Controller
      */
     public function index()
     {
-        $rooms=Room::with('collection')->where('type','new')->get()->only('address');
-       
+        $rooms=Room::with('collection')->where('type','new')->get();
         return $rooms ;
   
     }

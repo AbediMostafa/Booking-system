@@ -14,8 +14,7 @@ class SpecialController extends Controller
      */
     public function index()
     {
-        $rooms=Room::all()->where('type','special');
-       
+        $rooms=Room::with('collection')->where('type','special')->get();
         return $rooms;
     }
 
