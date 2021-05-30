@@ -68,6 +68,10 @@ nav,
   justify-content: space-between;
 }
 
+nav{
+  padding:0 .5rem;
+}
+
 a {
   cursor: pointer;
 }

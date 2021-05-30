@@ -8,8 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
+    protected $table = "rooms";
+    protected $casts = [
+    'image' => 'array',
+    'banner' => 'array'
+    ];
+    protected $deletedAt = 'deleted_at';
+    // public $sortable =[
+    //     'address',
+    //     'title',
+    //     'price'
+    // ];
+    protected $fillable=[
+        'title','banner','image','address','price','max_person','min_persion'
+    ];    
     //relation with comment table
-    public function comments()
+        public function comments()
     {
         return $this->morphMany(Comment::class,'commentable');
     }
