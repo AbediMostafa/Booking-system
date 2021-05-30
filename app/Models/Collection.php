@@ -11,6 +11,6 @@ class Collection extends Model
     //relation with rooms table
     public function rooms()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Room::class);
     }
 }

@@ -200,6 +200,15 @@ export const sot = {
                 
                 {
                     id: 1,
+                    image: 'images/carousel/1.jpg',
+                    name: ' ابدی',
+                    collectionName: 'اسکیپ پلاس',
+                    collectionAddress: 'شریعتی - ظفر',
+                    totalScore: 15
+                },
+
+                {
+                    id: 1,
                     image: 'images/general/raz.jpg',
                     name: 'ویژه ابدی',
                     collectionName: 'اسکیپ پلاس',
