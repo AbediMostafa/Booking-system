@@ -1,5 +1,5 @@
 export const sot = {
-    exactPath: '',
+    exactPath: 'Misscape/public/',
 
     /**
      * Get exact icon path
@@ -81,17 +81,17 @@ export const sot = {
      * carousel items
      */
     carouselItems: [{
-            path: "../../images/carousel/1.jpg",
+            path: "../../Misscape/public/images/carousel/1.jpg",
             text: "لذت  ترس به همراه فرار",
             paragraph: "سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
         },
         {
-            path: "../../images/carousel/2.jpg",
+            path: "../../Misscape/public/images/carousel/2.jpg",
             text: "مهیج ترین اتاق های فرار",
             paragraph: "سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
         },
         {
-            path: "../../images/carousel/3.jpg",
+            path: "../../Misscape/public/images/carousel/3.jpg",
             text: "دسترسی سریع",
             paragraph: "سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
         },
@@ -190,14 +190,14 @@ export const sot = {
         specials: {
             name: 'پیشنهاد ویژه',
             rooms: [{
-                id: 1,
-                image: 'images/carousel/1.jpg',
-                name: ' ابدی',
-                collectionName: 'اسکیپ پلاس',
-                collectionAddress: 'شریعتی - ظفر',
-                totalScore: 15
-            },
-                
+                    id: 1,
+                    image: 'images/carousel/1.jpg',
+                    name: ' ابدی',
+                    collectionName: 'اسکیپ پلاس',
+                    collectionAddress: 'شریعتی - ظفر',
+                    totalScore: 15
+                },
+
                 {
                     id: 1,
                     image: 'images/carousel/1.jpg',
