@@ -16,11 +16,11 @@ class CreateRatesTable extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('room_id')->constrained('rooms');
-            $table->enum('میزان ترسناکی',[1,2,3,4,5]);
-            $table->enum('طراحی اتاق',[1,2,3,4,5]);
-            $table->enum('سرگرمی و جذابیت',[1,2,3,4,5]);
-            $table->enum('خلاقیت در بازی',[1,2,3,4,5]);
-            $table->enum('درجه کیفیت معما',[1,2,3,4,5]);
+            $table->enum('scary',[1,2,3,4,5]);
+            $table->enum('design',[1,2,3,4,5]);
+            $table->enum('fun_charm',[1,2,3,4,5]);
+            $table->enum('creativity',[1,2,3,4,5]);
+            $table->enum('puzzle',[1,2,3,4,5]);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);        
         });
