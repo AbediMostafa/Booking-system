@@ -14,24 +14,6 @@ class Room extends Model
     'banner' => 'array'
     ];
     protected $deletedAt = 'deleted_at';
-    protected $hidden =[
-        'description',
-        'type',
-        'price',
-        'hardness',
-        'banner',
-        'max_person',
-        'min_person',
-        'city_id',
-        'collection_id',
-        'status',
-        'phone',
-        'mobile',
-        'game_time',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
     protected $fillable=[
         'title','banner','image','address','price','max_person','min_persion'
     ];    
