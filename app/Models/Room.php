@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
-    protected $appends=['rate_average'];
     protected $table = "rooms";
+    protected $appends = ['rate_average'];
     protected $casts = [
     'image' => 'array',
     'banner' => 'array'

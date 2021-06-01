@@ -21,3 +21,4 @@ Route::get('/', function () {
 
 Route::post('/new',[NewController::class,'index']);
 Route::post('/special',[SpecialController::class,'index']);
+Route::post('/news',[SpecialController::class,'index']);

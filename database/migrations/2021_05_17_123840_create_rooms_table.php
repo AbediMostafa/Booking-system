@@ -27,6 +27,7 @@ class CreateRoomsTable extends Migration
             $table->enum('type',['special', 'new']);
             $table->string('phone',255);
             $table->string('mobile',255);
+            $table->string('district',100);
             $table->string('address',255);
             $table->foreignId('collection_id')->constrained('collections');
             $table->foreignId('city_id')->constrained('cities');

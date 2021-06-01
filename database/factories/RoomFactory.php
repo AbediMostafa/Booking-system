@@ -39,6 +39,7 @@ class RoomFactory extends Factory
             'hardness'=>$this->faker->randomElement([1,2,3,4,5]),
             'status'=>$this->faker->randomElement(['disable' ,'enable']),
             'type'=>$this->faker->randomElement(['special', 'new']),
+            'district' => $this->faker->name,
             'address' => $this->faker->address,
             'phone' => $this->faker->phoneNumber  ,
             'mobile' => $this->faker->e164PhoneNumber  ,

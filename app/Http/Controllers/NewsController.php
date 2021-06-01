@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
 use Illuminate\Http\Request;
 
-class NewController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +13,7 @@ class NewController extends Controller
      */
     public function index()
     {
-        $rooms=Room::select('id','name','image','address','collection_id')->with(['collection'=>function($query){
-            $query->select('id','title');
-        }])->where('type','new')->get();
-        $rate=Room::find(7)->rates->rate_average;
-        dd($rate);
-        return $rooms;
+        //
     }
 
     /**
