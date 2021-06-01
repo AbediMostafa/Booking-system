@@ -2,7 +2,7 @@
   <article class="special-room-card learning-card" v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation">
     <div class="sr-image-container sr-learning-image-container" :style="roomStyle"></div>
 
-    <div class="sr-text-container">
+    <div class="sr-text-container sr-learn-text-container">
       <h4>{{card.date}}</h4>
       <h1>{{ card.title }}</h1>
       <p>{{card.brief}}</p>

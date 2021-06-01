@@ -17,12 +17,10 @@
     <div id="app">
         <!-- Hiro Section -->
         <section class="hiro">
-            <div :class="['fade-video-modal', showVideo.landing? 'visible-video-modal':'']">
-                <video :src="landingVideoSrc" controls loop ref="landingVideo"></video>
-            </div>
+            <video-modal :src = "videoSrc" ref="landingVideo"></video-modal>
             <div class="container">
                 <Navbar></Navbar>
-                <carousel></carousel>
+                <carousel @play-video="playVideo"></carousel>
             </div>
         </section>
 
@@ -36,7 +34,7 @@
         <!-- Full Video Section -->
         <section class="full-video">
             <div class="container">
-                <full-video></full-video>
+                <full-video @play-video="playVideo"></full-video>
             </div>
         </section>
 

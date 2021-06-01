@@ -31,12 +31,7 @@ export const sot = {
         return `../../${this.exactPath}videos/${video}`
     },
 
-    reactiveVars: {
-
-        showVideos: {
-            landing: false,
-        },
-    },
+    reactiveVars: {},
 
     /**
      * spaecial offer items
@@ -189,23 +184,7 @@ export const sot = {
         },
         specials: {
             name: 'پیشنهاد ویژه',
-            rooms: [{
-                    id: 1,
-                    image: 'images/carousel/1.jpg',
-                    name: ' ابدی',
-                    collectionName: 'اسکیپ پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 15
-                },
-
-                {
-                    id: 1,
-                    image: 'images/carousel/1.jpg',
-                    name: ' ابدی',
-                    collectionName: 'اسکیپ پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 15
-                },
+            rooms: [
 
                 {
                     id: 1,

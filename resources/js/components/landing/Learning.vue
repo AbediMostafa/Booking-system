@@ -12,6 +12,11 @@
         :card="learning"
       ></learning-card>
     </div>
+
+    <div class="text-right">
+      <a class="cta mt-12 main-cta learning-cta">همه آموزش ها</a>
+    </div>
+
   </div>
 </template>
 
@@ -32,7 +37,7 @@ export default {
         icon: false,
         secondTitle: "",
         text: "",
-        btnText: "همه آموزش ها",
+        headerStyle: 'margin-right:3rem'
       },
     };
   },
@@ -41,3 +46,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.learning-cta{
+  margin-right: 3rem;
+}
+</style>

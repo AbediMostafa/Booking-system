@@ -16,6 +16,7 @@
                 @click="cancleClicked"
             /></a>
           </li>
+          <li><a>ویژه ها</a></li>
           <li><a>خانه</a></li>
           <li><a>ژانر</a></li>
           <li><a>مجموعه ها</a></li>
@@ -69,7 +70,7 @@ nav,
 }
 
 nav{
-  padding:0 .5rem;
+  padding:0 4%;
 }
 
 a {
@@ -85,23 +86,8 @@ a {
   width: 1.5rem;
 }
 
-.logo {
-  margin-right: 1rem;
-}
-
 .nav-menu li:first-child {
   border-top: none;
 }
-
-.cancle-icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 2rem;
-  top: 1rem;
-  right: 50%;
-  transform: translatex(50%);
-}
-
 </style>
 

@@ -17,11 +17,11 @@
         <play-icon 
           v-scrollAnimation="enterAnimations.leftWithUltraDelayAnimation"
           size="small"
-          @click.native="showVideoClicked"
+          @click.native="playVideo"
           >
         </play-icon>
         <a
-          class="cta hiro-cta"
+          class="cta main-cta"
           v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
           >شروع ماجراجویی</a
         >
@@ -42,14 +42,12 @@ export default {
       counter: 0,
       zoom: false,
       carouselImageSources: sot.carouselItems,
-      showVideo:sot.reactiveVars.showVideos
     };
   },
   methods: {
 
-    showVideoClicked(){
-      this.showVideo.landing = true;
-      console.log(sot.reactiveVars)
+    playVideo(){
+     this.$emit('play-video', '1.mp4');
     },
 
     /**
