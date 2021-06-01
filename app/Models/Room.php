@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     use HasFactory;
+    protected $appends=['rate_average'];
     protected $table = "rooms";
     protected $casts = [
     'image' => 'array',
@@ -16,7 +17,11 @@ class Room extends Model
     protected $deletedAt = 'deleted_at';
     protected $fillable=[
         'title','banner','image','address','price','max_person','min_persion'
-    ];    
+    ];  
+    public function getRateAverageAttribute()
+    {
+        return $this->rates->avg('calculate_rate');
+    }  
     //relation with comment table
         public function comments()
     {
