@@ -14,10 +14,12 @@ class NewController extends Controller
      */
     public function index()
     {
-        $rooms=Room::with('collection')->where('type','new')->get()->only('address');
-       
-        return $rooms ;
-  
+        $rooms=Room::select('id','name','image','address','collection_id')->with(['collection'=>function($query){
+            $query->select('id','title');
+        }])->where('type','new')->get();
+        $rate=Room::find(7)->rates[0]->calculate_rate;
+        dd($rate);
+        return $rooms;
     }
 
     /**

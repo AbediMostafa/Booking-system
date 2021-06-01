@@ -18,4 +18,10 @@ class Rate extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getCalculateRateAttribute()
+    {
+        $sum=$this->scary+$this->design+$this->fun_charm+$this->creativity+$this->puzzle;
+        return $sum/5;
+    }
 }

@@ -14,11 +14,6 @@ class Room extends Model
     'banner' => 'array'
     ];
     protected $deletedAt = 'deleted_at';
-    // public $sortable =[
-    //     'address',
-    //     'title',
-    //     'price'
-    // ];
     protected $fillable=[
         'title','banner','image','address','price','max_person','min_persion'
     ];    

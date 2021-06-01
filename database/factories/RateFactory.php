@@ -23,11 +23,13 @@ class RateFactory extends Factory
     public function definition()
     {
         return [
+
             'scariness'=>$this->faker->randomElement([1,2,3,4,5]),
             'room_decoration'=>$this->faker->randomElement([1,2,3,4,5]),
             'hobbiness'=>$this->faker->randomElement([1,2,3,4,5]),
             'creativeness'=>$this->faker->randomElement([1,2,3,4,5]),
             'Mysteriness'=>$this->faker->randomElement([1,2,3,4,5]),
             'room_id'=>Room::factory(),
-        ];    }
+        ];    
+    }
 }
