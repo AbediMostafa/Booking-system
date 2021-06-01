@@ -6,6 +6,7 @@
 /public/css
 /public/js
 /public/images
+/public/videos
 /storage/*.key
 /vendor
 .env
