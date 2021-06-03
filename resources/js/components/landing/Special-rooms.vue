@@ -4,22 +4,30 @@
       :titles="titles"
       v-scrollAnimation="enterAnimations.topAnimation"
     ></section-header>
-    <div class="flex-center mt-8 s-offer-nav-container">
-      <span
-        v-for="(specialType, key) in specialTypes"
-        :key="key"
-        :ref="key"
-        @click="specialClicked(key)"
-      >
-        {{ specialType.name }}
-      </span>
+
+    <div class="text-center">
+      <div class="mt-12 s-offer-nav-container">
+        <span
+          v-for="(specialType, key) in specialTypes"
+          :class="[key == selectedSpecialKey ? 'special-active' : '']"
+          :key="key"
+          :ref="key"
+          @click="specialClicked(key)"
+        >
+          {{ specialType.name }}
+        </span>
+      </div>
     </div>
     <hr class="s-o-n-hr" :style="hrStyle" />
 
     <div class="special-room-cards">
       <room-card v-for="room in rooms" :key="room.id" :room="room"></room-card>
     </div>
-    <img :src="smallShap1" class="shape-1" />
+    <div class="text-center">
+      <a class="cta mt-12 main-cta">همه اتاق های ویژه</a>
+    </div>
+
+    <img :src="smallShap1" class="shape-1" ref="shape1" />
   </div>
 </template>
 
@@ -34,14 +42,14 @@ export default {
       rooms: [],
       hrStyle: "",
       smallShap1: sot.iconPath("large-shape3.svg"),
-      
+      selectedSpecialKey: 0,
+      rotateDeg: 0,
       enterAnimations: sot.enterAnimations,
       titles: {
         mainTitle: "با",
-        icon:true,
+        icon: true,
         secondTitle: "ویژه ها را به راحتی پیدا کن",
         text: "",
-        btnText:'همه ویژه ها'
       },
     };
   },
@@ -52,6 +60,7 @@ export default {
     specialClicked(key) {
       // set current rooms
       this.rooms = this.specialTypes[key].rooms;
+      this.selectedSpecialKey = key;
 
       // set coordinate of navigation hr tag
       let el = this.$refs[key][0];
@@ -62,14 +71,50 @@ export default {
      * Set style of navigation HR
      */
     setHrStyle(el) {
-      el.classList.add("special-active");
       this.hrStyle = `
         width: ${el.getBoundingClientRect().width}px;
         left : ${el.offsetLeft}px;
-        top: ${el.offsetTop + el.parentNode.getBoundingClientRect().height}px
+        top: ${
+          el.parentNode.offsetTop + el.parentNode.getBoundingClientRect().height
+        }px
       `;
     },
+
+    /**
+     * move element on scroll
+     */
+    runOnScroll() {
+
+      let position = window.pageYOffset/100,
+      degree = window.pageYOffset/10,
+        el = this.$refs.shape1;
+
+      if (el) {
+        
+        let total = document.documentElement.clientHeight - el.getBoundingClientRect().top;
+        // console.log('element from top :',el.getBoundingClientRect().top )
+        // console.log('scroll from top :',window.pageYOffset )
+        // console.log('clientHeight :',document.documentElement.clientHeight)
+        console.log(total);
+        
+
+        el.style.cssText = `
+        top:${total}px;
+        left:${total}px;
+        transform:rotate(${total}deg)
+        `;
+      }
+    },
   },
+
+  created() {
+    var runOnScroll = this.runOnScroll;
+
+    window.addEventListener("scroll", function (event) {
+      runOnScroll();
+    });
+  },
+
   mounted() {
     this.specialTypes = sot.specialTypes;
 
@@ -79,6 +124,7 @@ export default {
 
     setTimeout(() => {
       let el = this.$refs[lastSpecialTypeKey][0];
+      this.selectedSpecialKey = lastSpecialTypeKey;
 
       this.setHrStyle(el);
     }, 2000);
@@ -91,29 +137,38 @@ export default {
   position: relative;
 }
 
-.s-offer-nav-container span:first-child {
+.s-offer-nav-container span:last-child {
   margin-left: 0;
 }
 .s-offer-nav-container span:hover {
   color: #010101;
 }
-.s-offer-nav-container span {
-  font-size: 0.8rem;
-  margin-left: 1rem;
-  color: var(--title);
-  cursor: pointer;
-}
 
 .s-offer-nav-container {
   border-bottom: 1px solid #dadada;
   padding-bottom: 1rem;
+  display: inline-block;
 }
 
 .s-o-n-hr {
   position: absolute;
-  border-top: 2px solid;
+  border-top: 3px solid var(--first-color);
   transition: all 300ms ease-in-out;
   margin: 0;
   padding: 0;
+}
+
+.shape-1,
+.shape-2 {
+  position: absolute;
+  width: 20%;
+  height: auto;
+  z-index: -1;
+}
+
+.shape-1 {
+  top: 0;
+  left: -13rem;
+  transform: scale(1.5);
 }
 </style>

@@ -1,18 +1,6 @@
 <template>
   <div class="footer-container">
-    <div class="footer-site-information">
-      <div class="footer-logo-insta centered-flex">
-        <a>
-          <img :src="iconPath('logo.svg')" />
-        </a>
-        <a class="cta footer-cta centered-flex">
-          <img :src="iconPath('white-instagram.svg')" alt="instagram logo" />
-          <span>اینستاگرام</span>
-        </a>
-      </div>
-      <p>طراحی و پیاده سازِی توسط مسیح عیدوی، مصطفی عابدی</p>
-    </div>
-
+    
     <div class="footer-navs">
       <ul>
         <li>تهرانی ها</li>
@@ -41,6 +29,20 @@
         <li>درباره ما</li>
       </ul>
     </div>
+    
+    <div class="footer-site-information">
+      <div class="footer-logo-insta centered-flex">
+        <a>
+          <img :src="iconPath('logo.svg')" />
+        </a>
+        <a class="cta footer-cta centered-flex">
+          <img :src="iconPath('white-instagram.svg')" alt="instagram logo" />
+          <span>اینستاگرام</span>
+        </a>
+      </div>
+      <p>طراحی و پیاده سازِی توسط مسیح عیدوی، مصطفی عابدی</p>
+    </div>
+
   </div>
 </template>
 
@@ -59,31 +61,22 @@ export default {
 </script>
 
 <style scoped>
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-}
 
 .footer-logo-insta{
-    flex-direction: column;
+        flex-direction: column;
     border-bottom: 1px dashed var(--text);
     padding-bottom: 1rem;
-}
-
-.footer-navs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  flex: 0 1 22rem;
-  order: 1;
+    width: 15rem;
+    margin: 0 auto;
 }
 
 .footer-site-information p {
 font-size: .6rem;
 }
 .footer-site-information {
-  margin: 0 auto;
+  margin: 2rem auto;
   order: 2;
+  text-align: center;
 }
 
 .footer-cta img {
