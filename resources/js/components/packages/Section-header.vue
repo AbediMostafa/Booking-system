@@ -40,7 +40,8 @@ export default {
   margin-right: 0.5rem;
 }
 .header-text {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin-top: 1.8rem;
+  line-height: 1.9;
 }
 </style>

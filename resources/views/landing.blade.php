@@ -39,7 +39,7 @@
         </section>
 
         <!-- Learning Section -->
-        <section class="learning">
+        <section class="learning" :style="collectionBackground">
             <div class="container">
                 <learning></learning>
             </div>

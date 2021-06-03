@@ -1,10 +1,15 @@
 <template>
-  <div>
-    <section-header
-      :titles="titles"
-      v-scrollAnimation="enterAnimations.topAnimation"
-    ></section-header>
+  <div class="learning-container">
+    <div class="header-and-cta">
+      <section-header
+        :titles="titles"
+        v-scrollAnimation="enterAnimations.topAnimation"
+      ></section-header>
 
+      <div class="text-right">
+        <a class="cta main-cta learning-cta">همه آموزش ها</a>
+      </div>
+    </div>
     <div class="learning-card-container">
       <learning-card
         v-for="learning in learnings"
@@ -12,11 +17,6 @@
         :card="learning"
       ></learning-card>
     </div>
-
-    <div class="text-right">
-      <a class="cta mt-12 main-cta learning-cta">همه آموزش ها</a>
-    </div>
-
   </div>
 </template>
 
@@ -33,11 +33,13 @@ export default {
       enterAnimations: sot.enterAnimations,
       learnings: [],
       titles: {
-        mainTitle: "آموزش ها",
-        icon: false,
+        mainTitle: "آموزش با",
+        icon: true,
         secondTitle: "",
-        text: "",
-        headerStyle: 'margin-right:3rem'
+        text: `
+        بعضی وقت ها توی بعضی از اتاق ها به مواردی برمیخوری که نیاز به اطلاعات قبلی داره. اطلاعاتی را جع به اتاق ها و انواع کلیدها.
+        ما توی این بخش یه سری آموزش ها رو به شما میدیم که بیشتر از اتاق ها لذت ببرید.
+        `,
       },
     };
   },
@@ -48,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-.learning-cta{
-  margin-right: 3rem;
+.learning-cta {
+  margin-right: 1.5rem;
 }
 </style>

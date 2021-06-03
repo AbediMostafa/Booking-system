@@ -9,7 +9,7 @@
       <div class="mt-12 s-offer-nav-container">
         <span
           v-for="(specialType, key) in specialTypes"
-          :class="[key==selectedSpecialKey ? 'special-active':'']"
+          :class="[key == selectedSpecialKey ? 'special-active' : '']"
           :key="key"
           :ref="key"
           @click="specialClicked(key)"
@@ -27,7 +27,7 @@
       <a class="cta mt-12 main-cta">همه اتاق های ویژه</a>
     </div>
 
-    <img :src="smallShap1" class="shape-1" />
+    <img :src="smallShap1" class="shape-1" ref="shape1" />
   </div>
 </template>
 
@@ -42,8 +42,8 @@ export default {
       rooms: [],
       hrStyle: "",
       smallShap1: sot.iconPath("large-shape3.svg"),
-      selectedSpecialKey:0,
-
+      selectedSpecialKey: 0,
+      rotateDeg: 0,
       enterAnimations: sot.enterAnimations,
       titles: {
         mainTitle: "با",
@@ -71,14 +71,50 @@ export default {
      * Set style of navigation HR
      */
     setHrStyle(el) {
-
       this.hrStyle = `
         width: ${el.getBoundingClientRect().width}px;
         left : ${el.offsetLeft}px;
-        top: ${el.parentNode.offsetTop + el.parentNode.getBoundingClientRect().height}px
+        top: ${
+          el.parentNode.offsetTop + el.parentNode.getBoundingClientRect().height
+        }px
       `;
     },
+
+    /**
+     * move element on scroll
+     */
+    runOnScroll() {
+
+      let position = window.pageYOffset/100,
+      degree = window.pageYOffset/10,
+        el = this.$refs.shape1;
+
+      if (el) {
+        
+        let total = document.documentElement.clientHeight - el.getBoundingClientRect().top;
+        // console.log('element from top :',el.getBoundingClientRect().top )
+        // console.log('scroll from top :',window.pageYOffset )
+        // console.log('clientHeight :',document.documentElement.clientHeight)
+        console.log(total);
+        
+
+        el.style.cssText = `
+        top:${total}px;
+        left:${total}px;
+        transform:rotate(${total}deg)
+        `;
+      }
+    },
   },
+
+  created() {
+    var runOnScroll = this.runOnScroll;
+
+    window.addEventListener("scroll", function (event) {
+      runOnScroll();
+    });
+  },
+
   mounted() {
     this.specialTypes = sot.specialTypes;
 
@@ -88,7 +124,7 @@ export default {
 
     setTimeout(() => {
       let el = this.$refs[lastSpecialTypeKey][0];
-      this.selectedSpecialKey  = lastSpecialTypeKey;
+      this.selectedSpecialKey = lastSpecialTypeKey;
 
       this.setHrStyle(el);
     }, 2000);
@@ -120,5 +156,19 @@ export default {
   transition: all 300ms ease-in-out;
   margin: 0;
   padding: 0;
+}
+
+.shape-1,
+.shape-2 {
+  position: absolute;
+  width: 20%;
+  height: auto;
+  z-index: -1;
+}
+
+.shape-1 {
+  top: 0;
+  left: -13rem;
+  transform: scale(1.5);
 }
 </style>

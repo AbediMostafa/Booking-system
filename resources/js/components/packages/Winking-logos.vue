@@ -1,5 +1,5 @@
 <template>
-  <div class="logo-container">
+  <div class="logo-container" :style="logoConatinerBackground">
     <span
       v-for="logo in logos"
       :key="logo.id"
@@ -24,19 +24,22 @@ export default {
     },
   },
 
+  computed:{
+    logoConatinerBackground(){
+      return `background:url(${sot.iconPath('dots.svg')}) no-repeat left bottom/65%`;
+    }
+  },
+
   created() {
     this.logos = sot.logos;
-    
 
     setInterval(() => {
+      let randomNumber = this.random(0, this.logos.length - 1);
+      this.logos[randomNumber].visible = false;
 
-        let randomNumber = this.random(0, this.logos.length-1);
-        this.logos[randomNumber].visible = false;
-
-        setTimeout(()=>{
-            this.logos[randomNumber].visible = true;
-        },3000)
-
+      setTimeout(() => {
+        this.logos[randomNumber].visible = true;
+      }, 3000);
     }, 2000);
   },
 };
@@ -50,15 +53,5 @@ export default {
 
 .hide {
   opacity: 0;
-}
-
-.collection-logo {
-  width: 3rem;
-  height: 3rem;
-  display: inline-block;
-  margin: 0 0.4rem 0.4rem;
-  border-radius: 0.5rem;
-  transition: all 400ms;
-  filter: hue-rotate(280deg);
 }
 </style>

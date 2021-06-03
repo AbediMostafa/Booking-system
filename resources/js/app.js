@@ -29,9 +29,23 @@ const vue = new Vue({
     data: {
         showVideo: false,
         videoSrc: '',
+
+    },
+    computed: {
+        specialRoomBackground() {
+            return this.background('x-rotated-back1.svg')
+        },
+        collectionBackground() {
+            return this.background('rotated-back1.svg')
+
+        },
+
     },
 
     methods: {
+        background(icon) {
+            return `background: url(${sot.imgPath(icon)}) no-repeat top center/contain;`
+        },
         playVideo(videoPath) {
 
             console.log(videoPath);

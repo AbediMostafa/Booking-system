@@ -23,8 +23,7 @@
         <a
           class="cta main-cta"
           v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
-          >شروع ماجراجویی</a
-        >
+          >شروع ماجراجویی</a>
       </div>
     </div>
   </div>
