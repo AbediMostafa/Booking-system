@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\NewController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PPostController;
 use App\Http\Controllers\SpecialController;
+use App\Models\Discount;
+use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +21,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    
     return view('landing');
 });
 
-Route::post('/new',[NewController::class,'index']);
+Route::get('/new',[NewController::class,'index']);
 Route::post('/special',[SpecialController::class,'index']);
-Route::post('/news',[SpecialController::class,'index']);
+Route::get('/post',[PostController::class,'index']);
+Route::get('/discount',[DiscountController::class,'index']);
+
+

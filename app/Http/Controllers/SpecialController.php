@@ -15,9 +15,11 @@ class SpecialController extends Controller
      */
     public function index()
     {
-        $rooms=Room::select('id','name','image','address','collection_id')->with(['collection'=>function($query){
+        $rooms=Room::select('id','name','image','district','collection_id')->with(['collection'=>function($query){
             $query->select('id','title');
-        }])->where('type','special')->get();
+        }])->where('type','special')->orderBy('created_at', 'desc')
+        ->limit(4)
+        ->get();
         return $rooms;
     }
 

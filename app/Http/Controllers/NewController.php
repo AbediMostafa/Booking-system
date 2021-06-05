@@ -14,9 +14,11 @@ class NewController extends Controller
      */
     public function index()
     {
-        $rooms=Room::select('id','name','image','address','collection_id')->with(['collection'=>function($query){
+        $rooms=Room::select('id','name','image','district','collection_id')->with(['collection'=>function($query){
             $query->select('id','title');
-        }])->where('type','new')->get();
+        }])->where('type','new')->orderBy('created_at', 'desc')
+        ->limit(4)
+        ->get();
         $rate=Room::find(7)->rates->rate_average;
         dd($rate);
         return $rooms;

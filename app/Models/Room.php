@@ -16,9 +16,9 @@ class Room extends Model
     ];
     protected $deletedAt = 'deleted_at';
     protected $fillable=[
-        'title','banner','image','address','price','max_person','min_persion'
+        'title','banner','image','address','price','max_person','min_persion','district'
     ];  
-    public function getRateAverageAttribute()
+     public function getRateAverageAttribute()
     {
         return $this->rates->avg('calculate_rate');
     }  
