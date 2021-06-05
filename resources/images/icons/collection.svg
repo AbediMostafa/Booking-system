@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="184.776" height="177.878" viewBox="0 0 184.776 177.878">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.318" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d2e2eb" stop-opacity="0.122"/>
+      <stop offset="1" stop-color="#a300cf" stop-opacity="0.102"/>
+    </linearGradient>
+    <filter id="small-shape1" x="0" y="0" width="184.776" height="177.878" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.09"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="collection" transform="translate(-617.28 -1081.36)">
+    <path id="Icon_material-collections-bookmark" data-name="Icon material-collections-bookmark" d="M10.05,17.1H3V66.45a7.071,7.071,0,0,0,7.05,7.05H59.4V66.45H10.05ZM66.45,3H24.15a7.071,7.071,0,0,0-7.05,7.05v42.3a7.071,7.071,0,0,0,7.05,7.05h42.3a7.071,7.071,0,0,0,7.05-7.05V10.05A7.071,7.071,0,0,0,66.45,3Zm0,35.25-8.812-5.287L48.825,38.25V10.05H66.45Z" transform="translate(680 1120.75)" fill="#0a2239"/>
+    <g transform="matrix(1, 0, 0, 1, 617.28, 1081.36)" filter="url(#small-shape1)">
+      <path id="small-shape1-2" data-name="small-shape1" d="M34.051-1.143c6.116,4.129,68.4,14.837,68.4,14.837l-2.424,66.257L57.587,73.388c-27.475,65.76-27.958,46.333-27.958,46.333L-2.523,77.875,3.159,24.758,14.65,9.935Z" transform="translate(119.73 12.47) rotate(60)" stroke="rgba(112,112,112,0.05)" stroke-width="5" fill="url(#linear-gradient)"/>
+    </g>
+  </g>
+</svg>

@@ -17,15 +17,21 @@
     <div id="app">
         <!-- Hiro Section -->
         <section class="hiro">
-            <video-modal :src = "videoSrc" ref="landingVideo"></video-modal>
+            <video-modal :src="videoSrc" ref="landingVideo"></video-modal>
             <div class="container">
                 <Navbar></Navbar>
                 <carousel @play-video="playVideo"></carousel>
             </div>
         </section>
 
+        <section class="counts">
+            <div class="container">
+                <counts></counts>
+            </div>
+        </section>
+
         <!-- Special Rooms Section -->
-        <section class="special-rooms">
+        <section class="special-rooms" :style="background('back1.svg', 'bottom')">
             <div class="container">
                 <special-rooms></special-rooms>
             </div>
@@ -39,7 +45,7 @@
         </section>
 
         <!-- Learning Section -->
-        <section class="learning" :style="collectionBackground">
+        <section class="learning" :style="background('rotated-back1.svg', 'top')">
             <div class="container">
                 <learning></learning>
             </div>

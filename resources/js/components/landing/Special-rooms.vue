@@ -1,24 +1,28 @@
 <template>
   <div class="relative-position">
-    <section-header
-      :titles="titles"
-      v-scrollAnimation="enterAnimations.topAnimation"
-    ></section-header>
-
-    <div class="text-center">
-      <div class="mt-12 s-offer-nav-container">
-        <span
-          v-for="(specialType, key) in specialTypes"
-          :class="[key == selectedSpecialKey ? 'special-active' : '']"
-          :key="key"
-          :ref="key"
-          @click="specialClicked(key)"
-        >
-          {{ specialType.name }}
-        </span>
+    <div class="between-flex px-6 column-reverse">
+      <div class="order1 flex-45">
+        <section-header
+          :titles="titles"
+          v-scrollAnimation="enterAnimations.topAnimation"
+        ></section-header>
       </div>
+
+      <div class="text-center">
+        <div class="mt-12 s-offer-nav-container">
+          <span
+            v-for="(specialType, key) in specialTypes"
+            :class="[key == selectedSpecialKey ? 'special-active' : '']"
+            :key="key"
+            :ref="key"
+            @click="specialClicked(key)"
+          >
+            {{ specialType.name }}
+          </span>
+        </div>
+      </div>
+      <hr class="s-o-n-hr" :style="hrStyle" />
     </div>
-    <hr class="s-o-n-hr" :style="hrStyle" />
 
     <div class="special-room-cards">
       <room-card v-for="room in rooms" :key="room.id" :room="room"></room-card>
@@ -46,10 +50,10 @@ export default {
       rotateDeg: 0,
       enterAnimations: sot.enterAnimations,
       titles: {
-        mainTitle: "با",
+        mainTitle: "اتاق های ویژه با",
         icon: true,
-        secondTitle: "ویژه ها را به راحتی پیدا کن",
-        text: "",
+        secondTitle: "",
+        text: "بعضی از اتاق ها تخفیف های مناسبی دارن و یا بعضیاشون پیشنهادهای ویژه ما هستن، یا بعضی از اتاق ها تازه درست شدن",
       },
     };
   },
@@ -84,24 +88,13 @@ export default {
      * move element on scroll
      */
     runOnScroll() {
-
-      let position = window.pageYOffset/100,
-      degree = window.pageYOffset/10,
+      let position = window.pageYOffset / 10,
+        degree = window.pageYOffset / 20,
         el = this.$refs.shape1;
 
       if (el) {
-        
-        let total = document.documentElement.clientHeight - el.getBoundingClientRect().top;
-        // console.log('element from top :',el.getBoundingClientRect().top )
-        // console.log('scroll from top :',window.pageYOffset )
-        // console.log('clientHeight :',document.documentElement.clientHeight)
-        console.log(total);
-        
-
         el.style.cssText = `
-        top:${total}px;
-        left:${total}px;
-        transform:rotate(${total}deg)
+        transform:translate(${position}px, ${position}px) rotate(${degree}deg) scale(.6)
         `;
       }
     },
@@ -148,6 +141,7 @@ export default {
   border-bottom: 1px solid #dadada;
   padding-bottom: 1rem;
   display: inline-block;
+  direction: rtl;
 }
 
 .s-o-n-hr {
@@ -167,8 +161,7 @@ export default {
 }
 
 .shape-1 {
-  top: 0;
-  left: -13rem;
-  transform: scale(1.5);
+  top: -7rem;
+  left: -12rem;
 }
 </style>

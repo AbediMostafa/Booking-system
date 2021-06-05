@@ -1,5 +1,5 @@
 <template>
-  <div class="end-flex mt-4">
+  <div class="end-flex mt-10">
     <span class="lc-read-more">{{ txt }}</span>
     <img :src="rightArrow" class="card-right-arrow" />
   </div>
