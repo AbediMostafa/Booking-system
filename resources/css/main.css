@@ -44,7 +44,12 @@ section.footer {
     position: relative;
     margin-top: 1rem;
     overflow: hidden;
-    height: 25rem;
+    height: 28rem;
+}
+
+section.counts {
+    position: absolute;
+    width: 100%;
 }
 
 
@@ -91,14 +96,14 @@ section.footer {
 
 .c-filled-stars {
     width: 100%;
-    height: 2rem;
+    height: 1.2rem;
     position: absolute;
     background: url(../images/icons/filled-stars.svg) no-repeat left /auto;
 }
 
 .c-empty-stars {
     width: 100%;
-    height: 2rem;
+    height: 1.2rem;
     position: absolute;
     background: url(../images/icons/empty-stars.svg) no-repeat left /auto;
 }
@@ -106,8 +111,6 @@ section.footer {
 .star-container {
     width: 88px;
     position: relative;
-    height: 2rem;
-    margin: .2rem auto 0.6rem;
 }
 
 
@@ -159,7 +162,7 @@ section.footer {
 
 .sr-text-container {
     padding: 4rem 1.5rem 1.5rem;
-    box-shadow: 1px 1px 5px 1px rgb(0 0 0 / 20%);
+    box-shadow: 1px 1px 45px 1px rgb(0 0 0 / 14%);
     border-radius: 10px;
     text-align: right;
 }
@@ -190,7 +193,6 @@ section.footer {
 }
 
 .full-video-container {
-    margin-top: 5rem;
     background: url(../images/general/raz.jpg) no-repeat fixed center center/auto;
     height: 30rem
 }
@@ -375,7 +377,50 @@ nav {
     filter: hue-rotate(280deg);
 }
 
+.count-text-part span:first-child {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.count-text-part span:last-child {
+    font-size: 0.7rem;
+    font-weight: normal;
+}
+
+.count-parts img {
+    display: none;
+}
+
+.count-container {
+    position: relative;
+    top: -5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11rem;
+    width: 80%;
+    margin: 0 auto;
+    z-index: 5;
+    color: white;
+    border: 2px solid white;
+    padding: 0.6rem;
+}
+
+.count-parts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 33%;
+}
+
+.column-reverse {
+    flex-direction: column-reverse;
+}
+
 @media screen and (min-width:480px) {
+    .count-parts {
+        flex-direction: row;
+    }
     .footer-navs {
         justify-content: space-evenly;
         flex: 0 0 60%;
@@ -426,6 +471,47 @@ nav {
 }
 
 @media screen and (min-width:768px) {
+    .column-reverse {
+        flex-direction: initial;
+    }
+    .count-text-part span:first-child {
+        font-size: 1.6rem;
+        font-weight: bold;
+    }
+    .count-container {
+        position: relative;
+        top: -12rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 11rem;
+        width: 80%;
+        margin: 0 auto;
+        z-index: 5;
+        color: white;
+        border: none;
+        padding: 0.6rem;
+    }
+    .count-parts {
+        flex: 0 0 15%;
+    }
+    /* .count-container {
+        top: -9rem;
+        display: flex;
+        border-radius: 14rem;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        margin: 0 auto;
+        z-index: 5;
+        padding: 2rem;
+        color: initial;
+        border: none;
+    } */
+    .count-parts img {
+        width: 5rem;
+        display: initial;
+    }
     .hiro .container,
     .special-rooms .container,
     .learning .container,
@@ -511,6 +597,9 @@ nav {
 }
 
 @media screen and (min-width:1024px) {
+    .image-content h1 {
+        font-size: 3.8rem;
+    }
     .learning-container {
         display: flex;
         align-items: center;

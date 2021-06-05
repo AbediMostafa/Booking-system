@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="170.77" height="165.24" viewBox="0 0 170.77 165.24">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.318" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d2e2eb" stop-opacity="0.122"/>
+      <stop offset="1" stop-color="#a300cf" stop-opacity="0.102"/>
+    </linearGradient>
+    <filter id="small-shape1" x="0" y="0" width="170.77" height="165.24" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.09"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="white-escape" transform="translate(-1320.207 -1087.667)">
+    <g transform="matrix(1, 0, 0, 1, 1320.21, 1087.67)" filter="url(#small-shape1)">
+      <path id="small-shape1-2" data-name="small-shape1" d="M232.979,53.986c5.936,3.957,65.292,15.828,65.292,15.828V129.83l-40.418-7.423c-23.742,58.7-24.873,41.059-24.873,41.059l-31.9-39.071,3.541-47.984,10.369-13.047Z" transform="translate(55.63 -191.46) rotate(60)" stroke="rgba(112,112,112,0.05)" stroke-width="5" fill="url(#linear-gradient)"/>
+    </g>
+    <g id="Icon_map-cross-country-skiing" data-name="Icon map-cross-country-skiing" transform="translate(1383.779 1123.173)">
+      <g id="Group_245" data-name="Group 245" transform="translate(1.009 8.16)">
+        <path id="Path_52" data-name="Path 52" d="M36.424,8.537A6.357,6.357,0,1,1,30.068,2.16a6.367,6.367,0,0,1,6.357,6.377Z" transform="translate(26.873 -2.16)" fill="#fff"/>
+        <path id="Path_53" data-name="Path 53" d="M25.918,25.076ZM77.883,35.555ZM43.058,13.226,33.163,24.683a3.152,3.152,0,0,1-2.47,1.177,3.211,3.211,0,0,1-2.121-5.611L39.237,7.925a3.207,3.207,0,0,1,2.468-1.158l15.444-.009a4.2,4.2,0,0,1,2.9,1.177L69.9,17.812,78.056,9.65a3.266,3.266,0,0,1,2.121-.782A3.32,3.32,0,0,1,82.74,14.28L72.9,24.222c-2.984,2.995-5.39.452-5.39.452l-6.034-6.081L52.042,29.533l8.645,8.67s1.821,1.695.78,5.074L56.623,64.93a4.111,4.111,0,0,1-8.14-.828,3.686,3.686,0,0,1,.133-1.037L52.6,45.292l-9.819-9.567-8.449,9.443s-1.37,1.695-4.995,1.564L12.2,46.761a4.113,4.113,0,0,1-4.084-3.221A4.058,4.058,0,0,1,11.2,38.646a3.768,3.768,0,0,1,1.032-.095l14.74.036,21.79-25.334-5.7-.028Z" transform="translate(-8.009 4.265)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

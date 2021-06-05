@@ -39,9 +39,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.flex-45 {
-  flex: 0 0 45%;
-}
-</style>
