@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('image',255);
             $table->foreignId('user_id')->constrained('users');
             $table->enum('status',['disable','enable']);
+            $table->enum('starred',['disable', 'enable']);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
 
