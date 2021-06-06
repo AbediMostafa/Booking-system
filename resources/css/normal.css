@@ -213,10 +213,6 @@ video {
     margin-left: .5rem
 }
 
-.mt-4 {
-    margin-top: 1rem
-}
-
 .ml-4 {
     margin-left: 1rem
 }
@@ -235,6 +231,10 @@ video {
 
 .-mt-px {
     margin-top: -1px
+}
+
+.pb-4 {
+    padding-bottom: 1rem!important;
 }
 
 .max-w-6xl {

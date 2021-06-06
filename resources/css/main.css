@@ -42,7 +42,6 @@ section.footer {
 
 .carousel {
     position: relative;
-    margin-top: 1rem;
     overflow: hidden;
     height: 28rem;
 }
@@ -167,13 +166,13 @@ section.counts {
     text-align: right;
 }
 
-.image-content h1 {
+.ic-main-title {
     margin-bottom: 0;
     text-shadow: 1px 1px 8px rgba(0, 0, 0, 1);
     font-size: 2rem;
 }
 
-.image-content p {
+.ic-text-part {
     font-size: 0.8rem;
     text-shadow: 1px 1px 8px rgba(0, 0, 0, 1);
     line-height: 2;
@@ -417,7 +416,20 @@ nav {
     flex-direction: column-reverse;
 }
 
+.header-main-title {
+    font-size: 2rem;
+    text-shadow: 1px 1px 8px rgb(0 0 0);
+    margin-bottom: 0;
+}
+
+.no-margin-hiro .container {
+    margin-bottom: 0;
+}
+
 @media screen and (min-width:480px) {
+    .header-main-title {
+        font-size: 2.8rem;
+    }
     .count-parts {
         flex-direction: row;
     }
@@ -428,10 +440,10 @@ nav {
     .carousel {
         height: 32rem;
     }
-    .image-content h1 {
+    .ic-main-title {
         font-size: 2.8rem;
     }
-    .image-content p {
+    .ic-text-part {
         font-size: 1.1rem;
     }
     .main-cta {
@@ -597,7 +609,7 @@ nav {
 }
 
 @media screen and (min-width:1024px) {
-    .image-content h1 {
+    .ic-main-title {
         font-size: 3.8rem;
     }
     .learning-container {

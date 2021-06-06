@@ -58,16 +58,10 @@
             </div>
         </section>
 
-        <!-- Footer Section -->
-        <section class="footer">
-            <div class="container">
-                <site-footer></site-footer>
-            </div>
-        </section>
     </div>
 
-    <script src="{{asset('/js/app.js')}}">
-    </script>
+    <script src="{{asset('/js/app.js')}}"></script>
+    <script src="{{asset('js/landing.js')}}"></script>
 </body>
 
 </html>
