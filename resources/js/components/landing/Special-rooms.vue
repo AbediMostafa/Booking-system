@@ -1,6 +1,6 @@
 <template>
   <div class="relative-position">
-    <div class="between-flex px-6 column-reverse">
+    <div class="between-flex column-reverse">
       <div class="order1 flex-45">
         <section-header
           :titles="titles"

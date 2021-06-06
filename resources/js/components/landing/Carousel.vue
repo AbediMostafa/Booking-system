@@ -7,10 +7,10 @@
       :class="['carousel-img', zoom ? 'zoom-in' : 'zoom-out']"
     />
     <div class="image-content">
-      <h1 v-scrollAnimation="enterAnimations.topAnimation">
+      <h1 v-scrollAnimation="enterAnimations.topAnimation" class="ic-main-title">
         {{ carouselImageSources[counter].text }}
       </h1>
-      <p v-scrollAnimation="enterAnimations.topWithDelayAnimation">
+      <p v-scrollAnimation="enterAnimations.topWithDelayAnimation" class="ic-text-part">
         {{ carouselImageSources[counter].paragraph }}
       </p>
       <div class="cta-container">

@@ -22,6 +22,16 @@ export const sot = {
     },
 
     /**
+     * get image path
+     * 
+     * @param {string} imgPath 
+     * @returns 
+     */
+    absImgPath(imgPath) {
+        return `../../${this.exactPath}images/${imgPath}`
+    },
+
+    /**
      * Get video path
      * 
      * @param {string} video 
@@ -260,5 +270,55 @@ export const sot = {
         { id: 12, visible: true, name: 'یکجا', image: 'images/collections/12.jpg' },
         { id: 13, visible: true, name: 'یکجا', image: 'images/collections/13.jpg' },
         { id: 14, visible: true, name: 'یکجا', image: 'images/collections/14.jpg' },
+    ],
+
+    cities: [{
+            id: 1,
+            name: 'تهران',
+            roomCount: '50',
+            image: 'images/cities/tehran.jpg'
+        },
+
+        {
+            id: 2,
+            name: 'اصفهان',
+            roomCount: '35',
+            image: 'images/cities/esfahan.jpg'
+        },
+
+        {
+            id: 3,
+            name: 'یزد',
+            roomCount: '12',
+            image: 'images/cities/yazd.jpg'
+        },
+
+        {
+            id: 4,
+            name: 'ایلام',
+            roomCount: '7',
+            image: 'images/cities/ilam.jpg'
+        },
+
+        {
+            id: 5,
+            name: 'کرج',
+            roomCount: '55',
+            image: 'images/cities/karaj.jpg'
+        },
+
+        {
+            id: 6,
+            name: 'مشهد',
+            roomCount: '23',
+            image: 'images/cities/mashhad.jpg'
+        },
+
+        {
+            id: 7,
+            name: 'شیراز',
+            roomCount: '11',
+            image: 'images/cities/shiraz.jpg'
+        },
     ]
 }

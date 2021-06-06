@@ -71,6 +71,7 @@ nav,
 
 nav{
   padding:0 4%;
+  margin-bottom: 1rem;
 }
 
 a {
