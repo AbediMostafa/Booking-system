@@ -25,10 +25,14 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->name,
             'description' => $this->faker->text,
-            'image'=>$this->faker->name.'.png',
+            'image'=>$this->faker->randomElement([
+                'images/carousel/1.jpg',
+                'images/carousel/2.jpg',
+                'images/carousel/3.jpg',
+            ]),
             'brief'=>$this->faker->text,
             'status'=>$this->faker->randomElement(['disable' ,'enable']),
-            'starred'=>$this->faker->randomElement([0,1]),
+            'starred'=>$this->faker->randomElement(['false','true']),
             'user_id'=>User::factory(),
 
         ];   

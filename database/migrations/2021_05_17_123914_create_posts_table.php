@@ -18,10 +18,10 @@ class CreatePostsTable extends Migration
             $table->string('title',255);
             $table->string('description',255);
             $table->string('image',255);
-            $table->string('brief',100);
+            $table->string('brief',255);
             $table->foreignId('user_id')->constrained('users');
             $table->enum('status',['disable','enable']);
-            $table->enum('starred',[0,1]);
+            $table->enum('starred',['false','true']);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
 

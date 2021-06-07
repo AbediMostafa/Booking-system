@@ -25,7 +25,11 @@ class CollectionFactory extends Factory
     {
         return [
             'title' => $this->faker->name,
-            'image'=>$this->faker->name.'.png',
+            'image'=>$this->faker->randomElement([
+                'images/carousel/1.jpg',
+                'images/carousel/2.jpg',
+                'images/carousel/3.jpg',
+            ]),
         ];
     }
 }

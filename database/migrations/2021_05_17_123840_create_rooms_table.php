@@ -32,7 +32,7 @@ class CreateRoomsTable extends Migration
             $table->foreignId('collection_id')->constrained('collections');
             $table->foreignId('city_id')->constrained('cities');
             $table->enum('status',['disable','enable']);
-            $table->enum('is_special',[0,1]);
+            $table->enum('is_special',['false','true']);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);            
         });

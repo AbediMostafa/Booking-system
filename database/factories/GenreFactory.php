@@ -33,7 +33,11 @@ class GenreFactory extends Factory
                 'راز آلود',
                 'دلهره آور',
             ]),
-            'image'=>$this->faker->name.'.jpg',
+            'image'=>$this->faker->randomElement([
+                'images/carousel/1.jpg',
+                'images/carousel/2.jpg',
+                'images/carousel/3.jpg',
+            ]),
             'status'=>$this->faker->randomElement(['disable' ,'enable']),
 
         ];
