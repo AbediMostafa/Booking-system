@@ -24,7 +24,16 @@ class RoomFactory extends Factory
     public function definition()
     {  
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->randomElement([
+                'کابوس',
+                'شبه بازارچه',
+                'قاتل فراری',
+                'روح سرگردان',
+                'طاعون',
+                'شام آخر',
+                'هکر',
+                'زندان خون آشام',
+            ]),
             'description' => $this->faker->text,
             'image'=>$this->faker->randomElement([
                 'images/carousel/1.jpg',

@@ -25,7 +25,14 @@ class GenreFactory extends Factory
     {
        
         return [
-            'title' => $this->faker->name,
+            'title' => $this->faker->randomElement([
+                'ترسناک',
+                'وهم آلود',
+                'هیجانی',
+                'جنایی',
+                'راز آلود',
+                'دلهره آور',
+            ]),
             'image'=>$this->faker->name.'.jpg',
             'status'=>$this->faker->randomElement(['disable' ,'enable']),
 
