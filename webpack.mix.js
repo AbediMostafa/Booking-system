@@ -19,6 +19,7 @@ copyDirectory('resources/videos', 'public/videos').
 js('resources/js/app.js', 'public/js/app.js').
 js('resources/js/blades/landing.js', 'public/js/landing.js').
 js('resources/js/blades/cities.js', 'public/js/cities.js').
+js('resources/js/blades/collections.js', 'public/js/collections.js').
 vue().
 postCss('resources/css/app.css', 'public/css').options({
     processCssUrls: false

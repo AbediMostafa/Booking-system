@@ -1,18 +1,27 @@
-.hiro .container,
-.special-rooms .container,
-.learning .container,
-.collections .container,
-.footer .container {
+.container {
     padding: .5rem;
     max-width: 80rem;
     margin: 0 auto
+}
+
+section.navbar {
+    background: #f2f2f2;
+}
+
+.navbar .container {
+    padding-bottom: 0!important;
+}
+
+.full-video .container {
+    padding: 0;
+    max-width: 100%;
 }
 
 .hiro .container {
     max-width: 90rem;
 }
 
-.hiro {
+section.hiro {
     background: linear-gradient( 179deg, #f2f2f2, transparent);
 }
 
@@ -112,6 +121,11 @@ section.counts {
     position: relative;
 }
 
+.global-card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 
 /* Room card styles */
 
@@ -146,7 +160,8 @@ section.counts {
     padding: 0
 }
 
-.sr-text-container h4 {
+.sr-text-container h4,
+.collection-card-room-count {
     color: var(--title);
     font-weight: normal;
     font-size: 0.8rem;
@@ -366,6 +381,14 @@ nav {
     animation: hit 300ms linear 1;
 }
 
+.collection-card:hover .learning-card-image {
+    transform: scale(1.1);
+}
+
+.collection-card:hover .card-right-arrow {
+    animation: hit 300ms linear 1;
+}
+
 .collection-logo {
     width: 3rem;
     height: 3rem;
@@ -426,7 +449,51 @@ nav {
     margin-bottom: 0;
 }
 
+.sr-collection-text-container {
+    padding: 3rem 0.9rem 1.5rem;
+    box-shadow: 1px 1px 45px 1px rgb(0 0 0 / 14%);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.collection-card {
+    flex: 0 0 47%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.collection-card-title {
+    font-size: .8rem;
+    margin-bottom: .5rem;
+}
+
+.collection-card-room-count {
+    font-size: .7rem;
+    direction: rtl;
+}
+
+.search-input-container {
+    text-align: right;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.search-input::placeholder {
+    color: #b1b6bb
+}
+
+.search-input {
+    border: 1px solid #b0b5bb;
+    padding: .5rem 2.6rem .5rem 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    text-align: right;
+}
+
 @media screen and (min-width:480px) {
+    .collection-card {
+        flex: 0 0 31%;
+    }
     .header-main-title {
         font-size: 2.8rem;
     }
@@ -452,11 +519,7 @@ nav {
     .nav-menu-container {
         width: 45%;
     }
-    .hiro .container,
-    .special-rooms .container,
-    .learning .container,
-    .collections .container,
-    .footer .container {
+    .container {
         padding: 1rem;
     }
     .special-room-card {
@@ -483,6 +546,23 @@ nav {
 }
 
 @media screen and (min-width:768px) {
+    .search-input {
+        border: 1px solid #b0b5bb;
+        padding: .5rem 2.6rem .5rem 1rem;
+        border-radius: 1rem;
+        width: 40%;
+        text-align: right;
+    }
+    .collection-card-room-count {
+        font-size: .8rem;
+        direction: rtl;
+    }
+    .collection-card-title {
+        font-size: 1rem;
+    }
+    .collection-card {
+        flex: 0 0 24%;
+    }
     .column-reverse {
         flex-direction: initial;
     }
@@ -506,29 +586,13 @@ nav {
     }
     .count-parts {
         flex: 0 0 15%;
+        margin-left: 1rem;
     }
-    /* .count-container {
-        top: -9rem;
-        display: flex;
-        border-radius: 14rem;
-        align-items: center;
-        justify-content: center;
-        background: white;
-        margin: 0 auto;
-        z-index: 5;
-        padding: 2rem;
-        color: initial;
-        border: none;
-    } */
     .count-parts img {
-        width: 5rem;
+        width: 3rem;
         display: initial;
     }
-    .hiro .container,
-    .special-rooms .container,
-    .learning .container,
-    .collections .container,
-    .footer .container {
+    .container {
         padding: 1rem 2rem 3rem;
     }
     .footer-container {
@@ -609,6 +673,16 @@ nav {
 }
 
 @media screen and (min-width:1024px) {
+    .search-input {
+        border: 1px solid #b0b5bb;
+        padding: .5rem 2.6rem .5rem 1rem;
+        border-radius: 1rem;
+        width: 30%;
+        text-align: right;
+    }
+    .collection-card {
+        flex: 0 0 19%;
+    }
     .ic-main-title {
         font-size: 3.8rem;
     }
@@ -630,11 +704,7 @@ nav {
         background: url(../images/general/raz.jpg) no-repeat fixed center center/cover;
         height: 100vh;
     }
-    .hiro .container,
-    .special-rooms .container,
-    .learning .container,
-    .collections .container,
-    .footer .container {
+    .container {
         padding: 1rem 2rem 5rem;
     }
     nav {
@@ -649,6 +719,9 @@ nav {
 }
 
 @media screen and (min-width:1200px) {
+    .collection-card {
+        flex: 0 0 15%;
+    }
     .image-content {
         width: 40%;
     }

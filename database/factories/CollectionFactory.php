@@ -24,8 +24,24 @@ class CollectionFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->name,
-            'image'=>$this->faker->name.'.png',
+            'title' => $this->faker->randomElement([
+                'اسکیپ پنیک', 
+                'برین استورم', 
+                'بوم اسکیپ', 
+                'نئو', 
+                'اسکیپ روت', 
+                'نکست اسکیپ روم', 
+                'اسکیپ اسکری',
+                'انیگما اسکیپ',
+                'رد اسکیپ روم',
+                'کافه اسکیپ روم',
+                'ایگور',
+                'آی اسکیپ',
+                'وایا روم',
+                'هاریبل',
+                'لانگ وی',
+                ]),
+            'image'=>  "images/collections/{$this->faker->randomDigitNot(0)}.jpg",
         ];
     }
 }

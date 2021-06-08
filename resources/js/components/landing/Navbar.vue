@@ -1,8 +1,7 @@
 <template>
   <nav>
-    
     <a class="user-login-icon">
-      <img :src="sot.iconPath('user.svg')" />
+      <img :src="iconPath('user.svg')" />
     </a>
 
     <div class="right-nav">
@@ -11,24 +10,20 @@
           <li>
             <a
               ><img
-                :src="sot.iconPath('gradiant-cancle.svg')"
+                :src="iconPath('gradiant-cancle.svg')"
                 class="cancle-icon"
                 @click="cancleClicked"
             /></a>
           </li>
-          <li><a>ویژه ها</a></li>
-          <li><a>خانه</a></li>
-          <li><a>ژانر</a></li>
-          <li><a>مجموعه ها</a></li>
-          <li><a>شهر</a></li>
+          <li v-for="navBar in navBars" :key="navBar.id"><a :href="navBar.route">{{navBar.title}}</a></li>
         </ul>
       </div>
 
-      <a class="logo">
-        <img :src="sot.iconPath('logo.svg')" />
+      <a class="logo" :href="homeRoute">
+        <img :src="iconPath('logo.svg')" />
       </a>
       <a class="hamburger-menu" @click="hamburgerClicked">
-        <img :src="sot.iconPath('hamburger.svg')" />
+        <img :src="iconPath('hamburger.svg')" />
       </a>
     </div>
   </nav>
@@ -39,11 +34,23 @@ export default {
   data() {
     return {
       navStyle: "",
-      sot
+      navBars: {},
     };
   },
 
+  computed:{
+    homeRoute(){
+      return Object.keys(this.navBars).length ? this.navBars['home'].route :'';
+    }
+  },
+
   methods: {
+    /**
+     * get icon path from sot
+     */
+    iconPath(icon) {
+      return sot.iconPath(icon);
+    },
     /**
      * get fired when clicked on hamburger icon
      */
@@ -58,6 +65,12 @@ export default {
       this.navStyle = "transform: translateX(100%);";
     },
   },
+
+  created() {
+    axios.post("navbar").then((response) => {
+      this.navBars = response.data;
+    });
+  },
 };
 </script>
 
@@ -69,9 +82,8 @@ nav,
   justify-content: space-between;
 }
 
-nav{
-  padding:0 4%;
-  margin-bottom: 1rem;
+nav {
+  padding: 0 4%;
 }
 
 a {

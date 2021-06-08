@@ -37,7 +37,11 @@ export default {
 </script>
 
 <style scoped>
-.counter-parts:first-child .count-text-part {
+.count-parts {
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.count-parts:first-child {
   border-left: none;
 }
 
@@ -47,7 +51,6 @@ export default {
   align-items: center;
   margin-right: 1rem;
   line-height: 1;
-  border-left: 1px solid rgba(255, 255, 255, 0.4);
   padding-left: 2rem;
 }
 </style>

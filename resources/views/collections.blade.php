@@ -9,13 +9,12 @@
 
 <section class="special-rooms">
     <div class="container">
-        <cities></cities>
+        <collections></collections>
     </div>
 </section>
-
 
 @endsection
 
 @section('scripts')
-<script src="{{asset('js/cities.js')}}"></script>
+<script src="{{asset('js/collections.js')}}"></script>
 @endsection

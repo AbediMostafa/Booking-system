@@ -1,13 +1,23 @@
 <template>
-  <div class="end-flex mt-10">
-    <span class="lc-read-more">{{ txt }}</span>
+  <div :class="[position=='end' ? 'end-flex' : 'flex-center', 'mt-10']">
+    <span :class="`lc-read-more ${additionalClass}`">{{ txt }}</span>
     <img :src="rightArrow" class="card-right-arrow" />
   </div>
 </template>
 
 <script>
 export default {
-  props: ["txt"],
+  props: {
+    txt:{
+      default:'اطلاعات بیشتر'
+    },
+    additionalClass:{
+      default:''
+    },
+    position:{
+      default:'end'
+    }
+  },
   data() {
     return {
       rightArrow: sot.iconPath("right-arrow.svg"),
@@ -19,7 +29,17 @@ export default {
 <style scoped>
 .lc-read-more {
   color: #b259ca;
-  font-size: 0.9rem;
   font-weight: bold;
+  font-size: .9rem;
+}
+
+.collection-rm-txt{
+  font-size:.7rem
+}
+@media screen and (min-width:768px) {
+
+  .collection-rm-txt{
+  font-size:.8rem
+}
 }
 </style>

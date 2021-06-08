@@ -9,7 +9,7 @@
       >
         {{ info.title }}
       </h1>
-      <p v-scrollAnimation="enterAnimations.topWithDelayAnimation">
+      <p class="header-paragraph" v-scrollAnimation="enterAnimations.topWithDelayAnimation">
         {{ info.text }}
       </p>
     </div>
@@ -48,5 +48,9 @@ export default {
   top: 0;
   right: 0;
   z-index: initial;
+}
+
+.header-paragraph{
+  line-height: 2;
 }
 </style>

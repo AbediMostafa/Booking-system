@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(RunFactories::class);
+        $this->call(NavbarSeeder::class);
+        // $this->call(CollectionSeeder::class);
     }
 }
