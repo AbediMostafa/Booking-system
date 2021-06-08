@@ -1,5 +1,5 @@
 <template>
-    <div class="city-card-container">
+    <div class="global-card-container">
         <city-card v-for="city in cities" :city="city" :key="city.id"></city-card>
     </div>
 </template>
@@ -18,10 +18,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.city-card-container{
-    display:flex;
-    flex-wrap: wrap;
-}
-</style>

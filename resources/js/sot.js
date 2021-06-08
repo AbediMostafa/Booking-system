@@ -320,5 +320,6 @@ export const sot = {
             roomCount: '11',
             image: 'images/cities/shiraz.jpg'
         },
-    ]
+    ],
+
 }

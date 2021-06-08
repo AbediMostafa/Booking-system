@@ -22,7 +22,6 @@ class RunFactories extends Seeder
     public function run()
     {
         $user= User::factory()->create();
-        $collection=Collection::factory()->count(3)->create();
         $genre=Genre::factory()->count(3)->create();
         $city=City::factory()->count(3)->create();
         $post=Post::factory()->count(3)->for($user)->create();

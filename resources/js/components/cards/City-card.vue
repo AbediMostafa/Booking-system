@@ -13,12 +13,10 @@
 </template>
 
 <script>
-import ScoreStars from "../packages/Score-stars.vue";
 import ReadMore from "../packages/Read-more.vue";
 
 export default {
   components: {
-    ScoreStars,
     ReadMore
   },
   data() {

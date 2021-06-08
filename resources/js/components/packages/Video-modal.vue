@@ -3,13 +3,13 @@
     :class="['fade-video-modal', showVideoModal ? 'visible-video-modal' : '']"
   >
     <img :src="iconPath" class="video-cancle-icon" @click="closeVideoModal" />
-    <video :src="src" ref="landingVideo"></video>
+    <video :src="src" ref="vid"></video>
   </div>
 </template>
 
 <script>
 export default {
-  props:['src'],
+  props: ["src"],
   data() {
     return {
       iconPath: sot.iconPath("gradiant-cancle.svg"),
@@ -21,7 +21,10 @@ export default {
      * play landing's video modal
      */
     playVideo() {
-      this.$refs.landingVideo.play();
+
+      setTimeout(() => {
+        this.$refs.vid.play();
+      }, 200);
       this.showVideoModal = true;
     },
 
@@ -30,8 +33,8 @@ export default {
      */
     closeVideoModal() {
       this.showVideoModal = false;
-      this.$refs.landingVideo.pause();
-      this.$refs.landingVideo.currentTime = 0;
+      this.$refs.vid.pause();
+      this.$refs.vid.currentTime = 0;
     },
   },
 };
