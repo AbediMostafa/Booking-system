@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\SpecialRoomController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PPostController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialController;
+use App\Models\City;
 use App\Models\Discount;
 use App\Models\Room;
 use Illuminate\Support\Facades\Route;
@@ -21,9 +24,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    
-    return view('landing');
+
+   
+
+    // return view('landing');
 });
+
+Route::get('room', [RoomController::class,'complicatedSearch']);
+Route::get('special-rooms/new', [SpecialRoomController::class,'newRoom']);
+Route::post('special-rooms/discount', [SpecialRoomController::class,'discount']);
+Route::post('special-rooms/special', [SpecialRoomController::class,'special']);
 
 Route::get('/new',[NewController::class,'index']);
 Route::post('/special',[SpecialController::class,'index']);

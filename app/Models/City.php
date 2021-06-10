@@ -13,4 +13,5 @@ class City extends Model
     {
         return $this->hasMany(Room::class);
     }
+
 }
