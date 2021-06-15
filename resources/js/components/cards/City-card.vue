@@ -7,17 +7,20 @@
     <div class="sr-text-container">
       <h1 class="city-card-title">{{ city.name }}</h1>
       <h4 class="city-card-room-count">{{city.roomCount}} اتاق فرار</h4>
-      <read-more :txt="'لیست اتاق ها'" class="mt-4"></read-more>
+      <read-more-text 
+        :txt="'لیست اتاق ها'" 
+        class="mt-4">
+      </read-more-text>
     </div>
   </article>
 </template>
 
 <script>
-import ReadMore from "../packages/Read-more.vue";
+import ReadMoreText from "../packages/Read-more-text.vue";
 
 export default {
   components: {
-    ReadMore
+    ReadMoreText
   },
   data() {
     return {

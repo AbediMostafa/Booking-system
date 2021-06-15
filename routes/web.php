@@ -3,19 +3,9 @@
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\NewController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('landing');
@@ -30,8 +20,8 @@ Route::get('/collections', function () {
 })->name('collections');
 
 Route::get('/genres', function () {
-    return view('genres');
-})->name('genres');
+    return view('room_search');
+})->name('roomSearch');
 
 Route::get('/specials', function () {
     return view('specials');
@@ -40,6 +30,7 @@ Route::get('/specials', function () {
 Route::post('/navbar', [NavbarController::class, 'index']);
 Route::post('/collections', [CollectionController::class, 'index']);
 Route::post('/collections/search', [CollectionController::class, 'search']);
+Route::post('/rooms/complicated-search', [RoomController::class, 'complicatedSearch']);
 
 Route::post('/new', [NewController::class, 'index']);
 Route::post('/special', [SpecialController::class, 'index']);

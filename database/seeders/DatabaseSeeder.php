@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RunFactories::class);
         $this->call(NavbarSeeder::class);
+        $this->call(GenreSeeder::class);
+        $this->call(GenreRoomSeeder::class);
         // $this->call(CollectionSeeder::class);
     }
 }

@@ -9,5 +9,5 @@ window.Vue = Vue;
 
 Vue.directive('scrollAnimation', ScrollAnimation);
 
-Vue.component('navbar', Navbar)
-Vue.component('site-footer', SiteFooter)
+Vue.component('navbar', Navbar);
+Vue.component('site-footer', SiteFooter);

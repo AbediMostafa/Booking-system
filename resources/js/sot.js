@@ -41,7 +41,14 @@ export const sot = {
         return `../../${this.exactPath}videos/${video}`
     },
 
-    reactiveVars: {},
+    reactiveVars: {
+        roomSearch: {
+            city: '',
+            collection: '',
+            genre: '',
+            personCount: ''
+        }
+    },
 
     /**
      * spaecial offer items

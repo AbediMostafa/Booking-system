@@ -7,17 +7,22 @@
     <div class="sr-collection-text-container">
       <h1 class="collection-card-title">{{ collection.title }}</h1>
       <h4 class="collection-card-room-count">{{collection.roomCount}} اتاق فرار</h4>
-      <read-more :txt="'لیست اتاق ها'" :additionalClass="'collection-rm-txt'" :position="'center'" class="mt-4"></read-more>
+      <read-more-text 
+        :txt="'لیست اتاق ها'" 
+        :additionalClass="'collection-rm-txt'" 
+        :position="'center'" 
+        class="mt-4">
+      </read-more-text>
     </div>
   </article>
 </template>
 
 <script>
-import ReadMore from "../packages/Read-more.vue";
+import ReadMoreText from "../packages/Read-more-text.vue";
 
 export default {
   components: {
-    ReadMore
+    ReadMoreText
   },
   data() {
     return {
