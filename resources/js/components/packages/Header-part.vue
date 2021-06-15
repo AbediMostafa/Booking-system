@@ -1,7 +1,5 @@
 <template>
-  <div class="header" :style="headerBackground">
-    <div class="overlay header-overlay"></div>
-
+  <div class="header">
     <div class="header-txt-content">
       <h1
         v-scrollAnimation="enterAnimations.topAnimation"
@@ -9,7 +7,10 @@
       >
         {{ info.title }}
       </h1>
-      <p class="header-paragraph" v-scrollAnimation="enterAnimations.topWithDelayAnimation">
+      <p
+        class="header-paragraph"
+        v-scrollAnimation="enterAnimations.topWithDelayAnimation"
+      >
         {{ info.text }}
       </p>
     </div>
@@ -25,23 +26,16 @@ export default {
     };
   },
   methods: {},
-  computed: {
-    headerBackground() {
-      return `background:url(${this.info.imageSrc}) no-repeat top/cover`;
-    },
-  },
 };
 </script>
 
 <style scoped>
-.header {
-  padding: 1rem 10% 2rem;
-  color: white;
-  position: relative;
-}
 
 .header-txt-content {
   text-align: center;
+    max-width: 40rem;
+    padding: 3rem 0;
+    margin: 0 auto;
 }
 
 .header-overlay {
@@ -50,7 +44,7 @@ export default {
   z-index: initial;
 }
 
-.header-paragraph{
+.header-paragraph {
   line-height: 2;
 }
 </style>

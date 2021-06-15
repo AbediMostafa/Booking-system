@@ -3,7 +3,9 @@
 <!-- Hiro Section -->
 <section class="hiro">
     <div class="container pb-4">
-        <header-part :info="headerInfos"></header-part>
+        <div class="header-filter-container">
+            <header-part :info="headerInfos"></header-part>
+        </div>
     </div>
 </section>
 

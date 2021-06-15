@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
     protected $table = "rooms";
-    protected $appends = ['rate_average'];
+    protected $appends = ['rate_average', 'rate_percent'];
     protected $casts = [
     'image' => 'array',
     'banner' => 'array'
@@ -20,8 +20,13 @@ class Room extends Model
     ];  
     public function getRateAverageAttribute()
     {
-        return $this->rates->avg('calculate_rate');
-    }  
+        return $this->rates->avg('calculate_rate')? $this->rates->avg('calculate_rate'): 0;
+    }
+    
+    public function getRatePercentAttribute()
+    {
+        return $this->rate_average*100/5;
+    }
     //relation with comment table
         public function comments()
     {

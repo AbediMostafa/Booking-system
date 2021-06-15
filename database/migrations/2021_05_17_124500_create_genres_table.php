@@ -17,7 +17,7 @@ class CreateGenresTable extends Migration
             $table->id('id');
             $table->string('title',255);
             $table->string('image',255);
-            $table->enum('status',['disable','enable']);
+            // $table->enum('status',['disable','enable']);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);        });
     }

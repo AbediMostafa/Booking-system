@@ -46,12 +46,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.search-icon {
-  position: absolute;
-  width: 1.4rem;
-  right: 0.7rem;
-  top: 0.6rem;
-}
-</style>

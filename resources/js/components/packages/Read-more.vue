@@ -1,8 +1,12 @@
 <template>
-  <div :class="[position=='end' ? 'end-flex' : 'flex-center', 'mt-10']">
-    <span :class="`lc-read-more ${additionalClass}`">{{ txt }}</span>
-    <img :src="rightArrow" class="card-right-arrow" />
+<div class="right-carot-container">
+  <div class="carot-child-container">
+    <img :src="rightArrow" class="card-left-carot" />
   </div>
+
+</div>
+
+
 </template>
 
 <script>
@@ -20,26 +24,25 @@ export default {
   },
   data() {
     return {
-      rightArrow: sot.iconPath("right-arrow.svg"),
+      rightArrow: sot.iconPath("left-carot.svg"),
     };
   },
 };
 </script>
-
 <style scoped>
-.lc-read-more {
-  color: #b259ca;
-  font-weight: bold;
-  font-size: .9rem;
+.right-carot-container{
+  display: flex;
+    align-items: center;
+    text-align: right;
+    justify-content: flex-start;
 }
 
-.collection-rm-txt{
-  font-size:.7rem
-}
-@media screen and (min-width:768px) {
-
-  .collection-rm-txt{
-  font-size:.8rem
-}
+.carot-child-container{
+      margin: 1rem 0 -1.5rem -1.5rem;
+    background: var(--second-color);
+    padding: 1rem 1.4rem;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 10px;
+    display: flex;
 }
 </style>
