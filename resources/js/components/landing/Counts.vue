@@ -51,6 +51,6 @@ export default {
   align-items: center;
   margin-right: 1rem;
   line-height: 1;
-  padding-left: 2rem;
+  padding-left: 1rem;
 }
 </style>

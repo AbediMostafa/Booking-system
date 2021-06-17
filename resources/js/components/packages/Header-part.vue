@@ -47,4 +47,5 @@ export default {
 .header-paragraph {
   line-height: 2;
 }
+
 </style>
