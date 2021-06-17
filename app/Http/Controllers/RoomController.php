@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\collections\RoomCollectionResource;
+use App\Http\Resources\rooms\RoomForRoomPageResource;
 use App\Models\City;
 use App\Models\Collection;
 use App\Models\Genre;

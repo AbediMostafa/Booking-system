@@ -12,6 +12,7 @@ const vue = new Vue({
     },
 
     data: {
+        background: "url('../images/backgrounds/header-picture1.png') no-repeat -20% 50%, url('../images/backgrounds/header-picture2.png') no-repeat 140% 50%",
         search: sot.reactiveVars.roomSearch,
         roomKey: '',
         rooms: [],

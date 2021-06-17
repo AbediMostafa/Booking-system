@@ -21,7 +21,7 @@ class Rate extends Model
 
     public function getCalculateRateAttribute()
     {
-        $sum=$this->scariness+$this->room_decoration+$this->hobbiness+$this->creativeness+$this->Mysteriness;
+        $sum=$this->scariness+$this->room_decoration+$this->hobbiness+$this->creativeness+$this->mysteriness;
         return $sum/5;
     }
 }

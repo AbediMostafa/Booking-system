@@ -20,7 +20,7 @@ class CreateRatesTable extends Migration
             $table->enum('room_decoration',[1,2,3,4,5]);
             $table->enum('hobbiness',[1,2,3,4,5]);
             $table->enum('creativeness',[1,2,3,4,5]);
-            $table->enum('Mysteriness',[1,2,3,4,5]);
+            $table->enum('mysteriness',[1,2,3,4,5]);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);        
         });

@@ -8,7 +8,7 @@ export const sot = {
      * @returns 
      */
     iconPath(icon) {
-        return `../../${this.exactPath}images/icons/${icon}`
+        return `${window.location.origin}/${this.exactPath}images/icons/${icon}`
     },
 
     /**
@@ -18,7 +18,7 @@ export const sot = {
      * @returns {string}
      */
     imgPath(img) {
-        return `../../${this.exactPath}images/general/${img}`
+        return `${window.location.origin}/${this.exactPath}images/general/${img}`
     },
 
     /**
@@ -28,7 +28,7 @@ export const sot = {
      * @returns 
      */
     absImgPath(imgPath) {
-        return `../../${this.exactPath}images/${imgPath}`
+        return `${window.location.origin}/${this.exactPath}images/${imgPath}`
     },
 
     /**
@@ -38,7 +38,17 @@ export const sot = {
      * @returns 
      */
     videoPath(video) {
-        return `../../${this.exactPath}videos/${video}`
+        return `${window.location.origin}/${this.exactPath}videos/${video}`
+    },
+
+    /**
+     * Get url of given room
+     * 
+     * @param {Number} roomId 
+     * @returns 
+     */
+    getRoomPath(roomId) {
+        return `${window.location.origin}/${this.exactPath}rooms/${roomId}`
     },
 
     reactiveVars: {

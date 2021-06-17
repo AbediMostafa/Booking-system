@@ -137,7 +137,7 @@ section.counts {
 }
 
 .special-room-card {
-    flex: 0 0 80%;
+    flex: 0 0 100%;
     margin: 0 auto;
 }
 
@@ -565,11 +565,11 @@ nav {
 
 .header-filter-container::before {
     position: absolute;
+    background: var(--bg);
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: url('../images/backgrounds/header-picture1.png') no-repeat -20% 50%, url('../images/backgrounds/header-picture2.png') no-repeat 140% 50%;
     content: "";
     opacity: .15;
     border-radius: 2rem;
@@ -631,6 +631,10 @@ nav {
     color: #7e6e31;
     padding: 0.3rem .6rem;
     font-weight: bold;
+}
+
+.span-child:last-child {
+    margin-left: 0;
 }
 
 .room-icons {
