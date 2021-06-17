@@ -1,5 +1,5 @@
 export const sot = {
-    exactPath: 'Misscape/public/',
+    exactPath: '',
 
     /**
      * Get exact icon path
@@ -103,17 +103,17 @@ export const sot = {
      * carousel items
      */
     carouselItems: [{
-            path: "../../Misscape/public/images/carousel/1.jpg",
+            path: "../../images/carousel/1.jpg",
             text: "لذت  ترس به همراه فرار",
             paragraph: "سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
         },
         {
-            path: "../../Misscape/public/images/carousel/2.jpg",
+            path: "../../images/carousel/2.jpg",
             text: "مهیج ترین اتاق های فرار",
             paragraph: "سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
         },
         {
-            path: "../../Misscape/public/images/carousel/3.jpg",
+            path: "../../images/carousel/3.jpg",
             text: "دسترسی سریع",
             paragraph: "سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
         },
