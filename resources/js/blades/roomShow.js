@@ -12,6 +12,11 @@ const vue = new Vue({
             title: ''
         },
     },
+    computed: {
+        background() {
+            return `url('../${this.room.banner}') no-repeat -20% 50%`;
+        }
+    },
     methods: {
         getRoom() {
             axios.post(`/${sot.exactPath}rooms/${roomId}`).then((response) => {

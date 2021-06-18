@@ -67,7 +67,7 @@ export default {
   },
 
   created() {
-    axios.post("navbar").then((response) => {
+    axios.post("/navbar").then((response) => {
       this.navBars = response.data;
     });
   },

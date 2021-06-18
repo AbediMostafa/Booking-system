@@ -644,6 +644,39 @@ nav {
     position: relative;
 }
 
+.rs-scores {
+    padding: 2rem;
+}
+
+.rs-rate-sentence {
+    direction: rtl;
+}
+
+.rs-rate-count {
+    font-size: .8rem;
+    margin-right: 0.5rem;
+}
+
+.rs-rate-avg {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: .3rem;
+}
+
+.show-room-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rs-other-infos {
+    flex: 0 0 29%
+}
+
+.rs-box-shadow {
+    box-shadow: 1px 1px 45px 1px rgb(0 0 0 / 14%);
+    border-radius: 1rem;
+}
+
 @media screen and (min-width:480px) {
     .each-filter-container {
         margin-left: .5rem;
