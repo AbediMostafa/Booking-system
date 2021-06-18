@@ -150,4 +150,9 @@ class RoomController extends Controller
 
         return $rooms;
     }
+
+    public function show(Room $room)
+    {
+        return new RoomForRoomPageResource($room);
+    }
 }

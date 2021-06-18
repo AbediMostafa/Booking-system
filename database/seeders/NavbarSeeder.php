@@ -19,30 +19,30 @@ class NavbarSeeder extends Seeder
             [
                 'title' => 'خانه',
                 'name'=>'home',
-                'route' => 'http://localhost/Misscape/public/'
+                'route' => '/'
             ],
             [
                 'title' => 'شهرها',
                 'name'=>'cities',
-                'route' => 'http://localhost/Misscape/public/cities'
+                'route' => '/cities'
             ],
 
             [
                 'title' => 'مجموعه ها',
                 'name'=>'collections',
-                'route' => 'http://localhost/Misscape/public/collections'
+                'route' => '/collections'
             ],
 
             [
                 'title' => 'ژانر',
                 'name'=>'genres',
-                'route' => 'http://localhost/Misscape/public/genres'
+                'route' => '/genres'
             ],
 
             [
                 'title' => 'ویژه ها',
                 'name'=>'specials',
-                'route' => 'http://localhost/Misscape/public/specials'
+                'route' => '/specials'
             ],
         ]);
     }

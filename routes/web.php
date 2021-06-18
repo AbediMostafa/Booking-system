@@ -5,8 +5,6 @@ use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialController;
-use App\Http\Resources\rooms\RoomForRoomPageResource;
-use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
