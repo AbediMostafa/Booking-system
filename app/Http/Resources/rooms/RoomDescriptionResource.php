@@ -40,7 +40,7 @@ class RoomDescriptionResource extends JsonResource
             'rates' => [
                 'total' => $this->rate_percent,
                 'rate_count' => $this->rates->count(),
-                'rate_average' => '',
+                'rate_average' => $this->rateAverage,
                 'items' => [
                     'scariness' => [
                         'value' => $this->rates->avg('scariness')*100/5,
