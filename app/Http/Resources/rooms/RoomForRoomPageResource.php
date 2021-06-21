@@ -26,9 +26,12 @@ class RoomForRoomPageResource extends JsonResource
             'game_time' => $this->game_time,
             'hardness' => $this->hardness,
             'type' => $this->type,
-            'phone' => $this->phone,
-            'mobile' => $this->mobile,
-            'address' => $this->address,
+            'contact_infos'=>[
+                'phone' => $this->phone,
+                'mobile' => $this->mobile,
+                'address' => $this->address,
+                'website' => $this->website,
+            ],
             'collection' => [
                 'name' => $this->collection->title,
                 'image' => $this->collection->image,

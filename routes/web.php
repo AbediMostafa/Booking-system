@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\NavbarController;
-use App\Http\Controllers\NewController;
 use App\Http\Controllers\RoomController;
-use App\Http\Controllers\SpecialController;
+use App\Http\Controllers\SpecialRoomCotroller;
+use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
@@ -22,7 +22,9 @@ Route::post('/collections', [CollectionController::class, 'index']);
 Route::post('/collections/search', [CollectionController::class, 'search']);
 Route::post('/rooms/complicated-search', [RoomController::class, 'complicatedSearch']);
 Route::post('/rooms/{room}', [RoomController::class, 'show']);
+Route::post('/rooms/{room}/comments', [RoomController::class, 'comments']);
 
-Route::post('/new', [NewController::class, 'index']);
-Route::post('/special', [SpecialController::class, 'index']);
-Route::post('/news', [SpecialController::class, 'index']);
+Route::post('special-rooms/special', [SpecialRoomCotroller::class, 'special']);
+Route::post('special-rooms/new', [SpecialRoomCotroller::class, 'new']);
+Route::post('special-rooms/discount', [SpecialRoomCotroller::class, 'discount']);
+

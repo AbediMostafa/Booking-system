@@ -17,7 +17,7 @@
             :ref="key"
             @click="specialClicked(key)"
           >
-            {{ specialType.name }}
+            {{ specialType.title }}
           </span>
         </div>
       </div>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="special-room-cards">
-      <room-card v-for="room in rooms" :key="room.id" :room="room"></room-card>
+      <room-card v-for="room in rooms" :key="room.id" :room="room" :type="selectedSpecialKey"></room-card>
     </div>
     <div class="text-center">
       <a class="cta mt-12 main-cta">همه اتاق های ویژه</a>
@@ -63,7 +63,10 @@ export default {
      */
     specialClicked(key) {
       // set current rooms
-      this.rooms = this.specialTypes[key].rooms;
+      this.getRooms(
+        this.specialTypes[key].route
+
+      );
       this.selectedSpecialKey = key;
 
       // set coordinate of navigation hr tag
@@ -98,6 +101,14 @@ export default {
         `;
       }
     },
+
+    getRooms(route){
+      axios
+      .post(route)
+      .then(response=>{
+        this.rooms = response.data.data;
+      });
+    }
   },
 
   created() {
@@ -111,14 +122,14 @@ export default {
   mounted() {
     this.specialTypes = sot.specialTypes;
 
-    let specialTypeKeys = Object.keys(this.specialTypes);
-    let lastSpecialTypeKey = specialTypeKeys[specialTypeKeys.length - 1];
-    this.rooms = this.specialTypes[lastSpecialTypeKey].rooms;
+    let specialTypeKeys = Object.keys(this.specialTypes),
+    lastSpecialTypeKey = specialTypeKeys[specialTypeKeys.length - 1],
+    selectedSpecial = this.specialTypes[lastSpecialTypeKey];
+    this.getRooms(selectedSpecial.route);
 
     setTimeout(() => {
       let el = this.$refs[lastSpecialTypeKey][0];
       this.selectedSpecialKey = lastSpecialTypeKey;
-
       this.setHrStyle(el);
     }, 2000);
   },

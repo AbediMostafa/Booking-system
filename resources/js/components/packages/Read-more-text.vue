@@ -34,10 +34,6 @@ export default {
     border-radius: 0.6rem;
     display:inline-block
 }
-.lc-read-more {
-  color: white;
-  font-size: .9rem;
-}
 
 .collection-rm-txt{
   font-size:.7rem
