@@ -8,25 +8,32 @@
         </div>
     </div>
 </section>
-            @verbatim
+@verbatim
 <section class="show-room-content">
     <div class="container">
         <div class="show-room-container">
             <div class="rs-other-infos">
                 <scores :rates="room.rates"></scores>
-                <div class="rs-contact-infos">
-                </div>
+                <contact-infos :infos="room.contact_infos"></contact-infos>
             </div>
 
             <div class="rs-description">
-
+                <h1 class="rs-box-title">توضیحات</h1>
+                <description-box :room="room"></description-box>
             </div>
         </div>
 
-
+        <div class="des-comments-container">
+            <h1 class="rs-box-title">نظرات کاربران</h1>
+            <comment 
+                v-for="(comment, key) in comments" 
+                :key="key" 
+                :comment = "comment"
+                ></comment>
+        </div>
     </div>
 </section>
-            @endverbatim
+@endverbatim
 
 
 @endsection

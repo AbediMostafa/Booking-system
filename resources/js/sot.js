@@ -21,6 +21,10 @@ export const sot = {
         return `${window.location.origin}/${this.exactPath}images/general/${img}`
     },
 
+    roomImagePath(path) {
+        return `${window.location.origin}/${path}`
+    },
+
     /**
      * get image path
      * 
@@ -124,129 +128,18 @@ export const sot = {
      */
 
     specialTypes: {
-
-        news: {
-            name: 'تازه ها',
-            rooms: [{
-                    id: 1,
-                    image: 'images/carousel/1.jpg',
-                    name: 'اخبار ابدی',
-                    collectionName: 'اسکیپ پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 66
-                },
-                {
-                    id: 2,
-                    image: 'images/carousel/1.jpg',
-                    name: 'اخبار امن من',
-                    collectionName: 'زوم پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 12
-                },
-                {
-                    id: 3,
-                    image: 'images/carousel/1.jpg',
-                    name: 'اخبار ابدی',
-                    collectionName: 'هامان پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 93
-                },
-                {
-                    id: 4,
-                    image: 'images/carousel/1.jpg',
-                    name: 'اخبار',
-                    collectionName: 'اسکیپ تالاش',
-                    collectionAddress: 'ظفر',
-                    totalScore: 33
-                },
-            ]
+        special: {
+            route: 'special-rooms/special',
+            title: 'پیشنهاد ویژه'
         },
-        discounts: {
-            name: 'تخفیفی ها',
-            rooms: [{
-                    id: 1,
-                    image: 'images/carousel/1.jpg',
-                    name: 'تخفیف ابدی',
-                    collectionName: 'اسکیپ پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    amount: 45,
-                    startDate: '',
-                    endDate: '',
-                    totalScore: 66
-                },
-                {
-                    id: 2,
-                    image: 'images/carousel/2.jpg',
-                    name: 'تخفیف امن من',
-                    collectionName: 'زوم پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    amount: 15,
-                    startDate: '',
-                    endDate: '',
-                    totalScore: 12
-                },
-                {
-                    id: 3,
-                    image: 'images/carousel/1.jpg',
-                    name: 'تخفیف ابدی',
-                    collectionName: 'هامان پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    amount: 16,
-                    startDate: '',
-                    endDate: '',
-                    totalScore: 93
-                },
-                {
-                    id: 4,
-                    image: 'images/carousel/3.jpg',
-                    name: 'تخفیف',
-                    collectionName: 'اسکیپ تالاش',
-                    collectionAddress: 'ظفر',
-                    amount: 13,
-                    startDate: '',
-                    endDate: '',
-                    totalScore: 33
-                },
-            ],
+        new: {
+            route: 'special-rooms/new',
+            title: 'تازه ها'
         },
-        specials: {
-            name: 'پیشنهاد ویژه',
-            rooms: [
-
-                {
-                    id: 1,
-                    image: 'images/general/raz.jpg',
-                    name: 'ویژه ابدی',
-                    collectionName: 'اسکیپ پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 66
-                },
-                {
-                    id: 2,
-                    image: 'images/carousel/1.jpg',
-                    name: 'ویژه امن من',
-                    collectionName: 'زوم پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 12
-                },
-                {
-                    id: 3,
-                    image: 'images/carousel/1.jpg',
-                    name: 'ویژه ابدی',
-                    collectionName: 'هامان پلاس',
-                    collectionAddress: 'شریعتی - ظفر',
-                    totalScore: 93
-                },
-                {
-                    id: 4,
-                    image: 'images/carousel/1.jpg',
-                    name: 'ویژه',
-                    collectionName: 'اسکیپ تالاش',
-                    collectionAddress: 'ظفر',
-                    totalScore: 33
-                },
-            ]
-        },
+        discount: {
+            route: 'special-rooms/discount',
+            title: 'تخفیفی ها'
+        }
     },
 
     learnings: [{

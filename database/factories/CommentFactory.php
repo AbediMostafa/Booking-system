@@ -29,8 +29,6 @@ class CommentFactory extends Factory
             'down_rate' => $this->faker->numberBetween($min = 1, $max = 10),
             'status'=>$this->faker->randomElement(['disagree','agree']),
             'user_id'=>User::factory(),
-        
-
         ];
     }
 }

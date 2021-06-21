@@ -16,7 +16,7 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id('id');
             $table->string('name',255);
-            $table->string('description',255);
+            $table->text('description');
             $table->string('image',255);
             $table->string('banner',255);
             $table->integer('price');
@@ -24,15 +24,16 @@ class CreateRoomsTable extends Migration
             $table->integer('min_person');
             $table->integer('game_time');
             $table->enum('hardness',[1,2,3,4,5]);
-            $table->enum('type',['special', 'new']);
             $table->string('phone',255);
             $table->string('mobile',255);
+            $table->string('website',255);
             $table->string('district',100);
             $table->string('address',255);
             $table->string('website',255);
             $table->foreignId('collection_id')->constrained('collections');
             $table->foreignId('city_id')->constrained('cities');
-            $table->enum('status',['disable','enable']);
+            $table->boolean('is_special');
+            $table->boolean('is_new');
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);            
         });

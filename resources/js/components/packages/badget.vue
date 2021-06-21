@@ -1,6 +1,6 @@
 <template>
   <div class="span-child">
-    <img :src="getIcon(icon)" class="room-icons" />
+    <img :src="getIcon(icon)" class="room-icons" v-if="icon"/>
     <span>{{ text }}</span>
   </div>
 </template>

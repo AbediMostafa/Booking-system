@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rate extends Model
 {
+
+    protected $appends=['calculateRate'];
+
+    
     use HasFactory;
     //relation with room table
     public function room()
