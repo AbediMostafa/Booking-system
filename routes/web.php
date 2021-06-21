@@ -5,6 +5,7 @@ use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialController;
+use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
@@ -26,3 +27,4 @@ Route::post('/rooms/{room}', [RoomController::class, 'show']);
 Route::post('/new', [NewController::class, 'index']);
 Route::post('/special', [SpecialController::class, 'index']);
 Route::post('/news', [SpecialController::class, 'index']);
+Route::get('/room-Description', [RoomController::class, 'roomDescription']);
