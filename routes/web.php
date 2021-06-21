@@ -27,4 +27,4 @@ Route::post('/rooms/{room}/comments', [RoomController::class, 'comments']);
 Route::post('special-rooms/special', [SpecialRoomCotroller::class, 'special']);
 Route::post('special-rooms/new', [SpecialRoomCotroller::class, 'new']);
 Route::post('special-rooms/discount', [SpecialRoomCotroller::class, 'discount']);
-
+Route::get('/room-Description', [RoomController::class, 'roomDescription']);

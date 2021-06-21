@@ -29,6 +29,7 @@ class CreateRoomsTable extends Migration
             $table->string('website',255);
             $table->string('district',100);
             $table->string('address',255);
+            $table->string('website',255);
             $table->foreignId('collection_id')->constrained('collections');
             $table->foreignId('city_id')->constrained('cities');
             $table->boolean('is_special');

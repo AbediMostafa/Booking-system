@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\rooms;
+namespace App\Http\Resources\Rooms;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoomForRoomPageResource extends JsonResource
+class RoomDescriptionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -29,13 +29,13 @@ class RoomForRoomPageResource extends JsonResource
             'contact_infos'=>[
                 'phone' => $this->phone,
                 'mobile' => $this->mobile,
-                'address' => $this->address,
-                'website' => $this->website,
+                'address' =>$this->address,
+                'website' =>$this->website,
             ],
             'collection' => [
-                'title' => $this->collection->title,
+                'name' => $this->collection->title,
                 'image' => $this->collection->image,
-                'rooms' => $this->collection->rooms()->select('name', 'district')->get()
+                'rooms' => $this->collection->rooms()->select('id','name', 'image','district')->get(),
             ],
             'rates' => [
                 'total' => $this->rate_percent,
@@ -43,27 +43,28 @@ class RoomForRoomPageResource extends JsonResource
                 'rate_average' => $this->rateAverage,
                 'items' => [
                     'scariness' => [
-                        'value' => $this->rates->avg('scariness') * 100 / 5,
+                        'value' => $this->rates->avg('scariness')*100/5,
                         'title' => 'درجه ترس',
                     ],
                     'room_decoration' => [
-                        'value' => $this->rates->avg('room_decoration') * 100 / 5,
+                        'value' => $this->rates->avg('room_decoration')*100/5,
                         'title' => 'طراحی اتاق',
                     ],
                     'hobbiness' => [
-                        'value' => $this->rates->avg('hobbiness') * 100 / 5,
+                        'value' => $this->rates->avg('hobbiness')*100/5,
                         'title' => 'سرگرمی',
                     ],
                     'creativeness' => [
-                        'value' => $this->rates->avg('creativeness') * 100 / 5,
+                        'value' => $this->rates->avg('creativeness')*100/5,
                         'title' => 'خلاقیت',
                     ],
                     'mysteriness' => [
-                        'value' => $this->rates->avg('mysteriness') * 100 / 5,
+                        'value' => $this->rates->avg('mysteriness')*100/5,
                         'title' => 'داستانی',
                     ],
                 ],
             ],
         ];
+
     }
 }
