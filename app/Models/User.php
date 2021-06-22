@@ -53,8 +53,8 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
     //relation with rates table
-    public function rate()
+    public function rates()
     {
-        return $this->hasOne(Rate::class);
+        return $this->hasMany(Rate::class);
     }
-}
+   }

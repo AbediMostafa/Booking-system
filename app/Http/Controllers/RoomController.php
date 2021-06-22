@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\collections\RoomCollectionResource;
+use App\Http\Resources\Rooms\apiCommentsforRoom;
 use App\Http\Resources\Rooms\RoomDescriptionResource;
 use App\Http\Resources\rooms\RoomForRoomPageResource;
 use App\Models\City;
 use App\Models\Collection;
 use App\Models\Genre;
 use App\Models\Room;
+use App\Models\User;
 use Illuminate\Http\Request;
 use stdClass;
 
@@ -159,5 +161,12 @@ class RoomController extends Controller
     public function roomDescription()
     {
         return RoomDescriptionResource::collection(Room::all());
+    }
+    public function roomComment(Room $room)
+    {
+
+        
+        return apiCommentsforRoom::collection($room->comments);
+        // return new apiCommentsforRoom(Room::find($id));
     }
 }
