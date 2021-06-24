@@ -23,7 +23,7 @@ class apiCommentsforRoom extends JsonResource
             'status' => $this->status,
             'user' => [
                 'name' => $this->user->name,
-                'rate' =>$this->user->rates()->where('room_id', $roomId)->first()
+                'rate' => $this->user->rates()->where('room_id', $roomId)->first()->percentRate,
             ],
         ];
     }

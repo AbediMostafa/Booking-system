@@ -161,7 +161,7 @@ class RoomController extends Controller
     {
         return RoomDescriptionResource::collection(Room::all());
     }
-    public function roomComment(Room $room)
+    public function roomComments(Room $room)
     {
         return apiCommentsforRoom::collection($room->comments);
     }

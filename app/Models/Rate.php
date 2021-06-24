@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rate extends Model
 {
 
-    protected $appends=['calculateRate'];
+    protected $appends=['calculateRate', 'percentRate'];
 
     
     use HasFactory;
@@ -27,5 +27,10 @@ class Rate extends Model
     {
         $sum=$this->scariness+$this->room_decoration+$this->hobbiness+$this->creativeness+$this->mysteriness;
         return $sum/5;
+    }
+
+    public function getPercentRateAttribute()
+    {
+        return $this->calculateRate*100/5;
     }
 }
