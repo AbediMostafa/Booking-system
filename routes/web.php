@@ -25,7 +25,7 @@ Route::post('/collections', [CollectionController::class, 'index']);
 Route::post('/collections/search', [CollectionController::class, 'search']);
 Route::post('/rooms/complicated-search', [RoomController::class, 'complicatedSearch']);
 Route::post('/rooms/{room}', [RoomController::class, 'show']);
-Route::post('/rooms/{room}/comments', [RoomController::class, 'comments']);
+Route::post('/rooms/{room}/comments', [RoomController::class, 'roomComments']);
 Route::post('/comment/{comment}/replies', [CommentController::class, 'commentChilds']);
 
 Route::post('special-rooms/special', [SpecialRoomCotroller::class, 'special']);
