@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->integer('commentable_id')->unsigned()->index();
             $table->string('commentable_type');
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('parent_id')->nullable()->constrained('comments');
             $table->integer('up_rate');
             $table->integer('down_rate');
             $table->enum('status', ['disagree', 'agree']);

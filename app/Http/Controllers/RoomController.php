@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\collections\RoomCollectionResource;
+use App\Http\Resources\Rooms\apiCommentsforRoom;
 use App\Http\Resources\Rooms\RoomDescriptionResource;
 use App\Http\Resources\rooms\RoomForRoomPageResource;
 use App\Models\City;
@@ -160,4 +161,9 @@ class RoomController extends Controller
     {
         return RoomDescriptionResource::collection(Room::all());
     }
+    public function roomComment(Room $room)
+    {
+        return apiCommentsforRoom::collection($room->comments);
+    }
+   
 }
