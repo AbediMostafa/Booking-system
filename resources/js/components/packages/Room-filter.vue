@@ -61,7 +61,7 @@
             class="genre-ab-span ab-span"
             v-for="(genre, key) in totalData.genres"
             :key="key"
-            @click="genreClicked(genre)"
+            @click="genreClicked(genre.title)"
           >
             <div
               class="genre-ab-image-container"
@@ -103,7 +103,7 @@
               class="genre-ab-span ab-span"
               v-for="(collection, key) in filter.collections.collectionsTmp"
               :key="key"
-              @click="collectionClicked(collection)"
+              @click="collectionClicked(collection.title)"
             >
               <span class="collection-ab-txt">
                 {{ collection.title }}
@@ -145,7 +145,7 @@
               class="genre-ab-span ab-span"
               v-for="(city, key) in filter.cities.citiesTmp"
               :key="key"
-              @click="cityClicked(city)"
+              @click="cityClicked(city.name)"
             >
               <span class="collection-ab-txt">
                 {{ city.name }}
@@ -167,7 +167,6 @@ export default {
   props: ["totalData"],
   data() {
     return {
-      
       search: sot.iconPath("blue-search.svg"),
       cancle: sot.iconPath("close.svg"),
       downCarot: sot.iconPath("down-carot.svg"),
@@ -230,31 +229,27 @@ export default {
     cancleItem(item) {
       this.filter[item].text = this.filter[item].defaultText;
       this.selectedFilteres[item] = "";
-      this.$emit('filterchanged', this.selectedFilteres);
+      this.$emit("filterchanged", this.selectedFilteres);
     },
     personCountClicked(personCount) {
-      this.filter.personCount.text = personCount;
-      this.selectedFilteres.personCount = personCount;
-      this.$emit('filterchanged', this.selectedFilteres);
+      this.filter.personCount.text = this.selectedFilteres.personCount = personCount;
+      this.$emit("filterchanged", this.selectedFilteres);
       this.searches.room = "";
     },
-    genreClicked(genre) {
-      this.filter.genres.text = genre.title;
-      this.selectedFilteres.genres = genre.title;
-      this.$emit('filterchanged', this.selectedFilteres);
+    genreClicked(title) {
+      this.filter.genres.text = this.selectedFilteres.genres = title;
+      this.$emit("filterchanged", this.selectedFilteres);
       this.searches.room = "";
     },
-    collectionClicked(collection) {
-      this.filter.collections.text = collection.title;
-      this.selectedFilteres.collections = collection.title;
-      this.$emit('filterchanged', this.selectedFilteres);
+    collectionClicked(title) {
+      this.filter.collections.text = this.selectedFilteres.collections = title;
+      this.$emit("filterchanged", this.selectedFilteres);
       this.searches.room = "";
       this.searches.collection = "";
     },
-    cityClicked(city) {
-      this.filter.cities.text = city.name;
-      this.selectedFilteres.cities = city.name;
-      this.$emit('filterchanged', this.selectedFilteres);
+    cityClicked(name) {
+      this.filter.cities.text = this.selectedFilteres.cities= name;
+      this.$emit("filterchanged", this.selectedFilteres);
       this.searches.room = "";
       this.searches.city = "";
     },
@@ -278,10 +273,18 @@ export default {
       });
     },
 
-    "searches.room"(value){
-      this.$emit('search', value);
-    }
+    "searches.room"(value) {
+      this.$emit("search", value);
+    },
   },
+
+  created(){
+    if(collectionTitle)
+      this.collectionClicked(collectionTitle);
+
+    if(cityTitle)
+      this.cityClicked(cityTitle);
+  }
 };
 </script>
 

@@ -40,9 +40,9 @@ class NavbarSeeder extends Seeder
             ],
 
             [
-                'title' => 'ویژه ها',
-                'name'=>'specials',
-                'route' => '/specials'
+                'title' => 'آموزش ها',
+                'name'=>'learn',
+                'route' => '/learn'
             ],
         ]);
     }

@@ -3,6 +3,11 @@ import Scores from '../components/packages/Scores.vue';
 import contactInfos from '../components/packages/Contact-infos.vue';
 import DescriptionBox from '../components/packages/description-box.vue'
 import Comment from '../components/cards/Comment.vue';
+import ModalComment from '../components/cards/Modal-comment.vue'
+import CollectionRoom from '../components/cards/Collection-room.vue';
+import NoEntity from '../components/packages/No-entity.vue';
+import roomShowHeaderIcons from '../components/packages/Room-show-header-icons.vue';
+import { VueEditor } from 'vue2-editor';
 import axios from 'axios';
 import { sot } from '../sot';
 
@@ -13,7 +18,12 @@ const vue = new Vue({
         Scores,
         contactInfos,
         DescriptionBox,
-        Comment
+        Comment,
+        ModalComment,
+        CollectionRoom,
+        NoEntity,
+        roomShowHeaderIcons,
+        VueEditor,
     },
     data: {
         room: {},
@@ -22,8 +32,16 @@ const vue = new Vue({
         headerInfos: {
             title: ''
         },
+        displayModal: false,
+        answers: {},
+        currentComment: {},
+
     },
     computed: {
+
+        collectionRooms() {
+            return this.room && this.room.collection ? this.room.collection.rooms : []
+        },
         background() {
             return `url('../${this.room.banner}') no-repeat center/cover`;
         },
@@ -41,7 +59,6 @@ const vue = new Vue({
 
         getComments(url) {
             axios.post(url).then((response) => {
-                console.log(response.data);
                 this.comments = response.data.data;
                 this.paginateInfos = response.data.links;
             });
@@ -53,9 +70,17 @@ const vue = new Vue({
 
         imageAsBackground(image) {
             return `background: url(../${image}) no-repeat center/cover`;
+        },
+        commentClicked(comment) {
+            let url = `/${sot.exactPath}comments/${comment.id}/answers`;
+            this.currentComment = comment;
+
+            axios.post(url).then(response => {
+                this.answers = response.data.data;
+                this.displayModal = true;
+            });
         }
     },
-
     created() {
         this.getRoom();
         this.getComments(`/${sot.exactPath}rooms/${roomId}/comments`);

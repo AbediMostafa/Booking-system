@@ -1,5 +1,6 @@
 <template>
-  <article
+  <a
+    :href="`/learn/${card.id}`"
     class="learning-card"
     v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
   >
@@ -13,7 +14,7 @@
       <p>{{ card.brief }}</p>
       <read-more :txt="'مطالعه بیشتر'"></read-more>
     </div>
-  </article>
+  </a>
 </template>
 
 <script>

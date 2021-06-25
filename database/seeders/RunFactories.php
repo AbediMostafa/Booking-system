@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\City;
 use App\Models\Collection;
+use App\Models\Comment;
 use App\Models\Discount;
 use App\Models\Genre;
 use App\Models\Post;
@@ -23,7 +24,7 @@ class RunFactories extends Seeder
     {
         $user= User::factory()->create();
         $city=City::factory()->count(3)->create();
-        $post=Post::factory()->count(3)->for($user)->create();
+        $post=Post::factory()->count(13)->for($user)->create();
         $room= Room::factory()->count(13)->hasComments()->create();
         $discount=Discount::factory()->count(3)->create();
         $rate=Rate::factory()->count(3)->create();

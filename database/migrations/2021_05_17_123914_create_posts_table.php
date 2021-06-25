@@ -16,13 +16,13 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id('id');
             $table->string('title',255);
-            $table->string('description',255);
+            $table->string('brief',255);
+            $table->text('description',255);
             $table->string('image',255);
             $table->foreignId('user_id')->constrained('users');
-            $table->enum('status',['disable','enable']);
+            $table->boolean('starred');
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
-
         });
     }
 

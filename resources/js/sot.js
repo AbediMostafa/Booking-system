@@ -55,6 +55,10 @@ export const sot = {
         return `${window.location.origin}/${this.exactPath}rooms/${roomId}`
     },
 
+    complicatedPath(entityName, value) {
+        return `${window.location.origin}/genres?${entityName}=${value}`
+    },
+
     reactiveVars: {
         roomSearch: {
             city: '',
@@ -142,29 +146,6 @@ export const sot = {
         }
     },
 
-    learnings: [{
-            id: 1,
-            image: 'images/carousel/1.jpg',
-            date: 'شنبه 12 فروردین 1398',
-            title: 'قانون طراحی معما',
-            brief: 'تمام سازنده های اتاق فرار، دوست دارن معماهایی هیجان انگیز، رضایت بخش و منصفانه طراحی کنن. اما خب، این قضیه در اکثر مواقع در حد همون دوست داشتن باقی می مونه. چون رسیدن به این حالت ایده آل، خیلی سخته و تجربۀ بالایی می طلبه. توی این مقاله، ما 10 قانون طلایی برای طراحی پازل و معما رو جمع آوری  '
-        },
-        {
-            id: 2,
-            image: 'images/carousel/2.jpg',
-            date: 'جمعه 3 اردیبهشت 1400',
-            title: 'تیم حرفه ایت رو اینجوری بساز',
-            brief: 'ممکنه بعضی افراد مدعی باشن که می‌تونن به صورت انفرادی یه اتاق رو تموم کنن و همۀ معماهاش رو حل کنن. ما منکر این امر نیستیم. اگه می‌گن می‌تونن، لابد می‌تونن دیگه. اما حقیقت اینه که اغلب اتاق‌ها به شکلی طراحی می‌شن که برای حل چالش‌ها، حتما نیاز به یه تیم هست. توی این مقاله، می‌ریم سراغ تیم سازی اتاق فرار و .'
-        },
-        // {
-        //     id: 3,
-        //     image: 'images/carousel/3.jpg',
-        //     date: 'جمعه 3 خرداد 1398',
-        //     title: 'پرونده رمز آلود کوکب سیاه',
-        //     brief: 'ممکنه بعضی افراد مدعی باشن که می‌تونن به صورت انفرادی یه اتاق رو تموم کنن و همۀ معماهاش رو حل کنن. ما منکر این امر نیستیم. اگه می‌گن می‌تونن، لابد می‌تونن دیگه. اما حقیقت اینه که اغلب اتاق‌ها به شک'
-        // },
-    ],
-
     logos: [
         { id: 1, visible: true, name: 'رادفر', image: 'images/collections/1.jpg' },
         { id: 2, visible: true, name: 'رادفر', image: 'images/collections/2.jpg' },
@@ -181,55 +162,4 @@ export const sot = {
         { id: 13, visible: true, name: 'یکجا', image: 'images/collections/13.jpg' },
         { id: 14, visible: true, name: 'یکجا', image: 'images/collections/14.jpg' },
     ],
-
-    cities: [{
-            id: 1,
-            name: 'تهران',
-            roomCount: '50',
-            image: 'images/cities/tehran.jpg'
-        },
-
-        {
-            id: 2,
-            name: 'اصفهان',
-            roomCount: '35',
-            image: 'images/cities/esfahan.jpg'
-        },
-
-        {
-            id: 3,
-            name: 'یزد',
-            roomCount: '12',
-            image: 'images/cities/yazd.jpg'
-        },
-
-        {
-            id: 4,
-            name: 'ایلام',
-            roomCount: '7',
-            image: 'images/cities/ilam.jpg'
-        },
-
-        {
-            id: 5,
-            name: 'کرج',
-            roomCount: '55',
-            image: 'images/cities/karaj.jpg'
-        },
-
-        {
-            id: 6,
-            name: 'مشهد',
-            roomCount: '23',
-            image: 'images/cities/mashhad.jpg'
-        },
-
-        {
-            id: 7,
-            name: 'شیراز',
-            roomCount: '11',
-            image: 'images/cities/shiraz.jpg'
-        },
-    ],
-
 }

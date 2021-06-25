@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="515.265" height="559.552" viewBox="0 0 515.265 559.552">
+  <g id="no-room" transform="translate(-803.676 -296.5)">
+    <g id="no-comment" transform="translate(808.091 296.5)">
+      <g id="Group_297" data-name="Group 297" transform="translate(70.507 118.079)">
+        <path id="Icon_awesome-columns" data-name="Icon awesome-columns" d="M242.817,2.25H25.119A25.119,25.119,0,0,0,0,27.369V211.575a25.119,25.119,0,0,0,25.119,25.119h217.7a25.119,25.119,0,0,0,25.119-25.119V27.369A25.119,25.119,0,0,0,242.817,2.25ZM117.222,203.2H33.492V69.234h83.73Zm117.222,0h-83.73V69.234h83.73Z" transform="translate(-45.507 12.209)" fill="#c4d4dd" stroke="#608fa8" stroke-width="10"/>
+        <g id="Group_296" data-name="Group 296" transform="translate(148.7 105.406)">
+          <g id="Group_294" data-name="Group 294" transform="translate(0 0)">
+            <g id="Group_295" data-name="Group 295" transform="translate(0)">
+              <g id="Group_293" data-name="Group 293">
+                <g id="Group_291" data-name="Group 291" transform="translate(0)">
+                  <g id="magnifier" transform="translate(0)">
+                    <g id="Group_289" data-name="Group 289" transform="translate(0 193.147) rotate(-90)">
+                      <path id="Path_55" data-name="Path 55" d="M170.229,133.754A78.373,78.373,0,0,0,59.394,22.918a76.85,76.85,0,0,0-11.789,94.587,3.3,3.3,0,0,1-.455,3.927L7.165,161.418c-7.959,7.958-9.853,19.086-2.8,26.145l1.215,1.214c7.058,7.059,18.187,5.165,26.145-2.794l39.9-39.9a3.346,3.346,0,0,1,4.012-.539A76.85,76.85,0,0,0,170.229,133.754Zm-96.366-14.47a57.909,57.909,0,1,1,81.9,0A57.974,57.974,0,0,1,73.863,119.285Z" transform="translate(0)" fill="#c4d4dd" stroke="#608fa8" stroke-width="10"/>
+                      <g id="Group_288" data-name="Group 288" transform="translate(70.778 31.365)">
+                        <path id="Path_56" data-name="Path 56" d="M8.088,42.32A8.093,8.093,0,0,1,.642,31.077,50.978,50.978,0,0,1,67.381,4.026a8.089,8.089,0,1,1-6.3,14.9A34.783,34.783,0,0,0,15.54,37.381,8.092,8.092,0,0,1,8.088,42.32Z" transform="translate(0 0)" fill="#c4d4dd" stroke="#176087" stroke-width="15"/>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <circle id="Ellipse_32" data-name="Ellipse 32" cx="55.534" cy="55.534" r="55.534" transform="translate(22.716 23.039)" fill="#c4d4dd"/>
+              <text id="_" data-name="?" transform="translate(76.044 103.039)" fill="#608fa8" font-size="78" font-family="Vazir-Bold-FD, Vazir FD"><tspan x="-19.405" y="0">?</tspan></text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <path id="Icon_open-plus" data-name="Icon open-plus" d="M18.171,0V18.171H0V30.284H18.171V48.455H30.284V30.284H48.455V18.171H30.284V0Z" transform="matrix(0.966, 0.259, -0.259, 0.966, 460.047, 280.094)" fill="#94adbb"/>
+      <path id="Icon_feather-triangle" data-name="Icon feather-triangle" d="M21.459,2.364.658,37.09a4.912,4.912,0,0,0,4.2,7.368h41.6a4.912,4.912,0,0,0,4.2-7.368L29.858,2.364a4.912,4.912,0,0,0-8.4,0Z" transform="matrix(0.996, -0.087, 0.087, 0.996, 0, 61.112)" fill="none" stroke="#94adbb" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+      <path id="Icon_weather-stars" data-name="Icon weather-stars" d="M6.444,69.708a12.744,12.744,0,0,0,8.924-4.056,12.71,12.71,0,0,0,3.678-9.086A13.123,13.123,0,0,0,31.594,69.708,13.123,13.123,0,0,0,19.046,82.85a12.49,12.49,0,0,0-3.678-9.086A12.744,12.744,0,0,0,6.444,69.708Zm12.6-38.941a24.857,24.857,0,0,0,17.361-7.951,24.758,24.758,0,0,0,7.139-17.74,24.758,24.758,0,0,0,7.139,17.74A25.1,25.1,0,0,0,68.1,30.766a25.068,25.068,0,0,0-12.385,3.84,25.99,25.99,0,0,0-8.924,9.357,25.433,25.433,0,0,0-3.245,12.6,24.883,24.883,0,0,0-7.139-17.794A24.694,24.694,0,0,0,19.046,30.766ZM73.834,63.38A18.5,18.5,0,0,0,86.869,57.43a18.613,18.613,0,0,0,5.3-13.413,19.319,19.319,0,0,0,18.443,19.308A19.319,19.319,0,0,0,92.169,82.634,19.129,19.129,0,0,0,73.834,63.38Z" transform="translate(60.941 -5.076)" fill="#94adbb"/>
+      <path id="Icon_awesome-dot-circle" data-name="Icon awesome-dot-circle" d="M25.1.563A24.54,24.54,0,1,0,49.642,25.1,24.54,24.54,0,0,0,25.1.563ZM33.018,25.1A7.916,7.916,0,1,1,25.1,17.186,7.925,7.925,0,0,1,33.018,25.1Z" transform="translate(457.208 358.066)" fill="none" stroke="#94adbb" stroke-width="8"/>
+    </g>
+    <ellipse id="Ellipse_33" data-name="Ellipse 33" cx="144.587" cy="20.242" rx="144.587" ry="20.242" transform="translate(888.008 815.567)" fill="#c4d4dd"/>
+  </g>
+</svg>

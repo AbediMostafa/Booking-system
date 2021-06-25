@@ -123,11 +123,6 @@ section.counts {
     margin: 0.5rem 0 1.6rem 0;
 }
 
-.global-card-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 
 /* Room card styles */
 
@@ -224,17 +219,19 @@ section.counts {
     flex-direction: column;
     margin: 0;
     text-align: right;
+    direction: rtl;
+    padding: 0;
 }
 
 .cancle-icon,
-.video-cancle-icon {
+.video-cancle-icon,
+.comment-cancle-icon {
     position: absolute;
-    top: 0;
-    right: 0;
     width: 2rem;
     top: 1rem;
     right: 50%;
     transform: translatex(50%);
+    cursor: pointer;
 }
 
 .video-cancle-icon {
@@ -673,14 +670,10 @@ nav {
     justify-content: space-between;
 }
 
-.rs-other-infos {
-    flex: 0 0 29%
-}
-
 .rs-box-shadow {
     box-shadow: 1px 1px 45px 1px rgb(0 0 0 / 14%);
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .rs-each-box-container {
@@ -825,24 +818,26 @@ nav {
 }
 
 .rs-box-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: right;
-}
-
-.rs-description {
-    flex: 0 0 68%;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    color: var(--second-color);
 }
 
 .rsd-image-text-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .rsd-image-container {
-    flex: 0 0 40%;
+    flex: 0 0 100%;
     height: 25rem;
     border-radius: .5rem;
+    order: 1;
+    margin: 0 auto
 }
 
 .rsd-cta-collection-container {
@@ -874,7 +869,9 @@ nav {
 
 .rsd-descripton-text {
     text-align: right;
-    flex: 0 0 55%;
+    flex: 0 0 90%;
+    margin: 2rem auto 0;
+    order: 2;
 }
 
 .rsd-p {
@@ -893,12 +890,14 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-direction: column-reverse;
 }
 
 .rsd-collection-image {
     width: 3rem;
     height: 3rem;
-    margin-left: .5rem;
+    margin: 0 0 .5rem 0;
+    border-radius: .5rem;
 }
 
 .rsd-collection-name {
@@ -907,7 +906,300 @@ nav {
     font-weight: bold;
 }
 
+.des-comments-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.comments-boxes h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.comment-date {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: var(--text);
+    font-weight: normal;
+    margin-bottom: 4px;
+    margin: 0 0 5px 0;
+}
+
+.comments-boxes-p {
+    font-size: .85rem;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+
+/* .comments-boxes:hover {
+    box-shadow: none;
+    background: #eaeaf157;
+} */
+
+.comments-boxes {
+    flex: 0 0 100%;
+    margin-top: 1rem;
+    text-align: right;
+    /* cursor: pointer; */
+    background: white;
+    transition: all 300ms;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0px 0px 30px 1px rgb(0 0 0 / 10%);
+}
+
+.comment-modal-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 10%;
+    left: 0;
+    opacity: 0;
+    z-index: -10;
+    transition: all 500ms
+}
+
+.visible-modal {
+    top: 0;
+    opacity: 1;
+    z-index: 100;
+}
+
+.comment-modal {
+    position: relative;
+    width: 60%;
+    height: 80%;
+    background: white;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: .5rem;
+    padding: 2rem;
+}
+
+.no-entity-image-container {
+    margin: 0 auto;
+    width: 30%;
+}
+
+.no-entity-text {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #608fa8;
+}
+
+
+/* .new-comment-cta:hover {
+    box-shadow: 0 0 1rem 0 #17608785;
+}
+
+.new-comment-cta {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    margin-top: 2rem;
+    background: var(--second-color);
+    WIDTH: 12REM;
+    padding: .5rem;
+    border-radius: 2rem;
+    color: white!important;
+    font-weight: normal;
+    font-size: 1rem;
+    transition: all 300ms;
+} */
+
+.room-key-icon {
+    width: 0.8rem;
+}
+
+.span-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    direction: rtl;
+    margin-top: .6rem;
+    flex: 0 0 100%
+}
+
+.header-span-container {
+    margin-top: 1.5rem;
+}
+
+.header-icon-child:last-child {
+    border-left: none;
+}
+
+.header-icon-child {
+    display: flex;
+    font-size: 0.7rem;
+    margin-left: 0.2rem;
+    color: #ecdfa8;
+    padding: 0rem .3rem;
+    border-left: 1px solid #4c4a4bb5;
+    flex-direction: column;
+    flex: 0 0 32%;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-room-icons {
+    width: 1.1rem;
+}
+
+.header-icon-txt {
+    font-size: 0.9rem;
+    color: #b6b0b3;
+}
+
+.rs-other-infos {
+    flex: 0 0 95%;
+    margin: 0 auto;
+    order: 2;
+}
+
+.rs-description {
+    flex: 0 0 100%;
+    order: 1;
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.pagination-btns:hover {
+    background: #b7b8bb;
+}
+
+.active-pagination {
+    background: #176087!important;
+    color: #e7fbed;
+}
+
+.pagination-btns {
+    width: 3rem;
+    height: 3rem;
+    border-radius: .5rem;
+    background: #ffffff;
+    box-shadow: 0 0 1rem 0 rgb(0 0 0 / 16%);
+    transition: all 300ms;
+    margin-left: 1rem;
+    align-items: dis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.learn-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.l-description {
+    flex: 0 0 100%;
+    order: 1;
+    text-align: right;
+}
+
+.l-special-rooms {
+    flex: 0 0 100%;
+    order: 2
+}
+
+.l-post-title {
+    color: var(--second-color);
+    margin: 7px 0;
+    text-align: right;
+}
+
+.l-post-description {
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--title);
+}
+
+.learning-date {
+    font-size: .7rem;
+    color: var(--text);
+}
+
+.l-title-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.l-user-icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.l-user-text {
+    font-size: .8rem;
+    margin-right: 0.7rem;
+    color: #3c4f61;
+    position: relative;
+    display: block;
+}
+
+.l-card-container {
+    box-shadow: 0 0 1rem 0 rgb(0 0 0 / 20%);
+    border-radius: 1rem;
+}
+
+.global-card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 @media screen and (min-width:480px) {
+    .header-span-container {
+        margin-top: 0;
+    }
+    .hardness-header-text {
+        margin-right: 1rem;
+    }
+    .span-container {
+        flex: initial;
+        justify-content: flex-start;
+    }
+    .header-icon-child {
+        margin-left: 0.4rem;
+        padding: 0rem .6rem;
+        flex-direction: row;
+        flex: initial;
+        align-items: center;
+        justify-content: center;
+    }
+    .rsd-collection-image {
+        margin: 0 0 0 .5rem;
+    }
+    .rsd-collection {
+        flex-direction: row;
+    }
+    .rs-box-shadow {
+        padding: 2rem;
+    }
+    .rsd-image-container {
+        flex: 0 0 90%;
+    }
+    .rs-other-infos {
+        flex: 0 0 80%;
+    }
     .each-filter-container {
         margin-left: .5rem;
     }
@@ -956,6 +1248,7 @@ nav {
     .learning-card-container {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
     .learning-card {
         flex: 0 0 48%;
@@ -966,6 +1259,35 @@ nav {
 }
 
 @media screen and (min-width:768px) {
+    .l-description {
+        flex: 0 0 55%;
+        order: 2;
+    }
+    .l-special-rooms {
+        flex: 0 0 35%;
+        order: 1;
+    }
+    .l-complicated-room {
+        flex: 0 0 90%!important;
+    }
+    .rsd-descripton-text {
+        flex: 0 0 55%;
+        order: initial;
+        margin: 0;
+    }
+    .rsd-image-container {
+        flex: 0 0 40%;
+        order: initial;
+        margin: 0
+    }
+    .rs-description {
+        flex: 0 0 65%;
+        order: initial;
+    }
+    .rs-other-infos {
+        flex: 0 0 29%;
+        order: initial;
+    }
     .search-input-container {
         flex: 0 0 26%;
     }
@@ -1097,6 +1419,19 @@ nav {
 }
 
 @media screen and (min-width:1024px) {
+    .l-description {
+        flex: 0 0 65%;
+    }
+    .l-special-rooms {
+        flex: 0 0 28%;
+    }
+    .lp-learning-card {
+        flex: 0 0 32%;
+    }
+    .comments-boxes {
+        flex: 0 0 47%;
+        margin-left: 1rem;
+    }
     .search-input {
         width: 30%;
     }
@@ -1108,7 +1443,6 @@ nav {
     }
     .learning-container {
         display: flex;
-        align-items: center;
         justify-content: space-between;
     }
     .header-and-cta {

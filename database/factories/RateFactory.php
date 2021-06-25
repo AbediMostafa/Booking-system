@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Rate;
 use App\Models\Room;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RateFactory extends Factory
@@ -30,6 +31,7 @@ class RateFactory extends Factory
             'creativeness'=>$this->faker->randomElement([1,2,3,4,5]),
             'Mysteriness'=>$this->faker->randomElement([1,2,3,4,5]),
             'room_id'=>Room::factory(),
+            'user_id'=>User::factory(),
         ];    
     }
 }

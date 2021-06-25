@@ -1,5 +1,8 @@
 <template>
-  <article class="special-room-card learning-card" v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation">
+  <a 
+    :href="getCityPath"
+    class="special-room-card learning-card" 
+    v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation">
     <div class="sr-image-container sr-learning-image-container">
       <div :style="roomStyle" class="learning-card-image"></div>
     </div>
@@ -12,7 +15,7 @@
         class="mt-4">
       </read-more-text>
     </div>
-  </article>
+  </a>
 </template>
 
 <script>
@@ -29,6 +32,9 @@ export default {
   },
   props: ["city"],
   computed: {
+    getCityPath(){
+      return sot.complicatedPath('city', this.city.name)
+    },
     roomStyle() {
       return `background: url('${this.city.image}') no-repeat center center/cover;`;
     },

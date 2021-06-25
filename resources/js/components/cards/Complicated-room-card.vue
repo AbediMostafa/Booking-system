@@ -28,7 +28,7 @@
             />
           </div>
         </div>
-        <read-more></read-more>
+        <read-more v-if="noReadmore!=='learn'"></read-more>
       </div>
   </a>
 </template>
@@ -49,10 +49,10 @@ export default {
       enterAnimations: sot.enterAnimations,
     };
   },
-  props: ["room"],
+  props: ["room", "noReadmore"],
   computed: {
     roomStyle() {
-      return `background: url('${this.room.image}') no-repeat center center/cover;`;
+      return `background: url('/${this.room.image}') no-repeat center center/cover;`;
     },
     getRoomPath() {
       return sot.getRoomPath(this.room.id);
@@ -72,16 +72,5 @@ export default {
 }
 .sr-text-container h4 {
   direction: rtl;
-}
-
-.span-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  direction: rtl;
-}
-
-.room-key-icon {
-  width: 0.8rem;
 }
 </style>
