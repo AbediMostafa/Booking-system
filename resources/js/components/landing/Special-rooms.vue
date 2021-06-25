@@ -27,10 +27,6 @@
     <div class="special-room-cards">
       <room-card v-for="room in rooms" :key="room.id" :room="room" :type="selectedSpecialKey"></room-card>
     </div>
-    <div class="text-center">
-      <a class="cta mt-12 main-cta">همه اتاق های ویژه</a>
-    </div>
-
     <img :src="smallShap1" class="shape-1" ref="shape1" />
   </div>
 </template>

@@ -26,7 +26,6 @@ class CreateRoomsTable extends Migration
             $table->enum('hardness',[1,2,3,4,5]);
             $table->string('phone',255);
             $table->string('mobile',255);
-            $table->string('website',255);
             $table->string('district',100);
             $table->string('address',255);
             $table->string('website',255);

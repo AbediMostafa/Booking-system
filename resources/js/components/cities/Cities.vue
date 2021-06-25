@@ -13,8 +13,15 @@ export default {
             cities:[],
         }
     },
+    methods:{
+        getCities(){
+            axios.post(`/cities`).then(response=>{
+                this.cities = response.data.data;
+            });
+        }
+    },
     created(){
-        this.cities = sot.cities;
+        this.getCities();
     }
 }
 </script>

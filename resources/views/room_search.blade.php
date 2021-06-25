@@ -24,5 +24,9 @@
 @endsection
 
 @section('scripts')
+<script>
+     const collectionTitle = '{{request()->get('collection')}}'  
+     const cityTitle = '{{request()->get('city')}}'  
+</script>
 <script src="{{asset('js/roomSearch.js')}}"></script>
 @endsection

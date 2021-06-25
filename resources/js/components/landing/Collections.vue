@@ -6,6 +6,7 @@
         v-scrollAnimation="enterAnimations.topAnimation"
       ></section-header>
       <a
+      href="/collections"
         class="cta main-cta mr-6"
         v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
         >همه برندهای اتاق فرار</a

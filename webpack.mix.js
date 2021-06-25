@@ -12,6 +12,8 @@ js('resources/js/blades/cities.js', 'public/js/cities.js').
 js('resources/js/blades/collections.js', 'public/js/collections.js').
 js('resources/js/blades/roomSearch.js', 'public/js/roomSearch.js').
 js('resources/js/blades/roomShow.js', 'public/js/roomShow.js').
+js('resources/js/blades/learnings.js', 'public/js/learnings.js').
+js('resources/js/blades/learning.js', 'public/js/learning.js').
 vue().
 postCss('resources/css/app.css', 'public/css').options({
     processCssUrls: false

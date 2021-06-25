@@ -22,6 +22,12 @@ export default {
     random(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
     },
+    getCollections(){
+      axios.post('/collections/logos').then(Response=>{
+        this.logos =Response.data.data 
+      })
+
+    }
   },
 
   computed:{
@@ -31,6 +37,7 @@ export default {
   },
 
   created() {
+    this.getCollections();
     this.logos = sot.logos;
 
     setInterval(() => {

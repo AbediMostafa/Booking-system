@@ -16,6 +16,16 @@ class Comment extends Model
     //relation with users table
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Comment::class,'parent_id');
+    }
+
+    public function childs()
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
     }
 }

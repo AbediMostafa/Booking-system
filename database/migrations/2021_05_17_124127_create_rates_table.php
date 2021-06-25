@@ -16,6 +16,7 @@ class CreateRatesTable extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('room_id')->constrained('rooms');
+            $table->foreignId('user_id')->constrained('users');
             $table->enum('scariness',[1,2,3,4,5]);
             $table->enum('room_decoration',[1,2,3,4,5]);
             $table->enum('hobbiness',[1,2,3,4,5]);
@@ -24,7 +25,6 @@ class CreateRatesTable extends Migration
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);        
         });
-
     }
 
     /**

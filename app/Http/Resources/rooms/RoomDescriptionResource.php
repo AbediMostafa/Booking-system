@@ -25,6 +25,9 @@ class RoomDescriptionResource extends JsonResource
             'min_person' => $this->min_person,
             'game_time' => $this->game_time,
             'hardness' => $this->hardness,
+            'is_special'=>$this->is_special,
+            'is_new'=>$this->is_new,
+            'has_discount'=>$this->discount,
             'type' => $this->type,
             'contact_infos'=>[
                 'phone' => $this->phone,
@@ -35,7 +38,11 @@ class RoomDescriptionResource extends JsonResource
             'collection' => [
                 'name' => $this->collection->title,
                 'image' => $this->collection->image,
-                'rooms' => $this->collection->rooms()->select('id','name', 'image','district')->get(),
+                'rooms' => $this->collection
+                    ->rooms()
+                    ->select('id','name', 'image','district')
+                    ->where('id', '!=', $this->id)
+                    ->get(),
             ],
             'rates' => [
                 'total' => $this->rate_percent,

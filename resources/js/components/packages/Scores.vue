@@ -1,10 +1,12 @@
 <template>
   <div class="rs-each-box-container">
     <h1 class="rs-box-title">امتیاز کاربران</h1>
-    <div class="rs-box-shadow">
+    <div class="rs-box-shadow" v-if="rates ? rates.rate_average : 0">
       <div class="rs-rate-sentence">
         <span class="rs-from5">5/</span>
-        <span class="rs-rate-avg">{{ rates ? rates.rate_average : [] }}</span>
+        <span class="rs-rate-avg">{{
+          rates ? rates.rate_average.toFixed(1) : []
+        }}</span>
         <span class="rs-rate-count">
           از مجموع {{ rates ? rates.rate_count : [] }} امتیاز
         </span>
@@ -33,11 +35,22 @@
         </div>
       </div>
     </div>
+
+    <no-entity
+      v-else
+      image="no-rate.svg"
+      text="هنوز امتیازی راجع به این اتاق ثبت نشده است"
+      image-width="50"
+    ></no-entity>
   </div>
 </template>
 
 <script>
+import NoEntity from "../packages/No-entity.vue";
 export default {
+  components: {
+    NoEntity,
+  },
   props: ["rates"],
 
   data() {

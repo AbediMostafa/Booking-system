@@ -1,5 +1,9 @@
 <template>
-  <article class="collection-card" v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation">
+  <a 
+    class="collection-card" 
+    v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
+    :href="getCollectionPath"
+    >
     <div class="sr-image-container sr-collection-image-container">
       <div :style="roomStyle" class="learning-card-image"></div>
     </div>
@@ -14,7 +18,7 @@
         class="mt-4">
       </read-more-text>
     </div>
-  </article>
+  </a>
 </template>
 
 <script>
@@ -34,6 +38,9 @@ export default {
     roomStyle() {
       return `background: url('${this.collection.image}') no-repeat center center/cover;`;
     },
+    getCollectionPath(){
+      return sot.complicatedPath('collection',this.collection.title);
+    }
   },
 };
 </script>

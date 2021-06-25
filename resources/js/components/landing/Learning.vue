@@ -7,7 +7,7 @@
       ></section-header>
 
       <div class="text-right">
-        <a class="cta main-cta learning-cta">همه آموزش ها</a>
+        <a class="cta main-cta learning-cta" href="/learn">همه آموزش ها</a>
       </div>
     </div>
     <div class="learning-card-container">
@@ -43,8 +43,15 @@ export default {
       },
     };
   },
+  methods: {
+    getStarredPosts() {
+      axios.post("/posts/starred").then((response) => {
+        this.learnings = response.data.data;
+      });
+    },
+  },
   created() {
-    this.learnings = sot.learnings;
+    this.getStarredPosts();
   },
 };
 </script>
