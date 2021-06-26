@@ -8,8 +8,10 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialRoomCotroller;
 use Illuminate\Support\Facades\Route;
-
-Route::view('/', 'landing')->name('home');
+Route::get('/home', function () {
+    return view('home');
+})->middleware('auth');
+// Route::view('/', 'landing')->name('home');
 Route::view('/cities','cities')->name('cities');
 Route::view('/collections','collections')->name('collections');
 Route::view('/genres','room_search')->name('roomSearch');
