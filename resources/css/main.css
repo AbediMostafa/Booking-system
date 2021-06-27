@@ -1249,24 +1249,23 @@ ul.d-nav-items {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding: 0 1.5rem
 }
 
 .d-item-container {
     background: #fff;
-    padding: 1rem;
     border-radius: 10px;
 }
 
 .d-status-bar {
     padding: 1.2rem;
     text-align: right;
-    margin-bottom: 2rem;
-    background: #ececec;
-    border-radius: 10px;
+    background: linear-gradient( 45deg, #f4dcf8, #c6e3f2);
+    border-radius: 10px 10px 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0px 0px 1rem 1px rgb(0 0 0 / 6%);
+    border-bottom: 1px solid #d3cfcf;
 }
 
 .d-add-item-cta:hover {
@@ -1304,6 +1303,94 @@ ul.d-nav-items {
     font-size: .8rem;
     color: var(--title);
     margin-top: 1rem;
+}
+
+.backgrounded-body {
+    background: url('../images/general/back1.svg') no-repeat center center/contain;
+}
+
+.d-type-filter-container {
+    display: flex;
+    justify-self: flex-start;
+}
+
+.d-inner-type-filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.d-second-status-bar {
+    padding: 1rem;
+}
+
+.d-inner-type-filter li:first-child {
+    border-left: 0;
+}
+
+.d-inner-type-filter li:not(.clicked-d-inner-filter):hover {
+    background: rgb(246 240 249);
+}
+
+.clicked-d-inner-filter {
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--second-color);
+}
+
+.d-inner-type-filter li {
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0;
+    transition: all 300ms;
+    cursor: pointer;
+    width: 5rem;
+    text-align: center;
+}
+
+.caret {
+    margin-right: -.5rem;
+}
+
+.d-create-entity-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 3rem;
+}
+
+.d-cancel-entity:hover {
+    background: rgba(0, 0, 0, .2);
+    border: 2px solid rgba(0, 0, 0, .2);
+    color: black;
+}
+
+.d-make-entity:hover {
+    background: #33863e;
+}
+
+.d-entity-cta {
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: .9rem;
+    transition: all 300ms
+}
+
+.d-make-entity {
+    background: #3ab54a;
+    color: white;
+    padding: 0.5rem 2.3rem;
+}
+
+.d-cancel-entity {
+    padding: 0.4rem 2rem;
+    margin-right: 1rem;
+    border: 2px solid var(--background1);
 }
 
 @media screen and (min-width:480px) {

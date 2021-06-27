@@ -17,5 +17,9 @@ const vue = new Vue({
         Navbar,
     },
     el: '#app',
-    mostafa: 'mostafa'
+    methods: {
+        background(icon, position) {
+            return `background: url(${sot.imgPath(icon)}) no-repeat ${position} center/contain;`
+        },
+    },
 });

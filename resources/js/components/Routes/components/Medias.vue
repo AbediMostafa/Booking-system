@@ -1,10 +1,10 @@
 <template>
   <div class="d-item-container">
     <div class="d-status-bar">
-      <a class="d-add-item-cta">
+      <router-link to='/create/media' class="d-add-item-cta">
         <img :src="iconPath('white-add.svg')" class="small-icon mr-2" />
         <span> اضافه کردن مدیا جدید </span>
-      </a>
+      </router-link>
       <div class="search-container">
         <img :src="iconPath('search1.svg')" class="search-icon" />
         <input
@@ -13,6 +13,21 @@
           v-model="itemKey"
           placeholder="جستجو بر روی همه مدیاها"
         />
+      </div>
+    </div>
+
+    <div class="d-second-status-bar">
+      <div class="d-type-filter-container">
+        <ul class="d-inner-type-filter">
+          <li
+            v-for="(itemType, key) in itemTypes"
+            :key="key"
+            @click="itemTypeClicked(key)"
+            :class="[itemType.clicked ? 'clicked-d-inner-filter' : '']"
+          >
+            {{ itemType.title }}
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -48,11 +63,31 @@ export default {
     return {
       medias: {},
       paginations: {},
-      itemKey:''
+      itemKey: "",
+      itemTypes: {
+        room: { title: "اتاق", value: "room", clicked: false },
+        city: { title: "شهر", value: "city", clicked: false },
+        collection: { title: "مجموعه", value: "collection", clicked: false },
+        genre: { title: "ژانر", value: "genre", clicked: false },
+        post: { title: "آموزش", value: "post", clicked: false },
+      },
     };
   },
   methods: {
-    getMedias(url, data={}) {
+    itemTypeClicked(key) {
+      let itemStatus = this.itemTypes[key].clicked;
+
+      _.forOwn(this.itemTypes, function (itemType, key) {
+        itemType.clicked = false;
+      });
+
+      this.itemTypes[key].clicked = !itemStatus;
+
+      let postData = { filter: this.itemTypes[key].clicked ? key : "" };
+
+      this.getMedias("admin/media/filter", postData);
+    },
+    getMedias(url, data = {}) {
       axios.post(url, data).then((response) => {
         this.medias = response.data.data;
         this.paginations = response.data.links;
@@ -64,10 +99,10 @@ export default {
     },
   },
 
-  watch:{
-      'itemKey'(value){
-          this.getMedias('admin/media/search',{search:value} )
-      }
+  watch: {
+    itemKey(value) {
+      this.getMedias("admin/media/search", { search: value });
+    },
   },
 
   created() {
@@ -97,6 +132,6 @@ export default {
   box-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.6);
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 </style>

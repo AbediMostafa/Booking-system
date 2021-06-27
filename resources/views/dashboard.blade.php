@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 
-<body>
+<body class="backgrounded-body">
     <div id="app">
         <section class="dashboard">
             <div class="container">
