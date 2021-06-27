@@ -46,6 +46,6 @@ Route::get('/room-Description', [RoomController::class, 'roomDescription']);
 Route::prefix('admin')->group(function(){
     Route::post('media',[ MediaController::class, 'index']);
     Route::post('/media/search',[ MediaController::class, 'search']);
+    Route::post('/media/filter',[ MediaController::class, 'filter']);
+    Route::post('/media/upload',[ MediaController::class, 'upload']);
 });
-
-
