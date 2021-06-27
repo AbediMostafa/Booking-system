@@ -23,13 +23,13 @@ class RunFactories extends Seeder
     public function run()
     {
         $user= User::factory()->create();
-        $city=City::factory()->count(3)->create();
-        $post=Post::factory()->count(13)->for($user)->create();
+        $city=City::factory()->count(3)->hasMedias(3)->create();
+        $post=Post::factory()->count(13)->hasMedias(3)->for($user)->create();
         $room= Room::factory()->count(13)->hasComments()->create();
         $discount=Discount::factory()->count(3)->create();
         $rate=Rate::factory()->count(3)->create();
-        $post = Post::factory()->hasComments(3)->create();
-        $room = Room::factory()->hasComments(7)->create();
+        $post = Post::factory()->hasComments(3)->hasMedias(3)->create();
+        $room = Room::factory()->hasComments(7)->hasMedias(3)->create();
         $room = Room::factory()->hasComments(7)->create();
         $room = Room::factory()->hasDiscount(3)->create();
     }

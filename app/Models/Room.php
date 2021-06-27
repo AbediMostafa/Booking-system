@@ -57,5 +57,10 @@ class Room extends Model
     {
         return $this->hasMany(Rate::class);
     }
+
+    public function medias()
+    {
+        return $this->morphMany(Media::class, 'mediaable');
+    }
 }
 

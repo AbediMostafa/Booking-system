@@ -13,4 +13,9 @@ class Collection extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    public function medias()
+    {
+        return $this->morphMany(Media::class, 'mediaable');
+    }
 }

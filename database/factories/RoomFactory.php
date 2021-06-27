@@ -54,7 +54,7 @@ class RoomFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'mobile' => $this->faker->e164PhoneNumber  ,
             'collection_id' => Collection::factory()  ,
-            'city_id' => City::factory()  ,
+            'city_id' => City::factory(),
         ];  
     }
     
