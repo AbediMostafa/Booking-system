@@ -28,7 +28,6 @@ class GenreFactory extends Factory
             'title' => $this->faker->name,
             'image'=>$this->faker->name.'.jpg',
             'status'=>$this->faker->randomElement(['disable' ,'enable']),
-
         ];
     }
 }
