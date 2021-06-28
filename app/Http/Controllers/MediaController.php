@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MediaStoreRequest;
 use App\Models\Media;
 use Illuminate\Http\Request;
 
@@ -26,21 +27,23 @@ class MediaController extends Controller
         })->paginate(12);
     }
 
-    public function upload(Request $request)
+    public function upload(MediaStoreRequest $request)
     {
+        $pathStore = date('Y/M/d');
+        $path = $request->file('file')->store("app/pubic/$pathStore");
+        // $imgExtensions = ['jpeg','png','jpg','gif','svg'];
+        // $extension = $request->file('file')->getClientOriginalExtension();
+        $fileName=explode('.',$request->file('file')->hashName())[0];
+             Media::create([
+             'display_name' => $request->file('file')->getClientOriginalName(),
+             'store_name' => $fileName,
+             'path' => $path,
+             'type' => substr($request->file('file')->getMimeType(),0,5),
+             'media_of'=>$request->media_of,
+             'mediaable_id'=>null,
+             'mediaable_type'=>null,
+         ]);
 
-        return $request->file('file')->getClientOriginalName();
-        $month = date('m');
-        $path = $request->file('file')->store("public/uploads/$month");
-        return $path;
-
-        return [
-            'file'=> $request->file('file'),
-            'type'=>$request->get('media_of')
-        ];
         
-        ;
-        // dump($request->get('type'));
-
     }
 }
