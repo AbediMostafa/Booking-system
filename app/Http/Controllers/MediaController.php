@@ -34,9 +34,7 @@ class MediaController extends Controller
         $path = $request->file('file')->store("pubic/uploads/$pathStore");
 
         $publicPath = str_replace('public', 'storage', $path);
-        // $imgExtensions = ['jpeg','png','jpg','gif','svg'];
-        // $extension = $request->file('file')->getClientOriginalExtension();
-        $fileName = explode('.', $request->file('file')->hashName())[0];
+        $fileName = $request->file('file')->hashName();
         Media::create([
             'display_name' => $request->file('file')->getClientOriginalName(),
             'store_name' => $fileName,
