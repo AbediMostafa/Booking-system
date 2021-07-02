@@ -4,32 +4,32 @@
     class="special-room-card learning-card"
     v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
   >
-      <div class="sr-image-container sr-learning-image-container">
-        <div :style="roomStyle" class="learning-card-image"></div>
-      </div>
+    <div class="sr-image-container sr-learning-image-container">
+      <div :style="roomStyle" class="learning-card-image"></div>
+    </div>
 
-      <div class="sr-text-container">
-        <h1>{{ room.name }}</h1>
-        <h4>{{ room.collection.title }} ({{ room.district }})</h4>
-        <score-stars :score="room.rate_percent"></score-stars>
-        <div class="span-container">
-          <badget
-            :icon="'white-person'"
-            :text="`${room.min_person} - ${room.max_person}`"
-          ></badget>
-          <badget :icon="'white-timer'" :text="`${room.game_time}`"></badget>
+    <div class="sr-text-container">
+      <h1>{{ room.name }}</h1>
+      <h4>{{ room.collectionName }} ({{ room.district }})</h4>
+      <score-stars :score="room.rate_percent"></score-stars>
+      <div class="span-container">
+        <badget
+          :icon="'white-person'"
+          :text="`${room.min_person} - ${room.max_person}`"
+        ></badget>
+        <badget :icon="'white-timer'" :text="`${room.game_time}`"></badget>
 
-          <div class="span-child">
-            <img
-              :src="getIcon('white-key')"
-              class="room-key-icon"
-              v-for="hard in Number(room.hardness)"
-              :key="hard"
-            />
-          </div>
+        <div class="span-child">
+          <img
+            :src="getIcon('white-key')"
+            class="room-key-icon"
+            v-for="hard in Number(room.hardness)"
+            :key="hard"
+          />
         </div>
-        <read-more v-if="noReadmore!=='learn'"></read-more>
       </div>
+      <read-more v-if="noReadmore !== 'learn'"></read-more>
+    </div>
   </a>
 </template>
 
@@ -52,7 +52,8 @@ export default {
   props: ["room", "noReadmore"],
   computed: {
     roomStyle() {
-      return `background: url('/${this.room.image}') no-repeat center center/cover;`;
+      let img = this.room.image ? this.room.image : sot.noImage;
+      return `background: url('${img}') no-repeat center center/cover;`;
     },
     getRoomPath() {
       return sot.getRoomPath(this.room.id);

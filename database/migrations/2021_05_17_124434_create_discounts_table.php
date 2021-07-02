@@ -18,7 +18,7 @@ class CreateDiscountsTable extends Migration
             $table->integer('amount');
             $table->timestamp('started_at', $precision = 0);
             $table->timestamp('ended_at', $precision = 0);
-            $table->foreignId('room_id')->constrained('rooms');
+            $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);        
         });

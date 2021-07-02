@@ -38,12 +38,12 @@ const vue = new Vue({
 
     },
     computed: {
-
         collectionRooms() {
             return this.room && this.room.collection ? this.room.collection.rooms : []
         },
         background() {
-            return `url('../${this.room.banner}') no-repeat center/cover`;
+            let banner = this.room.banner ? this.room.banner : '/storage/images/backgrounds/header-picture1.png'
+            return `url('${banner}') no-repeat center/cover`;
         },
         collectionImg() {
             return this.room.collection ? this.room.collection.image : ''

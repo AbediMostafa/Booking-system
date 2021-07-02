@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     roomImage(image) {
-      return sot.roomImagePath(image);
+      return image?image:sot.noImage
     },
   },
 };

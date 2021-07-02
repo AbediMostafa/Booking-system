@@ -29,21 +29,23 @@
 
 <script>
 export default {
-    props:['room'],
-    methods: {
-           iconPath(icon) {
-            return sot.iconPath(icon);
-        },
-
-        imageAsBackground(image) {
-            return `background: url(../${image}) no-repeat center/cover`;
-        }
+  props: ["room"],
+  methods: {
+    iconPath(icon) {
+      return sot.iconPath(icon);
     },
 
-     computed: {
-        collectionImg() {
-            return this.room.collection ? this.room.collection.image : ''
-        }
+    imageAsBackground(image) {
+      let img = image ? image : sot.noImage;
+
+      return `background: url(${img}) no-repeat center/cover`;
     },
+  },
+
+  computed: {
+    collectionImg() {
+      return this.room.collection ? this.room.collection.image : "";
+    },
+  },
 };
 </script>

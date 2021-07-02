@@ -15,7 +15,7 @@ class CreateGenreRoomTable extends Migration
     {
         Schema::create('genre_room', function (Blueprint $table) {
             $table->foreignId('room_id')->constrained('rooms');
-            $table->foreignId('genre_id')->constrained('genres');
+            $table->foreignId('genre_id')->constrained('genres')->onDelete('cascade');
             $table->timestamps();
         });
     }

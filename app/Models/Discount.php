@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     use HasFactory;
+
+    protected $guarded =[];
+
     // relation with room table
     public function room()
     {

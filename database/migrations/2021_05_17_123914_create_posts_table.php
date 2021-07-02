@@ -18,7 +18,6 @@ class CreatePostsTable extends Migration
             $table->string('title',255);
             $table->string('brief',255);
             $table->text('description',255);
-            $table->string('image',255);
             $table->foreignId('user_id')->constrained('users');
             $table->boolean('starred');
             $table->timestamps();
