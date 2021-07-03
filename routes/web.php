@@ -8,22 +8,23 @@ use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialRoomCotroller;
+use App\Models\Media;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
-Route::view('/cities','cities')->name('cities');
-Route::view('/collections','collections')->name('collections');
-Route::view('/genres','room_search')->name('roomSearch');
-Route::view('/learn','learnings')->name('learnings');
+Route::view('/cities', 'cities')->name('cities');
+Route::view('/collections', 'collections')->name('collections');
+Route::view('/genres', 'room_search')->name('roomSearch');
+Route::view('/learn', 'learnings')->name('learnings');
 
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 
-Route::get('/learn/{id}', function($id){
-    return view('learning',['id'=>$id]);
+Route::get('/learn/{id}', function ($id) {
+    return view('learning', ['id' => $id]);
 })->name('roomShow');
 
-Route::get('/rooms/{id}', function($id){
-    return view('room_show',['id'=>$id]);
+Route::get('/rooms/{id}', function ($id) {
+    return view('room_show', ['id' => $id]);
 })->name('roomShow');
 
 Route::post('/navbar', [NavbarController::class, 'index']);
@@ -43,9 +44,21 @@ Route::post('special-rooms/new', [SpecialRoomCotroller::class, 'new']);
 Route::post('special-rooms/discount', [SpecialRoomCotroller::class, 'discount']);
 Route::get('/room-Description', [RoomController::class, 'roomDescription']);
 
-Route::prefix('admin')->group(function(){
-    Route::post('media',[ MediaController::class, 'index']);
-    Route::post('/media/search',[ MediaController::class, 'search']);
-    Route::post('/media/filter',[ MediaController::class, 'filter']);
-    Route::post('/media/upload',[ MediaController::class, 'upload']);
+//admin/media
+//admin/show
+
+Route::prefix('admin')->group(function () {
+    Route::prefix('media')->group(function () {
+        Route::post('', [MediaController::class, 'index']);
+        Route::post('search', [MediaController::class, 'search']);
+        Route::post('filter', [MediaController::class, 'filter']);
+        Route::post('upload', [MediaController::class, 'upload']);
+        Route::post('delete', [MediaController::class, 'delete']);
+    });
+
+    Route::prefix('room')->group(function () {
+        Route::post('', [AdminRoomController::class, 'index']);
+    
+    });
+
 });
