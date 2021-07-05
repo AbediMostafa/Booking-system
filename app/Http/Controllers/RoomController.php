@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\comments\RoomCommentsResource;
+use App\Http\Resources\rooms\ComplicatedRoomResource;
 use App\Http\Resources\Rooms\RoomDescriptionResource;
 use App\Models\City;
 use App\Models\Collection;
@@ -20,7 +21,7 @@ class RoomController extends Controller
             'genres' => $this->getGenre($request),
             'collections' => $this->getCollection($request),
             'persons' => $this->getPersonRange($request),
-            'rooms' => $this->getRoom($request)
+            'rooms' => ComplicatedRoomResource::collection($this->getRoom($request))
         ];
     }
 

@@ -4,7 +4,9 @@
   >
     <div :style="roomStyle" class="d-card-image"></div>
 
-    <div class="d-card-text">{{card.display_name}}</div>
+    <div class="d-card-text">{{card.name}}</div>
+
+    <div class="d-edit-card" v-if="hasEdit" @click.stop="editCard">ویرایش</div>
   </div>
 </template>
 
@@ -13,14 +15,20 @@
 export default {
   data() {
     return {
-    //   enterAnimations: sot.enterAnimations,
+      enterAnimations: sot.enterAnimations,
     };
   },
-  props: ["card"],
+  props: ["card", 'hasEdit', 'editRoute'],
   computed: {
     roomStyle() {
-      return `background: url('${this.card.path}') no-repeat center center/cover;`;
+      let image = this.card.image ? this.card.image : sot.noImage; 
+      return `background: url('${image}') no-repeat center center/cover;`;
     },
+  },
+  methods: {
+    editCard(){
+      this.$router.push({name:this.editRoute, params:{id:this.card.id}})
+    }
   },
 };
 </script>

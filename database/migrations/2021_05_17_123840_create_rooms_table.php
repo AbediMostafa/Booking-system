@@ -17,8 +17,6 @@ class CreateRoomsTable extends Migration
             $table->id('id');
             $table->string('name',255);
             $table->text('description');
-            $table->string('image',255);
-            $table->string('banner',255);
             $table->integer('price');
             $table->integer('max_person');
             $table->integer('min_person');
@@ -28,7 +26,7 @@ class CreateRoomsTable extends Migration
             $table->string('mobile',255);
             $table->string('district',100);
             $table->string('address',255);
-            $table->string('website',255);
+            $table->string('website',255)->nullable();
             $table->foreignId('collection_id')->constrained('collections');
             $table->foreignId('city_id')->constrained('cities');
             $table->boolean('is_special');

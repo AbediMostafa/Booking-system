@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Rooms;
 
+use App\Http\Resources\rooms\CollectionRoomResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RoomDescriptionResource extends JsonResource
@@ -14,35 +15,39 @@ class RoomDescriptionResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $img = $this->medias()->where('place', 'front')->first();
+        $banner = $this->medias()->where('place', 'banner')->first();
         return [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'image' => $this->image,
-            'banner' => $this->banner,
+            'image' => $img ? $img->path : '',
+            'banner' => $banner ? $banner->path : '',
             'price' => $this->price,
             'max_person' => $this->max_person,
             'min_person' => $this->min_person,
             'game_time' => $this->game_time,
             'hardness' => $this->hardness,
-            'is_special'=>$this->is_special,
-            'is_new'=>$this->is_new,
-            'has_discount'=>$this->discount,
+            'is_special' => $this->is_special,
+            'is_new' => $this->is_new,
+            'has_discount' => $this->discount,
             'type' => $this->type,
-            'contact_infos'=>[
+            'contact_infos' => [
                 'phone' => $this->phone,
                 'mobile' => $this->mobile,
-                'address' =>$this->address,
-                'website' =>$this->website,
+                'address' => $this->address,
+                'website' => $this->website,
             ],
             'collection' => [
                 'name' => $this->collection->title,
                 'image' => $this->collection->image,
-                'rooms' => $this->collection
+                'rooms' => CollectionRoomResource::collection(
+                    $this->collection
                     ->rooms()
-                    ->select('id','name', 'image','district')
                     ->where('id', '!=', $this->id)
-                    ->get(),
+                    ->get()
+                ),
             ],
             'rates' => [
                 'total' => $this->rate_percent,
@@ -50,28 +55,27 @@ class RoomDescriptionResource extends JsonResource
                 'rate_average' => $this->rateAverage,
                 'items' => [
                     'scariness' => [
-                        'value' => $this->rates->avg('scariness')*100/5,
+                        'value' => $this->rates->avg('scariness') * 100 / 5,
                         'title' => 'درجه ترس',
                     ],
                     'room_decoration' => [
-                        'value' => $this->rates->avg('room_decoration')*100/5,
+                        'value' => $this->rates->avg('room_decoration') * 100 / 5,
                         'title' => 'طراحی اتاق',
                     ],
                     'hobbiness' => [
-                        'value' => $this->rates->avg('hobbiness')*100/5,
+                        'value' => $this->rates->avg('hobbiness') * 100 / 5,
                         'title' => 'سرگرمی',
                     ],
                     'creativeness' => [
-                        'value' => $this->rates->avg('creativeness')*100/5,
+                        'value' => $this->rates->avg('creativeness') * 100 / 5,
                         'title' => 'خلاقیت',
                     ],
                     'mysteriness' => [
-                        'value' => $this->rates->avg('mysteriness')*100/5,
+                        'value' => $this->rates->avg('mysteriness') * 100 / 5,
                         'title' => 'داستانی',
                     ],
                 ],
             ],
         ];
-
     }
 }

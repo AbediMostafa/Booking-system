@@ -1,10 +1,10 @@
 <template>
-  <div class="full-video-container flex-center">
-    <play-icon 
-      v-scrollAnimation="enterAnimations.topAnimation" 
-      size="large" 
+  <div class="full-video-container flex-center" :style="back">
+    <play-icon
+      v-scrollAnimation="enterAnimations.topAnimation"
+      size="large"
       @click.native="playVideo"
-      >
+    >
     </play-icon>
   </div>
 </template>
@@ -17,17 +17,28 @@ export default {
   data() {
     return {
       enterAnimations: sot.enterAnimations,
+      back:''
     };
   },
   methods: {
     playVideo() {
-      this.$emit("play-video", "1.mp4");
+      axios
+        .post("/specific-medias/first-page-medias", {
+          type: "first_page_full_video",
+        })
+        .then((response) => {
+          this.$emit("play-video", response.data);
+        });
     },
   },
-  computed: {
-    fullImagePath() {
-      return sot.imgPath("raz.jpg");
-    },
+  created() {
+    axios
+      .post("/specific-medias/first-page-medias", {
+        type: "first_page_full_image",
+      })
+      .then((response) => {
+        this.back = `background: url(${response.data}) no-repeat fixed center center/cover;`;
+      });
   },
 };
 </script>

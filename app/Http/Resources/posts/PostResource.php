@@ -14,9 +14,11 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
+
+        $image = $this->medias()->first();
         return [
             'id' => $this->id,
-            'image' => $this->image,
+            'image' => $image? $image->path:'',
             'date' => $this->date,
             'title' => $this->title,
             'brief' => $this->brief,

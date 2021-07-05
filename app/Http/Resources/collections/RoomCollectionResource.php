@@ -14,10 +14,11 @@ class RoomCollectionResource extends JsonResource
      */
     public function toArray($request)
     {
+        $image = $this->medias()->first();
         return [
             'id'=>$this->id,
             'title'=>$this->title,
-            'image'=>$this->image,
+            'image'=>$image? $image->path:'',
             'roomCount'=>$this->rooms->count()
         ];
     }

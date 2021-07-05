@@ -15,10 +15,12 @@ class SpecialRoomsResource extends JsonResource
      */
     public function toArray($request)
     {
+        $media = $this->medias()->where('place', 'front')->first();
+
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'image'=>$this->image,
+            'image'=>$media ? $media->path : '',
             'is_special'=>$this->is_special,
             'is_new'=>$this->is_new,
             'collectionName'=>$this->collection->title,

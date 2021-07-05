@@ -1,7 +1,7 @@
 <template>
   <div class="d-item-container">
     <div class="d-status-bar">
-      <router-link to='/create/media' class="d-add-item-cta">
+      <router-link to="/create/media" class="d-add-item-cta">
         <img :src="iconPath('white-add.svg')" class="small-icon mr-2" />
         <span> اضافه کردن مدیا جدید </span>
       </router-link>
@@ -29,14 +29,22 @@
           </li>
         </ul>
       </div>
+
+      <div class="d-delete-items-cta" v-if="selectedMedias.length" @click="deleteMedias">
+        حذف مدیاهای انتخاب شده
+      </div>
     </div>
 
     <div class="d-cards-container">
-      <dashboard-card
+      <dashboard-media-card
         v-for="(media, key) in medias"
         :key="key"
         :card="media"
-      ></dashboard-card>
+        :class="[
+          selectedMedias.includes(media.id) ? 'selected-checked-item' : '',
+        ]"
+        @click.native="cardClicked(media)"
+      ></dashboard-media-card>
     </div>
 
     <div class="pagination-container">
@@ -54,15 +62,16 @@
 </template>
 
 <script>
-import DashboardCard from "../../cards/Dashboard-card.vue";
+import DashboardMediaCard from "../../cards/Dashboard-media-card.vue";
 export default {
   components: {
-    DashboardCard,
+    DashboardMediaCard,
   },
   data() {
     return {
       medias: {},
       paginations: {},
+      selectedMedias: [],
       itemKey: "",
       itemTypes: {
         room: { title: "اتاق", value: "room", clicked: false },
@@ -74,6 +83,20 @@ export default {
     };
   },
   methods: {
+
+    deleteMedias(){
+      axios.post('/admin/media/delete', {medias:this.selectedMedias}).then(response=>{
+        this.getMedias("/admin/media");
+        this.selectedMedias = [];
+      });
+    },
+    cardClicked(media) {
+      if (this.selectedMedias.includes(media.id)) {
+        this.selectedMedias = _.without(this.selectedMedias, media.id);
+      } else {
+        this.selectedMedias.push(media.id);
+      }
+    },
     itemTypeClicked(key) {
       let itemStatus = this.itemTypes[key].clicked;
 
@@ -112,10 +135,24 @@ export default {
 </script>
 
 <style scoped>
+.d-type-filter-container {
+  margin: 0 0.3rem 0.3rem 0;
+}
+
+.d-delete-items-cta {
+  background: #dc2b20c9;
+  padding: 0.6rem 1.1rem;
+  border-radius: 0.5rem;
+  color: white !important;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 300ms;
+  margin: 0 0 0.3rem 0.3rem;
+}
 .search-input {
   border: none;
   padding: 0.5rem 2.8rem 0.5rem 1rem;
-  border-radius: 0.6rem;
+  border-radius: 0.5rem;
   width: 100%;
   text-align: right;
   background: rgba(255, 255, 255, 0.8);
@@ -123,7 +160,7 @@ export default {
 }
 .search-container {
   position: relative;
-  flex: 0 0 13.1rem;
+  flex: 0 0 11.1rem;
 }
 
 .pagination-btns {
@@ -133,5 +170,25 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.6);
   font-size: 0.9rem;
+}
+
+.d-second-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 480px) {
+  .search-container {
+    position: relative;
+    flex: 0 0 13.1rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .d-second-status-bar {
+    justify-content: space-between;
+  }
 }
 </style>

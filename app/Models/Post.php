@@ -9,9 +9,11 @@ class Post extends Model
 {
     use HasFactory;
     //relation with comments table
+
+    protected $guarded = [];
     public function comments()
     {
-        return $this->morphMany(Comment::class,'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
     //relation with users table
     public function user()

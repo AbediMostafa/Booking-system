@@ -16,7 +16,6 @@ class CreateCollectionsTable extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->id('id');
             $table->string('title',255);
-            $table->string('image',255);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);        });
     }

@@ -17,15 +17,12 @@ class GenreSeeder extends Seeder
         DB::table('genres')->insert([
             [
                 'title'=>'ترسناک',
-                'image'=>'images/genres/scary.jpg'
             ],
             [
                 'title'=>'جنایی',
-                'image'=>'images/genres/crime.jpg'
             ],
             [
                 'title'=>'معمایی',
-                'image'=>'images/genres/mystery.jpg'
             ]
         ]);
     }

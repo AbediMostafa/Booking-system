@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NavbarSeeder::class);
         $this->call(GenreSeeder::class);
         $this->call(GenreRoomSeeder::class);
-        // $this->call(CollectionSeeder::class);
+        $this->call(SpecificMediasSeeder::class);
     }
 }

@@ -6,13 +6,13 @@
 
     <div class="d-form-container">
       <div class="df-upload-file-container">
-        <div class="d-input-input">
+        <div class="d-input-input low-order">
           <div class="dfuf-area" @click="fileAreaClicked">
             {{ fileSelectTex }}
           </div>
         </div>
 
-        <div class="dfuf-lable d-input-label">آپلود فایل</div>
+        <div class="dfuf-lable d-input-label hight-order">آپلود فایل</div>
         <input
           type="file"
           ref="file-input"
@@ -20,21 +20,27 @@
           @change="fileSelected"
         />
       </div>
-      <div class="df-media-for-container mt-4">
-        <div class="d-input-input">
-          <dropdown
-            :options="mediaFor"
-            :selected="object"
-            @updateOption="selectOption"
-          ></dropdown>
+
+      <div class="rs-diagram-and-text end-flex">
+        <div class="d-progressbar">
+          <div class="res-diagram-title">
+            <h4 class="progressbar-txt">درصد پیشرفت</h4>
+            </div>
+          <div class="rs-diagram-shape-container">
+            <div class="rs-diagram-dynamic-shape" :style="`width: ${uploadPercentage}%`"></div>
+          </div>
         </div>
-        <div class="dfmf-lable d-input-label">مدیا برای</div>
       </div>
       <div class="d-create-entity-container">
-        <div class="d-entity-cta d-cancel-entity" @click="cancelMakingFile">
+        <div
+          class="d-entity-cta d-cancel-entity low-order"
+          @click="cancelMakingFile"
+        >
           انصراف
         </div>
-        <div class="d-entity-cta d-make-entity" @click="makeFile">ایجاد</div>
+        <div class="d-entity-cta d-make-entity high-order" @click="makeFile">
+          ایجاد
+        </div>
       </div>
     </div>
   </div>
@@ -48,39 +54,34 @@ export default {
   },
   data() {
     return {
-      mediaFor: [
-        { name: "اتاق", value: "room" },
-        { name: "شهر", value: "city" },
-        { name: "مجموعه", value: "collection" },
-        { name: "آموزش", value: "genre" },
-        { name: "ژانر", value: "post" },
-        { name: "غیره", value: "other" },
-      ],
-      object: {
-        name: "انتخاب کنید",
-        value: "",
-      },
-      fileSelectTex: "انتخاب فایل",
       selectedFile: "",
+      fileSelectTex: "انتخاب فایل",
+      uploadPercentage: 0,
     };
   },
   methods: {
     uploadFile(url, data) {
-      axios.post(url, data).then((response) => {
-        console.log(response);
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          this.uploadPercentage = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+        },
+      };
+      axios.post(url, data, config).then((response) => {
+        setTimeout(() => {
+          this.$router.push({ path: "/medias" });
+        }, 2000);
       });
     },
-    cancelMakingFile() {},
+    cancelMakingFile() {
+      this.$router.push({ path: "/medias" });
+    },
     makeFile() {
-
       let formData = new FormData();
       formData.append("file", this.selectedFile);
-      formData.append("media_of", this.object.value);
 
       this.uploadFile("admin/media/upload", formData);
-    },
-    selectOption(payload) {
-      this.object = payload;
     },
     fileSelected(e) {
       this.fileSelectTex = e.target.files[0].name;
@@ -112,11 +113,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-}
-.df-media-for-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .dfuf-area:hover {
@@ -131,6 +128,14 @@ export default {
   color: #a6acb1;
   cursor: pointer;
   transition: all 300ms;
+}
+
+.high-order {
+  order: 1;
+}
+
+.low-order {
+  order: 2;
 }
 
 .d-input-label {
@@ -148,5 +153,12 @@ export default {
 .create-media-title {
   margin: 0.5rem;
   color: var(--second-color);
+}
+
+@media screen and (min-width: 480px) {
+  .low-order,
+  .high-order {
+    order: initial;
+  }
 }
 </style>

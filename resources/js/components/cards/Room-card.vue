@@ -121,7 +121,8 @@ export default {
       return sot.getRoomPath(this.room.id);
     },
     roomStyle() {
-      return `background: url('${this.room.image}') no-repeat center center/cover;`;
+      let img = this.room && this.room.image ? this.room.image : sot.noImage;
+      return `background: url('${img}') no-repeat center center/cover;`;
     },
 
     isNew() {

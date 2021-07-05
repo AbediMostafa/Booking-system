@@ -30,7 +30,8 @@ export default {
   props: ["card"],
   computed: {
     roomStyle() {
-      return `background: url('${this.card.image}') no-repeat center center/cover;`;
+       let img = this.card.image ? this.card.image : sot.noImage;
+      return `background: url('${img}') no-repeat center center/cover;`;
     },
   },
 };

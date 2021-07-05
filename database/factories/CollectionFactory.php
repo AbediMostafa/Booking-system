@@ -41,7 +41,6 @@ class CollectionFactory extends Factory
                 'هاریبل',
                 'لانگ وی',
                 ]),
-            'image'=>  "images/collections/{$this->faker->randomDigitNot(0)}.jpg",
         ];
     }
 }

@@ -1,4 +1,5 @@
 export const sot = {
+    noImage: '/storage/images/images/no-image.png',
     exactPath: '',
 
     /**

@@ -2,28 +2,35 @@
   <div class="carousel">
     <div class="overlay"></div>
 
-    <img 
+    <img
       :src="carouselImageSources[counter].path"
       :class="['carousel-img', zoom ? 'zoom-in' : 'zoom-out']"
     />
     <div class="image-content">
-      <h1 v-scrollAnimation="enterAnimations.topAnimation" class="ic-main-title">
+      <h1
+        v-scrollAnimation="enterAnimations.topAnimation"
+        class="ic-main-title"
+      >
         {{ carouselImageSources[counter].text }}
       </h1>
-      <p v-scrollAnimation="enterAnimations.topWithDelayAnimation" class="ic-text-part">
+      <p
+        v-scrollAnimation="enterAnimations.topWithDelayAnimation"
+        class="ic-text-part"
+      >
         {{ carouselImageSources[counter].paragraph }}
       </p>
       <div class="cta-container">
-        <play-icon 
+        <play-icon
           v-scrollAnimation="enterAnimations.leftWithUltraDelayAnimation"
           size="small"
           @click.native="playVideo"
-          >
+        >
         </play-icon>
         <a
           class="cta main-cta"
           v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
-          >شروع ماجراجویی</a>
+          >شروع ماجراجویی</a
+        >
       </div>
     </div>
   </div>
@@ -44,9 +51,14 @@ export default {
     };
   },
   methods: {
-
-    playVideo(){
-     this.$emit('play-video', '1.mp4');
+    playVideo() {
+      axios
+        .post("/specific-medias/first-page-medias", {
+          type: "first_page_video",
+        })
+        .then((response) => {
+          this.$emit("play-video", response.data);
+        });
     },
 
     /**
@@ -76,7 +88,6 @@ export default {
 </script>
 
 <style scoped>
-
 .zoom-in {
   transition: all 10s;
   transform: scale(1.4) !important;

@@ -14,10 +14,11 @@ class CollectionLogosResource extends JsonResource
      */
     public function toArray($request)
     {
+        $image = $this->medias()->first();
         return[
             'id'=>$this->id,
             'name'=>$this->title,
-            'image'=>$this->image,
+            'image'=>$image? $image->path:'',
             'visible'=>true,
         ];
     }
