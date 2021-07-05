@@ -10,6 +10,8 @@ class City extends Model
     use HasFactory;
     // relation with room table
 
+    protected $guarded=[];
+
     public static function booted()
     {
         static::deleting(function ($city) {

@@ -20,11 +20,27 @@
           @change="fileSelected"
         />
       </div>
+
+      <div class="rs-diagram-and-text end-flex">
+        <div class="d-progressbar">
+          <div class="res-diagram-title">
+            <h4 class="progressbar-txt">درصد پیشرفت</h4>
+            </div>
+          <div class="rs-diagram-shape-container">
+            <div class="rs-diagram-dynamic-shape" :style="`width: ${uploadPercentage}%`"></div>
+          </div>
+        </div>
+      </div>
       <div class="d-create-entity-container">
-        <div class="d-entity-cta d-cancel-entity low-order" @click="cancelMakingFile">
+        <div
+          class="d-entity-cta d-cancel-entity low-order"
+          @click="cancelMakingFile"
+        >
           انصراف
         </div>
-        <div class="d-entity-cta d-make-entity high-order" @click="makeFile">ایجاد</div>
+        <div class="d-entity-cta d-make-entity high-order" @click="makeFile">
+          ایجاد
+        </div>
       </div>
     </div>
   </div>
@@ -39,12 +55,20 @@ export default {
   data() {
     return {
       selectedFile: "",
-      fileSelectTex:'انتخاب فایل'
+      fileSelectTex: "انتخاب فایل",
+      uploadPercentage: 0,
     };
   },
   methods: {
     uploadFile(url, data) {
-      axios.post(url, data).then((response) => {
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          this.uploadPercentage = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+        },
+      };
+      axios.post(url, data, config).then((response) => {
         setTimeout(() => {
           this.$router.push({ path: "/medias" });
         }, 2000);

@@ -153,7 +153,17 @@ return [
 
     'attributes' => [
         'file'=>'فایل',
-        'media_of'=>'نوع مدیا'
+        'media_of'=>'نوع مدیا',
+        'room.name'=>'نام اتاق',
+        'room.game_time'=>'زمان بازی',
+        'room.price'=>'قیمت',
+        'room.hardness'=>'درجه سختی',
+        'room.min_person'=>'حداق تعداد نفرات',
+        'room.max_person'=>'حداکث تعداد نفرات',
+        'room.phone'=>'تلفن',
+        'room.mobile'=>'موبایل',
+        'room.address'=>'آدرس',
+        'room.district'=>'محله',
+        'room.description'=>'توضیحات',
     ],
-
 ];

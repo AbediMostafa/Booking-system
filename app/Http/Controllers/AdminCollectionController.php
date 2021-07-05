@@ -2,65 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\rooms\AdminRoomResource;
-use App\Models\City;
+use App\Http\Resources\collections\AdminCollectionResource;
+use App\Models\Collection;
 use App\Models\Media;
 use Illuminate\Http\Request;
 
-class AdminCityController extends Controller
+class AdminCollectionController extends Controller
 {
     public function index()
     {
-        return AdminRoomResource::collection(City::paginate(10));
+        return AdminCollectionResource::collection(Collection::paginate(10));
     }
 
     public function search(Request $request)
     {
-        return AdminRoomResource::collection(
-            City::where('name', 'like', '%' . $request->get('search') . '%')->paginate(10)
+        return AdminCollectionResource::collection(
+            Collection::where('title', 'like', '%' . $request->get('search') . '%')->paginate(10)
         );
     }
 
     public function delete(Request $request)
     {
         $request->validate([
-            'cities' => 'required|array',
-            'cities.*' => 'exists:cities,id',
+            'collections' => 'required|array',
+            'collections.*' => 'exists:collections,id',
         ]);
 
-        $cities = City::whereIn('id', $request->get('cities'))->get();
+        $collections = Collection::whereIn('id', $request->get('collections'))->get();
 
-        foreach ($cities as $city) {
-            if ($city->rooms->count()) {
+        foreach ($collections as $collection) {
+            if ($collection->rooms->count()) {
                 return [
                     'status' => false,
-                    'msg' => "شهر $city->name اتاق هایی دارد و نمیتواند پاک شود"
+                    'msg' => "مجموعه $collection->title اتاق هایی دارد و نمیتواند پاک شود"
                 ];
             }
-            $city->delete();
+            $collection->delete();
         }
         try {
 
             return  [
                 'status' => true,
-                'msg' => 'شهرها با موفقیت حذف شدند.'
+                'msg' => 'مجموعه ها با موفقیت حذف شدند.'
             ];
         } catch (\Throwable $th) {
 
             return [
                 'status' => false,
-                'msg' => 'مشکل در حذف شهرها'
+                'msg' => 'مشکل در حذف مجموعه ها'
             ];
         }
     }
 
-    public function update(City $city)
+    public function update(Collection $collection)
     {
 
-        $media = $city->medias()->first();
+        $media = $collection->medias()->first();
         return [
-            'cityName' => $city->name,
-            'city' => $city->only('id', 'name'),
+            'collectionName' => $collection->title,
+            'collection' => $collection->only('id', 'title'),
             'media' => [
                 'background' => $media ? $media->path : '',
                 'id' => $media ? $media->id : '',
@@ -82,13 +82,13 @@ class AdminCityController extends Controller
         ];
     }
 
-    public function attachMedia(City $city, Media $media)
+    public function attachMedia(Collection $collection, Media $media)
     {
-        $media->media_of = 'city';
+        $media->media_of = 'collection';
         $media->place = 'front';
         $media->save();
 
-        $city->medias()->save($media);
+        $collection->medias()->save($media);
 
         return [
             'status' => true,
@@ -96,10 +96,10 @@ class AdminCityController extends Controller
         ];
     }
 
-    public function change(Request $request, City $city)
+    public function change(Request $request, Collection $collection)
     {
-        $city->update([
-            'name' => $request->input('name')
+        $collection->update([
+            'title' => $request->input('title')
         ]);
 
         return [
@@ -110,7 +110,7 @@ class AdminCityController extends Controller
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'msg' => 'مشکل در بروزرسانی شهر'
+                'msg' => 'مشکل در بروزرسانی '
             ];
         }
     }
@@ -118,25 +118,25 @@ class AdminCityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'city.name'=>'required',
-            'media.id'=>'exists:media,id'
+            'collection.name'=>'required',
+            'media.id'=>'required|exists:media,id'
         ]);
 
-        $city = City::create([
-            'name'=>$request->input('city.name')
+        $collection = Collection::create([
+            'title'=>$request->input('collection.name')
         ]);
 
         $media = Media::findOrFail($request->input('media.id'));
         $media->update([
-            'media_if'=>'city',
-            'place'=>'front'
+            'media_of'=>'collection',
+            'place'=>'front',
         ]);
 
-        $city->medias()->save($media);
+        $collection->medias()->save($media);
 
         return[
             'status'=>true,
-            'msg'=>'شهر با موفقیت ایجاد شد'
+            'msg'=>'مجموعه با موفقیت ایجاد شد'
         ];
     }
 }

@@ -47,6 +47,9 @@ export default {
         case "post":
           type = "آموزش";
           break;
+        case "specific_media":
+          type = "مدیای خاص";
+          break;
       }
       return type;
     },
@@ -63,10 +66,10 @@ export default {
 
 .d-media-of {
   background: var(--second-color);
-    font-size: 0.7rem;
-    color: white;
-    border-radius: .5rem;
-    display: inline-block;
-    padding: .2rem 1rem;
+  font-size: 0.7rem;
+  color: white;
+  border-radius: 0.5rem;
+  display: inline-block;
+  padding: 0.2rem 1rem;
 }
 </style>

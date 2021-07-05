@@ -36,7 +36,9 @@ export default {
       return sot.complicatedPath('city', this.city.name)
     },
     roomStyle() {
-      return `background: url('${this.city.image}') no-repeat center center/cover;`;
+       let img = this.city.image ? this.city.image : sot.noImage;
+
+      return `background: url('${img}') no-repeat center center/cover;`;
     },
   },
 };

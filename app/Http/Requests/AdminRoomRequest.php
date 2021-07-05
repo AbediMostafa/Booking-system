@@ -31,7 +31,6 @@ class AdminRoomRequest extends FormRequest
             'room.min_person' => 'required',
             'room.max_person' => 'required',
             'room.phone' => 'required',
-            'room.mobile' => 'required',
             'room.address' => 'required',
             'room.district' => 'required',
             'room.description' => 'required',
@@ -40,6 +39,8 @@ class AdminRoomRequest extends FormRequest
             'discount.started_at'=>'exclude_if:hasDiscount,false|required',
             'discount.ended_at'=>'exclude_if:hasDiscount,false|required',
             'discount.amount'=>'exclude_if:hasDiscount,false|required',
+            'genreIds'=>'required|array',
+            'genreIds'=>'exists:genres,id',
         ];
     }
 }

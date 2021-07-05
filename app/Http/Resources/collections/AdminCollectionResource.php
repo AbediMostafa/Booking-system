@@ -4,7 +4,7 @@ namespace App\Http\Resources\collections;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoomCollectionResource extends JsonResource
+class AdminCollectionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,12 @@ class RoomCollectionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $image = $this->medias()->first();
+        $media = $this->medias()->first();
+
         return [
             'id'=>$this->id,
-            'title'=>$this->title,
-            'image'=>$image? $image->path:'',
-            'roomCount'=>$this->rooms->count()
+            'name'=>$this->title,
+            'image'=>$media?$media->path:'',
         ];
     }
 }

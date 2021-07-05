@@ -49,6 +49,12 @@
           <img :src="iconPath('grey-media.svg')" class="d-icon d-nav-icon" />
         </router-link>
       </li>
+      <li>
+        <router-link to="/specific-medias">
+          <span class="d-nav-text d-conditional-text">مدیاهای خاص</span>
+          <img :src="iconPath('grey-media.svg')" class="d-icon d-nav-icon" />
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>

@@ -9,7 +9,7 @@
         <img :src="iconPath('search1.svg')" class="search-icon" />
         <input
           type="text"
-          class="search-input"
+          class="d-search-input pr-10"
           v-model="itemKey"
           placeholder="جستجو بر روی همه اتاق"
         />
@@ -81,7 +81,6 @@ export default {
         confirmButtonText: "بله، پاکش کن",
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log('we are here')
           axios
             .post("/admin/room/delete", { roomIds: this.selectedRooms })
             .then((response) => {
@@ -121,62 +120,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.d-type-filter-container {
-  margin: 0 0.3rem 0.3rem 0;
-}
-
-.d-delete-items-cta {
-  background: #dc2b20c9;
-  padding: 0.6rem 1.1rem;
-  border-radius: 0.5rem;
-  color: white !important;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 300ms;
-  margin: 0 0 0.3rem 0.3rem;
-}
-.search-input {
-  border: none;
-  padding: 0.5rem 2.8rem 0.5rem 1rem;
-  border-radius: 0.5rem;
-  width: 100%;
-  text-align: right;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 1rem 3px rgb(0 0 0 / 7%);
-}
-.search-container {
-  position: relative;
-  flex: 0 0 11.1rem;
-}
-
-.pagination-btns {
-  width: 2rem;
-  height: 2rem;
-  box-shadow: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 0.9rem;
-}
-
-.d-second-status-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-@media screen and (min-width: 480px) {
-  .search-container {
-    position: relative;
-    flex: 0 0 13.1rem;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .d-second-status-bar {
-    justify-content: space-between;
-  }
-}
-</style>

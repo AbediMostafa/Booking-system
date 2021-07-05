@@ -36,7 +36,9 @@ export default {
   props: ["collection"],
   computed: {
     roomStyle() {
-      return `background: url('${this.collection.image}') no-repeat center center/cover;`;
+       let img = this.collection.image ? this.collection.image : sot.noImage;
+
+      return `background: url('${img}') no-repeat center center/cover;`;
     },
     getCollectionPath(){
       return sot.complicatedPath('collection',this.collection.title);

@@ -1,10 +1,7 @@
 <template>
   <div class="d-item-container">
     <div class="d-status-bar flex-end">
-      <h3 class="create-media-title">
-        ویرایش شهر
-        {{ postData.cityName }}
-      </h3>
+      <h3 class="create-media-title">اضافه کردن شهر جدید</h3>
     </div>
 
     <div class="d-form-container">
@@ -51,9 +48,9 @@
         </div>
         <div
           class="d-entity-cta d-make-entity high-order"
-          @click="updateEntity"
+          @click="createEntity"
         >
-          بروزرسانی
+          ایجاد
         </div>
       </div>
     </div>
@@ -70,9 +67,7 @@ export default {
   data() {
     return {
       postData: {
-        cityName: "",
         city: {
-          id: "",
           name: "",
         },
         media: {
@@ -91,45 +86,27 @@ export default {
     cancelCreatingRoom() {
       this.$router.push({ path: "/cities" });
     },
-    updateEntity() {
+    createEntity() {
       axios
-        .post(`/admin/city/update/${this.postData.city.id}`, this.postData.city)
+        .post(`/admin/city/store/`, this.postData)
         .then((response) => {
-            setTimeout(() => {
-                this.$router.push({path:'/cities'});
-            }, 2000);
+          setTimeout(() => {
+            this.$router.push({ path: "/cities" });
+          }, 2000);
         });
     },
-    removeSelectedMedia(mediaOf) {
-      let media = this.postData.media,
-        route = `admin/city/detach-media/${media.id}`;
-
-      axios.post(route).then((response) => {
-        this.postData.media = {
-          background: "",
-          id: "",
-        };
-      });
+    removeSelectedMedia() {
+      this.postData.media = {
+        background: "",
+        id: "",
+      };
     },
 
     modalMediaClicked(payload) {
-      let media = this.postData.media;
-      media.background = payload.path;
-      media.id = payload.id;
+      this.postData.media.background = payload.path;
+      this.postData.media.id = payload.id;
 
-      let route = `admin/city/${this.postData.city.id}/attach-media/${payload.id}`;
-
-      axios.post(route, media).then((response) => {
-      });
       this.mediaObj.show = false;
-    },
-
-    getEntity() {
-      axios
-        .get(`admin/city/update/${this.$route.params.id}`)
-        .then((response) => {
-          this.postData = response.data;
-        });
     },
   },
 
@@ -137,10 +114,6 @@ export default {
     getBackground() {
       return `background:url(${this.postData.media.background}) no-repeat center/cover`;
     },
-  },
-
-  created() {
-    this.getEntity();
   },
 };
 </script>

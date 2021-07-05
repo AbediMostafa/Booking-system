@@ -6,7 +6,7 @@ window.sot = require('./sot').sot
 
 axios.interceptors.response.use(response => {
 
-    if ('status' in response.data) {
+    if (typeof response.data === 'object' && 'status' in response.data) {
 
         let stat = response.data.status,
             msg = response.data.msg;

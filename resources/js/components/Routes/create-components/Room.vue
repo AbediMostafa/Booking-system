@@ -98,7 +98,7 @@
       </div>
 
       <div class="d-form-row d-form">
-        <div class="d-for-group d-flex-25">
+        <div class="d-flex-100">
           <span class="d-form-lable"> آدرس </span>
           <div class="d-form-input">
             <textarea
@@ -109,6 +109,20 @@
             </textarea>
           </div>
         </div>
+      </div>
+      <div class="d-form-row d-form">
+        <div class="d-for-group d-flex-25">
+          <multiselect
+            v-model="postData.selectedGenres"
+            placeholder="یک ژانر انتخاب کنید"
+            label="text"
+            track-by="id"
+            :options="genres"
+            :multiple="true"
+            :taggable="true"
+          ></multiselect>
+        </div>
+
         <div class="d-for-group d-flex-25">
           <span class="d-form-lable"> مجموعه </span>
           <div class="d-form-input">
@@ -149,7 +163,7 @@
       </div>
 
       <div class="d-form-row d-form">
-        <div class="d-for-group d-flex-100">
+        <div class="mb-4 d-flex-100">
           <span class="d-form-lable"> توضیحات </span>
           <div class="d-form-input">
             <textarea
@@ -163,7 +177,7 @@
       </div>
 
       <div class="d-form-row d-form">
-        <div class="d-for-group d-flex-100">
+        <div class="mb-4 d-flex-100">
           <div class="d-special-room-container">
             <div
               :class="[
@@ -200,35 +214,35 @@
       </div>
 
       <div class="d-form-row d-form flex-start" v-if="postData.hasDiscount">
-          <div class="d-for-group d-flex-25">
-            <span class="d-form-lable"> مقدار تخفیف </span>
-            <div class="d-form-input">
-              <input
-                type="text"
-                class="d-search-input"
-                placeholder="به درصد"
-                v-model="postData.discount.amount"
-              />
-            </div>
+        <div class="d-for-group d-flex-25">
+          <span class="d-form-lable"> مقدار تخفیف </span>
+          <div class="d-form-input">
+            <input
+              type="text"
+              class="d-search-input"
+              placeholder="به درصد"
+              v-model="postData.discount.amount"
+            />
           </div>
+        </div>
 
-          <div class="d-for-group d-flex-25 mr-4">
-            <span class="d-form-lable"> زمان شروع تخفیف </span>
-            <div class="d-form-input">
-              <vue-persian-datetime-picker
-                v-model="postData.discount.started_at"
-              ></vue-persian-datetime-picker>
-            </div>
+        <div class="d-for-group d-flex-25 mr-4">
+          <span class="d-form-lable"> زمان شروع تخفیف </span>
+          <div class="d-form-input">
+            <vue-persian-datetime-picker
+              v-model="postData.discount.started_at"
+            ></vue-persian-datetime-picker>
           </div>
+        </div>
 
-          <div class="d-for-group d-flex-25 mr-4">
-            <span class="d-form-lable"> زمان پایان تخفیف </span>
-            <div class="d-form-input">
-              <vue-persian-datetime-picker
-                v-model="postData.discount.ended_at"
-              ></vue-persian-datetime-picker>
-            </div>
+        <div class="d-for-group d-flex-25 mr-4">
+          <span class="d-form-lable"> زمان پایان تخفیف </span>
+          <div class="d-form-input">
+            <vue-persian-datetime-picker
+              v-model="postData.discount.ended_at"
+            ></vue-persian-datetime-picker>
           </div>
+        </div>
       </div>
 
       <div class="d-form-row d-form">
@@ -303,6 +317,7 @@
 
 <script>
 import dropdown from "vue-dropdowns";
+import Multiselect from "vue-multiselect";
 import vueselect from "v-select2-component";
 import MediaModal from "../../packages/Media-modal.vue";
 import VuePersianDatetimePicker from "vue-persian-datetime-picker";
@@ -313,6 +328,7 @@ export default {
     vueselect,
     MediaModal,
     VuePersianDatetimePicker,
+    Multiselect,
   },
   data() {
     return {
@@ -334,6 +350,8 @@ export default {
           collection_id: "",
           city_id: "",
         },
+        genreIds : [],
+        selectedGenres: [],
         hasDiscount: false,
         discount: {
           amount: "",
@@ -346,6 +364,7 @@ export default {
           video: {},
         },
       },
+
       trashIcon: sot.iconPath("trash.svg"),
       hardness: [
         { name: "1" },
@@ -361,6 +380,7 @@ export default {
       },
       collections: [],
       cities: [],
+      genres: [],
       object: {
         name: "انتخاب کنید",
       },
@@ -374,12 +394,13 @@ export default {
   },
   methods: {
     cancelCreatingRoom() {
-      this.$router.push({path:'/rooms'})
+      this.$router.push({ path: "/rooms" });
     },
     createRoom() {
+      this.postData.genreIds = _.map(this.postData.selectedGenres, "id");
       axios.post("/admin/room/store", this.postData).then((response) => {
         setTimeout(() => {
-          this.$router.push({path:'/rooms'})
+          this.$router.push({ path: "/rooms" });
         }, 2000);
       });
     },
@@ -435,148 +456,8 @@ export default {
     axios.post("admin/room/dependencies").then((response) => {
       this.collections = response.data.collections;
       this.cities = response.data.cities;
+      this.genres = response.data.genres;
     });
   },
 };
 </script>
-
-<style scoped>
-.flex-start{
-  justify-content: flex-start!important;
-}
-
-.flex-end {
-  justify-content: flex-end;
-}
-.d-form-container {
-  padding: 1.5rem;
-  text-align: right;
-  font-size: 0.9rem;
-  color: var(--second-color);
-  margin: 2rem 0;
-}
-#file-input {
-  display: none;
-}
-
-.df-media-for-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-}
-
-.btn-group {
-  margin: 0;
-}
-
-.high-order {
-  order: 1;
-}
-
-.low-order {
-  order: 2;
-}
-
-.d-input-label {
-  flex: 0 0 7rem;
-}
-
-.create-media-title {
-  margin: 0.5rem;
-  color: var(--second-color);
-}
-
-.d-form-row {
-  margin-bottom: 2rem;
-}
-
-.d-form {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  direction: rtl;
-  flex-wrap: wrap;
-}
-
-.d-search-input::placeholder {
-  color: #a7b0b9;
-  font-size: 0.8rem;
-  font-weight: normal;
-}
-
-.d-search-input {
-  border: 1px solid #dcdee1;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  width: 100%;
-  text-align: right;
-}
-
-.d-flex-24 {
-  flex: 0 0 24%;
-}
-.d-flex-50 {
-  flex: 0 0 calc(50% - 1rem);
-}
-
-.d-flex-25 {
-  flex: 0 0 calc(25% - 1rem);
-}
-
-.d-flex-75 {
-  flex: 0 0 calc(75% - 1rem);
-}
-
-.d-flex-100 {
-  flex: 0 0 100%;
-}
-
-.d-form-lable,
-.dropdown-toggle {
-  color: #666c71;
-  font-size: 0.8rem;
-}
-
-.d-each-image-select:hover {
-  background: #f4f4f4;
-}
-
-.d-each-image-select {
-  flex: 0 0 calc(33% - 0.7rem);
-  height: 12rem;
-  border: 1px dashed #9398a0;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666c71;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 300ms;
-  position: relative;
-}
-
-.d-special-room-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.d-special-room {
-  padding: 1rem 2rem;
-  border: 1px dotted #9398a0;
-  border-radius: 0.5rem;
-  flex: 0 0 10rem;
-  text-align: center;
-  margin: 0 0 0.5rem 0.5rem;
-  cursor: pointer;
-}
-
-@media screen and (min-width: 480px) {
-  .low-order,
-  .high-order {
-    order: initial;
-  }
-}
-</style>

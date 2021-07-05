@@ -7,6 +7,7 @@ use App\Http\Resources\rooms\AdminRoomResource;
 use App\Http\Resources\rooms\AdminUpdateRoomResource;
 use App\Models\City;
 use App\Models\Collection;
+use App\Models\Genre;
 use App\Models\Media;
 use App\Models\Room;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class AdminRoomController extends Controller
     {
         return [
             'collections' => Collection::select('title as text', 'id')->get(),
-            'cities' => City::select('id', 'name as text')->get()
+            'cities' => City::select('id', 'name as text')->get(),
+            'genres'=>Genre::select('id', 'title as text')->get()
         ];
     }
 
@@ -61,12 +63,15 @@ class AdminRoomController extends Controller
 
     public function store(AdminRoomRequest $request)
     {
+
         try {
             $room = Room::create($request->get('room'));
             if ($request->get('hasDiscount')) {
                 $this->addRoomDiscount($room);
             }
             $this->addRoomMedias($room);
+            
+            $room->genres()->attach($request->input('genreIds'));
 
             return  [
                 'status' => true,
@@ -129,9 +134,11 @@ class AdminRoomController extends Controller
         return new AdminUpdateRoomResource($room);
     }
 
-    public function change(Request $request, Room $room)
+    public function change(AdminRoomRequest $request, Room $room)
     {
         $room->update($request->input('room'));
+        $room->genres()->detach();
+        $room->genres()->attach($request->input('genreIds'));
 
         if ($request->input('hasDiscount')) {
             $dates = $this->convertDiscountDateToJalalian();
@@ -149,7 +156,7 @@ class AdminRoomController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'بروزرسانی اتاق با موفقیت انجام شد.'
+            'msg' => 'بروزرسانی با موفقیت انجام شد.'
         ];
     }
 

@@ -25,6 +25,7 @@ class AdminUpdateRoomResource extends JsonResource
         $endedAt = $this->discount ?
             Jalalian::forge($this->discount->ended_at)->format('Y/m/d') : '';
 
+        $genres  =$this->genres()->select('id', 'title as text')->get();
 
         return [
             'room' => [
@@ -45,6 +46,8 @@ class AdminUpdateRoomResource extends JsonResource
                 'collection_id' => $this->collection_id,
                 'city_id' => $this->city_id,
             ],
+            'genreIds' => $genres->pluck('id'),
+            'selectedGenres' => $genres,
             'hasDiscount' => $this->discount ? true : false,
             'discount' => [
                 'amount' => $this->discount ? $this->discount->amount : '',

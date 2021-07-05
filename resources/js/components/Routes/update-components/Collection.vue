@@ -2,20 +2,20 @@
   <div class="d-item-container">
     <div class="d-status-bar flex-end">
       <h3 class="create-media-title">
-        ویرایش شهر
-        {{ postData.cityName }}
+        ویرایش مجموعه
+        {{ postData.collectionName }}
       </h3>
     </div>
 
     <div class="d-form-container">
       <div class="d-form-row d-form">
         <div class="d-for-group d-flex-25">
-          <span class="d-form-lable"> نام شهر </span>
+          <span class="d-form-lable"> نام مجموعه </span>
           <div class="d-form-input">
             <input
               type="text"
               class="d-search-input"
-              v-model="postData.city.name"
+              v-model="postData.collection.title"
             />
           </div>
         </div>
@@ -70,10 +70,10 @@ export default {
   data() {
     return {
       postData: {
-        cityName: "",
-        city: {
+        collectionName: "",
+        collection: {
           id: "",
-          name: "",
+          title: "",
         },
         media: {
           background: "",
@@ -89,20 +89,20 @@ export default {
   },
   methods: {
     cancelCreatingRoom() {
-      this.$router.push({ path: "/cities" });
+      this.$router.push({ path: "/collections" });
     },
     updateEntity() {
       axios
-        .post(`/admin/city/update/${this.postData.city.id}`, this.postData.city)
+        .post(`/admin/collection/update/${this.postData.collection.id}`, this.postData.collection)
         .then((response) => {
             setTimeout(() => {
-                this.$router.push({path:'/cities'});
+                this.$router.push({path:'/collections'});
             }, 2000);
         });
     },
     removeSelectedMedia(mediaOf) {
       let media = this.postData.media,
-        route = `admin/city/detach-media/${media.id}`;
+        route = `admin/collection/detach-media/${media.id}`;
 
       axios.post(route).then((response) => {
         this.postData.media = {
@@ -117,7 +117,7 @@ export default {
       media.background = payload.path;
       media.id = payload.id;
 
-      let route = `admin/city/${this.postData.city.id}/attach-media/${payload.id}`;
+      let route = `admin/collection/${this.postData.collection.id}/attach-media/${payload.id}`;
 
       axios.post(route, media).then((response) => {
       });
@@ -126,7 +126,7 @@ export default {
 
     getEntity() {
       axios
-        .get(`admin/city/update/${this.$route.params.id}`)
+        .get(`admin/collection/update/${this.$route.params.id}`)
         .then((response) => {
           this.postData = response.data;
         });

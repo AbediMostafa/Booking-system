@@ -3,6 +3,7 @@ import SpecialRooms from '../components/landing/Special-rooms.vue';
 import FullVideo from '../components/landing/Full-video.vue';
 import Learning from '../components/landing/Learning.vue';
 import Collections from '../components/landing/Collections.vue';
+import Slider from '../components/landing/Slider.vue';
 import VideoModal from '../components/packages/Video-modal.vue';
 import Counts from '../components/landing/Counts.vue';
 
@@ -15,7 +16,8 @@ const vue = new Vue({
         Learning,
         Collections,
         VideoModal,
-        Counts
+        Counts,
+        Slider
     },
     data: {
         showVideo: false,
@@ -27,7 +29,7 @@ const vue = new Vue({
             return `background: url(${sot.imgPath(icon)}) no-repeat ${position} center/contain;`
         },
         playVideo(videoPath) {
-            this.videoSrc = sot.videoPath(videoPath)
+            this.videoSrc = videoPath
             this.showVideo = true;
             this.$refs.landingVideo.playVideo();
         }

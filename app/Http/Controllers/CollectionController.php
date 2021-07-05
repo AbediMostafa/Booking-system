@@ -28,6 +28,6 @@ class CollectionController extends Controller
 
     public function logos()
     {
-        return CollectionLogosResource::collection(Collection::all());
+        return CollectionLogosResource::collection(Collection::has('medias')->get());
     }
 }

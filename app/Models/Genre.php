@@ -12,6 +12,25 @@ class Genre extends Model
     protected $fillable=[
         'title'
     ];
+
+    public static function booted()
+    {
+        static::deleting(function ($genre) {
+
+            $genre->rooms()->detach();
+
+            if ($genre->medias->count()) {
+                $genre->medias->each(function ($media) {
+                    $media->update([
+                        'media_of' => 'other',
+                        'place' => 'other',
+                        'mediaable_id' => null,
+                        'mediaable_type' => null,
+                    ]);
+                });
+            }
+        });
+    }
     //relation with rooms table
     public function rooms()
     {

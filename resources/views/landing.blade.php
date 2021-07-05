@@ -15,6 +15,12 @@
             <counts></counts>
     </section>
 
+    <section class="slider">
+        <div class="container">
+            <slider></slider>
+        </div>
+    </section>
+
     <!-- Special Rooms Section -->
     <section class="special-rooms" :style="background('back1.svg', 'bottom')">
         <div class="container">
