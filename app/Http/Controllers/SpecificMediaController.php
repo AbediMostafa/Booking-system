@@ -9,8 +9,61 @@ use Illuminate\Http\Request;
 
 class SpecificMediaController extends Controller
 {
+
+    public function attachStaticMedia(SpecificMedia $specificMedia, Media $media)
+    {
+        try {
+            if ($specificMedia->medias()->exists()) {
+                $specificMedia->medias()->first()->update([
+                    'mediaable_id' => null,
+                    'mediaable_type' => null,
+                    'media_of' => 'other',
+                ]);
+            }
+
+            $specificMedia->medias()->save($media);
+            $media->media_of = 'specific_media';
+            $media->save();
+
+            return [
+                'status' => true,
+                'msg' => 'مدیا با موفقیت اضافه شد.'
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'msg' => 'مشکل در اضافه کردن مدیا'
+            ];
+        }
+    }
+    public function attachDynamicMedia(Media $media)
+    {
+        try {
+
+            $specificMedia = SpecificMedia::create([
+                'name' => 'banner_slider'
+            ]);
+
+            $specificMedia->medias()->save($media);
+            $media->media_of = 'specific_media';
+            $media->save();
+
+            return [
+                'status' => true,
+                'msg' => 'مدیا با موفقیت اضافه شد.',
+                'sm_id'=>$specificMedia->id
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'msg' => 'مشکل در اضافه کردن مدیا'
+            ];
+        }
+    }
+
     public function attachMedia(Request $request)
     {
+
         $request->validate([
             'media_id' => 'exists:media,id'
         ]);
@@ -41,6 +94,12 @@ class SpecificMediaController extends Controller
                 ]);
 
                 $specificMedia->medias()->save($media);
+
+                return [
+                    'status' => true,
+                    'msg' => 'مدیا با موفقیت اضافه شد.',
+                    'sm_id' => $specificMedia->id
+                ];
             }
 
 
@@ -78,11 +137,17 @@ class SpecificMediaController extends Controller
         }
     }
 
-    public function detachDynamicMedia(Media $media)
+    public function detachDynamicMedia(SpecificMedia $specificMedia)
     {
         try {
-            $media->mediaable()->delete();
-            $this->removeMedia($media);
+             
+            $media = $specificMedia->medias()->first();
+
+            if($media){
+                $this->removeMedia($media);
+            }
+
+            $specificMedia->delete();
 
             return [
                 'status' => true,
@@ -108,10 +173,22 @@ class SpecificMediaController extends Controller
     public function getFirstPageMedias(Request $request)
     {
         $media = SpecificMedia::where('name', $request->input('type'))
-        ->first()
-        ->medias()
-        ->first();
+            ->first()
+            ->medias()
+            ->first();
 
         return $media ? $media->path : '';
+    }
+
+    public function getCarouselMedias()
+    {
+        $medias = [];
+        
+        foreach (SpecificMedia::where('name', 'banner_slider')->get() as $specificMedia) {
+            $media = $specificMedia->medias()->first();
+            $medias[] = $media ? $media->path : '';
+        }
+
+        return $medias;
     }
 }

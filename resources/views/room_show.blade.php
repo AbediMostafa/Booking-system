@@ -1,10 +1,17 @@
 @extends('layouts.layout')
 @section('content')
 <!-- Hiro Section -->
+<video-modal :src="videoSrc" ref="landingVideo"></video-modal>
+
 <section class="hiro">
     <div class="container pb-4">
         <div class="header-filter-container" :style="{'--bg': background}">
             <header-part :info="headerInfos"></header-part>
+            <play-icon  v-if="room.teaser" 
+                v-scrollAnimation="enterAnimations.leftWithUltraDelayAnimation" 
+                size="small" @click.native="playVideo" class="margin-auto">
+
+            </play-icon>
             <room-show-header-icons :room="room"></room-show-header-icons>
         </div>
     </div>

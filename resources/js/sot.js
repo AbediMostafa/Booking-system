@@ -146,21 +146,4 @@ export const sot = {
             title: 'تخفیفی ها'
         }
     },
-
-    logos: [
-        { id: 1, visible: true, name: 'رادفر', image: 'images/collections/1.jpg' },
-        { id: 2, visible: true, name: 'رادفر', image: 'images/collections/2.jpg' },
-        { id: 3, visible: true, name: 'رادفر', image: 'images/collections/3.jpg' },
-        { id: 4, visible: true, name: 'رادفر', image: 'images/collections/4.jpg' },
-        { id: 5, visible: true, name: 'یکجا', image: 'images/collections/5.jpg' },
-        { id: 6, visible: true, name: 'یکجا', image: 'images/collections/6.jpg' },
-        { id: 7, visible: true, name: 'یکجا', image: 'images/collections/7.jpg' },
-        { id: 8, visible: true, name: 'یکجا', image: 'images/collections/8.jpg' },
-        { id: 9, visible: true, name: 'یکجا', image: 'images/collections/9.jpg' },
-        { id: 10, visible: true, name: 'یکجا', image: 'images/collections/10.jpg' },
-        { id: 11, visible: true, name: 'یکجا', image: 'images/collections/11.jpg' },
-        { id: 12, visible: true, name: 'یکجا', image: 'images/collections/12.jpg' },
-        { id: 13, visible: true, name: 'یکجا', image: 'images/collections/13.jpg' },
-        { id: 14, visible: true, name: 'یکجا', image: 'images/collections/14.jpg' },
-    ],
 }

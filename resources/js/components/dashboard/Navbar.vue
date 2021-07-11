@@ -1,12 +1,15 @@
 <template>
   <div class="d-right-nav">
-    <div class="d-user-infos">
+    <div class="d-user-infos" @click="displayLogout = !displayLogout" v-clickout>
       <img
         :src="iconPath('grey-arrow-down.svg')"
         class="d-icon d-user-icon mr-2 small-icon d-conditional-text"
       />
-      <div class="d-user-name mr-2 d-conditional-text">علی رستمی</div>
+      <div class="d-user-name mr-2 d-conditional-text">{{ username }}</div>
       <img :src="iconPath('gb-person.svg')" class="d-icon d-user-icon" />
+      <div class="logout-box" v-if="displayLogout" @click.stop="logout">
+        <span>خروج</span>
+      </div>
     </div>
 
     <ul class="d-nav-items">
@@ -61,10 +64,38 @@
 
 <script>
 export default {
+  directives:{
+    clickout:{
+      bind(el, binding, vnode){
+        document.addEventListener('click', (e)=>{
+          if(!e.target.closest('.d-user-infos')){
+            vnode.context.displayLogout = false;
+          }
+        });
+      }
+    }
+  },
+  data() {
+    return {
+      username: "",
+      displayLogout:false
+    };
+  },
   methods: {
+    logout(){
+      axios.post("/logout").then((response) => {
+      window.location.href = '/dashboard';
+    });
+
+    },
     iconPath(icon) {
       return sot.iconPath(icon);
     },
+  },
+  created() {
+    axios.post("get-credentials").then((response) => {
+      this.username = response.data;
+    });
   },
 };
 </script>

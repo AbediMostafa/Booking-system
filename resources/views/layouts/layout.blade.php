@@ -13,13 +13,17 @@
 
 <body>
     <div id="app">
-        
+        <a href="https://wa.me/09192404569" class="whatsapp">
+            <span>شروع گفتگو</span>
+            <img src="/images/icons/whatsapp.svg">
+        </a>
+
         <!-- Hiro Section -->
         <section class="navbar">
             <div class="container">
                 <Navbar></Navbar>
             </div>
-        </section>  
+        </section>
         @yield('content')
 
         <!-- Footer Section -->
@@ -34,4 +38,5 @@
     @yield('scripts')
 
 </body>
+
 </html>

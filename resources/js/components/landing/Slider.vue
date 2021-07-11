@@ -1,22 +1,53 @@
 <template>
   <div>
-    <carousel :autoplay="true">
-      <slide> Slide 1 Content </slide>
-      <slide> Slide 2 Content </slide>
-      <slide> Slide 3 Content </slide>
-      <slide> Slide 4 Content </slide>
-      <slide> Slide 5 Content </slide>
-      <slide> Slide 6 Content </slide>
-    </carousel>
+    <VueSlickCarousel v-bind="config" v-if="medias.length">
+      <div v-for="(media, key) in medias" :key="key" class="pr-4">
+        <img :src="media" class="slider-img">
+      </div>
+    </VueSlickCarousel>
   </div>
 </template>
 
 <script>
-import { Carousel, Slide } from "vue-carousel";
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+// optional style for arrows & dots
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
 export default {
-  components: {
-    Carousel,
-    Slide,
+  components: { VueSlickCarousel },
+  data() {
+    return {
+      config: {
+        dots: true,
+        arrows:true,
+        infinite: true,
+        speed: 400,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        autoplay:true,
+      },
+      medias: [],
+    };
+  },
+  methods: {
+    getMedias() {
+      axios.post("/specific-medias/get-carousel-medias").then((response) => {
+        this.medias = response.data;
+      });
+    },
+  },
+
+  created() {
+    this.getMedias();
+    
   },
 };
 </script>
+
+<style scoped>
+.slider-img{
+    margin: 0 auto;
+    width:100%;
+    height: auto;
+}
+</style>

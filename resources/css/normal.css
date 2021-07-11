@@ -264,6 +264,14 @@ video {
     padding-bottom: 1rem!important;
 }
 
+.pb-0 {
+    padding-bottom: 0!important;
+}
+
+.p-4 {
+    padding: 1rem!important;
+}
+
 .max-w-6xl {
     max-width: 72rem
 }

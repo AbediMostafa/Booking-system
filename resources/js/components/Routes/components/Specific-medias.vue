@@ -103,7 +103,9 @@
             class="shadowed-icon"
             @click.stop="removeDynamicMedia(key)"
           />
-          <span v-if="!getBackground(postData.dynamicMedias[key].background)">
+          <span
+            v-if="!getBackground(postData.dynamicMedias[key].background)"
+          >
             عکس اسلایدر
           </span>
         </div>
@@ -156,14 +158,17 @@ export default {
           first_page_video: {
             id: "",
             background: "",
+            sm_id: "",
           },
           first_page_full_image: {
             id: "",
             background: "",
+            sm_id: "",
           },
           first_page_full_video: {
             id: "",
             background: "",
+            sm_id: "",
           },
         },
 
@@ -194,37 +199,38 @@ export default {
       this.selectedMedia.key = media;
       this.lunchModal(type);
     },
-    selectDynamicMedia(media, type) {
+    selectDynamicMedia(key, type) {
       this.selectedMedia.type = "dynamic";
-      this.selectedMedia.key = media;
+      this.selectedMedia.key = key;
       this.lunchModal(type);
     },
+
     modalMediaClicked(payload) {
-      let media =
-        this.selectedMedia.type === "static"
-          ? this.postData.staticMedias[this.selectedMedia.key]
-          : this.postData.dynamicMedias[this.selectedMedia.key];
+      let sm = "";
+      if (this.selectedMedia.type === "static") {
+        sm = this.postData.staticMedias[this.selectedMedia.key];
+        axios
+          .post(`admin/specific-medias/${sm.sm_id}/attach-media/${payload.id}`)
+          .then((response) => {});
+      } else {
+        sm = this.postData.dynamicMedias[this.selectedMedia.key];
+        axios
+          .post(`admin/specific-medias/attach-media/${payload.id}`)
+          .then((response) => {
+            sm.sm_id = response.data.sm_id;
+          });
+      }
 
-      this.selectedMedia["media_id"] = payload.id;
-
-      this.attachMedia(this.selectedMedia);
-
-      media.id = payload.id;
-      media.background = payload.path;
+      sm.id = payload.id;
+      sm.background = payload.path;
       this.mediaObj.show = false;
     },
 
-    attachMedia(data) {
-      axios
-        .post("/admin/specific-medias/attach-media", data)
-        .then((response) => {});
-    },
     removeDynamicMedia(key) {
-      axios
-        .post(
-          `/admin/specific-medias/detach-dynamic-media/${this.postData.dynamicMedias[key].id}`
-        )
-        .then((response) => {});
+      let sm_id = this.postData.dynamicMedias[key].sm_id;
+         axios
+            .post(`/admin/specific-medias/detach-dynamic-media/${sm_id}`)
+            .then((response) => {});
 
       this.postData.dynamicMedias.splice(key, 1);
     },
@@ -233,12 +239,10 @@ export default {
         .post(
           `/admin/specific-medias/detach-static-media/${this.postData.staticMedias[type].id}`
         )
-        .then((response) => {});
-
-      this.postData.staticMedias[type] = {
-        id: "",
-        background: "",
-      };
+        .then((response) => {
+          this.postData.staticMedias[type].id = "";
+          this.postData.staticMedias[type].background = "";
+        });
     },
     addDynamicMedia() {
       this.$set(
@@ -247,6 +251,7 @@ export default {
         {
           id: "",
           background: "",
+          sm_id:'',
         }
       );
     },
@@ -280,6 +285,7 @@ export default {
   align-items: center;
   justify-content: flex-end;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
 .sm-lable {
