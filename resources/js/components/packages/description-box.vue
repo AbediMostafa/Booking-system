@@ -4,7 +4,7 @@
       <h4 class="rsd-h">{{ room.name }}</h4>
       <p class="rsd-p">{{ room.description }}</p>
       <div class="rsd-cta-collection-container">
-        <a class="rsd-cta">
+        <a class="rsd-cta" @click="sendComment">
           <span class="lc-read-more">ارسال نظر</span>
           <img :src="iconPath('white-pencil.svg')" class="card-right-arrow" />
         </a>
@@ -30,7 +30,18 @@
 <script>
 export default {
   props: ["room"],
+
+  data(){
+    return {
+      displayModal:false
+    }
+  },
   methods: {
+    sendComment(){
+      axios.post('/auth-check').then(response=>{
+        location.href = response.data? `/insert-comment/${this.room.id}`:`/phone-check/${this.room.id}`;
+      });
+    }, 
     iconPath(icon) {
       return sot.iconPath(icon);
     },

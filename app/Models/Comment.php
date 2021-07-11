@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
+
+    protected $guarded=[];
     //polymorphic one to many
     public function commentable()
     {

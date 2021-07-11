@@ -46,6 +46,8 @@ export default {
 
 .header-paragraph {
   line-height: 2;
+  direction: rtl;
+  padding: 0 .5rem;
 }
 
 </style>

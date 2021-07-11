@@ -29,6 +29,7 @@
         <a
           class="cta main-cta"
           v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
+          href="/genres"
           >شروع ماجراجویی</a
         >
       </div>

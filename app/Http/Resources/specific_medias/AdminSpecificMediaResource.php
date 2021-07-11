@@ -15,35 +15,47 @@ class AdminSpecificMediaResource extends JsonResource
     public function toArray($request)
     {
 
-        $fpv = $this->where('name', 'first_page_video')->first()->medias()->first();
-        $fpfi = $this->where('name', 'first_page_full_image')->first()->medias()->first();
-        $fpfv = $this->where('name', 'first_page_full_video')->first()->medias()->first();
+        $firstPageVideo = $this->where('name', 'first_page_video')->first();
+        $firstPageVideoMedia = $firstPageVideo->medias()->first();
+
+        $firstPageFullImage = $this->where('name', 'first_page_full_image')->first();
+        $firstPageFullImageMedia = $firstPageFullImage->medias()->first();
+
+        $firstPageFullVideo = $this->where('name', 'first_page_full_video')->first();
+        $firstPageFullVideoMedia = $firstPageFullVideo->medias()->first();
 
         foreach ($this->where('name', 'banner_slider')->all() as $specificMedia) {
-            $medias[] = $specificMedia->medias()->select('id','path as background')->first();
+            $smMedia = $specificMedia->medias()->first();
+            $medias[] = [
+                'id' => $smMedia ? $smMedia->id : '',
+                'background' => $smMedia ? $smMedia->path : '',
+                'sm_id' => $specificMedia->id,
+            ];
         }
 
         return [
 
             'staticMedias' => [
                 'first_page_video' => [
-                    'id' => $fpv ? $fpv->id : '',
-                    'background' => $fpv ? $fpv->path : '',
+                    'id' => $firstPageVideoMedia ? $firstPageVideoMedia->id : '',
+                    'background' => $firstPageVideoMedia ? $firstPageVideoMedia->path : '',
+                    'sm_id'=>$firstPageVideo->id
                 ],
 
                 'first_page_full_image' => [
-                    'id' => $fpfi ? $fpfi->id : '',
-                    'background' => $fpfi ? $fpfi->path : '',
+                    'id' => $firstPageFullImageMedia ? $firstPageFullImageMedia->id : '',
+                    'background' => $firstPageFullImageMedia ? $firstPageFullImageMedia->path : '',
+                    'sm_id'=>$firstPageFullImage->id
                 ],
 
                 'first_page_full_video' => [
-                    'id' => $fpfv ? $fpfv->id : '',
-                    'background' => $fpfv ? $fpfv->path : '',
+                    'id' => $firstPageFullVideoMedia ? $firstPageFullVideoMedia->id : '',
+                    'background' => $firstPageFullVideoMedia ? $firstPageFullVideoMedia->path : '',
+                    'sm_id'=>$firstPageFullVideo->id
                 ]
+            ],
 
-                ],
-
-                'dynamicMedias' =>$medias
+            'dynamicMedias' => $medias
         ];
     }
 }

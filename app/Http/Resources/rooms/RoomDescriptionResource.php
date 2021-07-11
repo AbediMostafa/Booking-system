@@ -18,12 +18,17 @@ class RoomDescriptionResource extends JsonResource
 
         $img = $this->medias()->where('place', 'front')->first();
         $banner = $this->medias()->where('place', 'banner')->first();
+        $teaser = $this->medias()->where('place', 'video')->first();
+
+        $collectionMedia = $this->collection->medias()->first();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'image' => $img ? $img->path : '',
             'banner' => $banner ? $banner->path : '',
+            'teaser'=>$teaser ? $teaser->path:'',
             'price' => $this->price,
             'max_person' => $this->max_person,
             'min_person' => $this->min_person,
@@ -41,7 +46,7 @@ class RoomDescriptionResource extends JsonResource
             ],
             'collection' => [
                 'name' => $this->collection->title,
-                'image' => $this->collection->image,
+                'image' => $collectionMedia?$collectionMedia->path:'',
                 'rooms' => CollectionRoomResource::collection(
                     $this->collection
                     ->rooms()

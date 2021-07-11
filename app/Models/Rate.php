@@ -9,6 +9,7 @@ class Rate extends Model
 {
 
     protected $appends=['calculateRate', 'rateAveragePercent'];
+    protected $guarded=[];
 
     
     use HasFactory;

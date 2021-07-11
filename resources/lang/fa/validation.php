@@ -152,6 +152,8 @@ return [
     */
 
     'attributes' => [
+        'username'=>'نام کاربری',
+        'password'=>'گذرواژه',
         'file'=>'فایل',
         'media_of'=>'نوع مدیا',
         'room.name'=>'نام اتاق',

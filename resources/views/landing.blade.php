@@ -5,7 +5,7 @@
     <!-- Hiro Section -->
     <section class="hiro">
         <video-modal :src="videoSrc" ref="landingVideo"></video-modal>
-        <div class="container">
+        <div class="container pb-0">
             <carousel @play-video="playVideo"></carousel>
         </div>
     </section>
@@ -16,7 +16,7 @@
     </section>
 
     <section class="slider">
-        <div class="container">
+        <div class="container pb-0">
             <slider></slider>
         </div>
     </section>

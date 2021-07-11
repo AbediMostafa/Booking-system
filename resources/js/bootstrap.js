@@ -1,3 +1,5 @@
+const { default: axios } = require('axios');
+
 window._ = require('lodash');
 window.axios = require('axios');
 window.Swal = require('sweetalert2')
@@ -6,7 +8,7 @@ window.sot = require('./sot').sot
 
 axios.interceptors.response.use(response => {
 
-    if (typeof response.data === 'object' && 'status' in response.data) {
+    if (response && typeof response.data === 'object' && 'status' in response.data) {
 
         let stat = response.data.status,
             msg = response.data.msg;

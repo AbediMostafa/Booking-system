@@ -8,47 +8,63 @@ use App\Http\Controllers\AdminRoomController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ConfirmNumberController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialRoomCotroller;
 use App\Http\Controllers\SpecificMediaController;
-use App\Models\City;
-use App\Models\Collection;
-use App\Models\Genre;
-use App\Models\Media;
-use App\Models\Post;
 use App\Models\Room;
 use App\Models\SpecificMedia;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Morilog\Jalali\Jalalian;
 
 Route::view('/', 'landing')->name('home');
+Route::get('/api', function (Request $request) {
 
-Route::get('test', function(){
-    
-    dd(SpecificMedia::all()->where('name', 'banner_slider')->all());
-
-    
-    dd(
-        SpecificMedia::where('name', 'banner_slider')->with('medias')->get()->pluck('medias')
-    );
+    dd($request->all());
 });
-Route::view('/cities','cities')->name('cities');
-Route::view('/collections','collections')->name('collections');
-Route::view('/genres','room_search')->name('roomSearch');
-Route::view('/learn','learnings')->name('learnings');
+Route::view('/login', 'login')->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('postLogin');
+Route::post('/get-credentials', [LoginController::class, 'getCredentials']);
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+Route::get('/logout', [LoginController::class, 'logoutAndRedirect']);
+Route::post('/auth-check', [LoginController::class, 'checkLogin']);
+Route::post('/get-confirm-number', [ConfirmNumberController::class, 'getConfirmNumber']);
+Route::post('/submit-confirm-code', [ConfirmNumberController::class, 'submitConfirmCode']);
+Route::get('/phone-check/{backUrl}', function ($backUrl) {
 
-Route::view('/dashboard', 'dashboard')->name('dashboard');
+    if(Auth::check()){
+        return redirect('/');
+    }
+    
+    return view('phone-check', ['backUrl' => $backUrl]);
+});
 
-Route::get('/learn/{id}', function($id){
-    return view('learning',['id'=>$id]);
+Route::get('test', function () {
+    dd(User::whereEmail('ortiz.rosemarie@example.org')->exists());
+});
+Route::view('/cities', 'cities')->name('cities');
+Route::view('/collections', 'collections')->name('collections');
+Route::view('/genres', 'room_search')->name('roomSearch');
+Route::view('/learn', 'learnings')->name('learnings');
+
+Route::view('/dashboard', 'dashboard')->name('dashboard')->middleware('auth');
+
+Route::get('/learn/{id}', function ($id) {
+    return view('learning', ['id' => $id]);
 })->name('learnShow');
 
-Route::get('/rooms/{id}', function($id){
-    return view('room_show',['id'=>$id]);
+Route::get('/rooms/{id}', function ($id) {
+    return view('room_show', ['id' => $id]);
 })->name('roomShow');
+
+Route::get('/insert-comment/{room}', [RoomController::class, 'insertComment'])->middleware('auth.withNumber');
+Route::post('/submit-comment', [CommentController::class, 'submitComment']);
 
 Route::post('/navbar', [NavbarController::class, 'index']);
 Route::post('/cities', [CitiesController::class, 'index']);
@@ -68,76 +84,82 @@ Route::post('special-rooms/discount', [SpecialRoomCotroller::class, 'discount'])
 Route::get('/room-Description', [RoomController::class, 'roomDescription']);
 
 Route::post('/specific-medias/first-page-medias', [SpecificMediaController::class, 'getFirstPageMedias']);
+Route::post('/specific-medias/get-carousel-medias', [SpecificMediaController::class, 'getCarouselMedias']);
 
-Route::prefix('admin')->group(function(){
-    Route::prefix('media')->group(function(){
-        Route::post('',[ MediaController::class, 'index']);
-        Route::post('/search',[ MediaController::class, 'search']);
-        Route::post('/filter',[ MediaController::class, 'filter']);
-        Route::post('/upload',[ MediaController::class, 'upload']);
-        Route::post('/delete',[ MediaController::class, 'delete']);
-        Route::post('/modal',[ MediaController::class, 'modal']);
-    });
-    Route::prefix('room')->group(function(){
-        Route::post('',[ AdminRoomController::class, 'index']);
-        Route::post('/search',[ AdminRoomController::class, 'search']);
-        Route::post('/delete',[ AdminRoomController::class, 'delete']);
-        Route::post('/store',[ AdminRoomController::class, 'store']);
-        Route::get('/update/{room}',[ AdminRoomController::class, 'update']);
-        Route::post('/update/{room}',[ AdminRoomController::class, 'change']);
-        Route::post('/dependencies',[ AdminRoomController::class, 'getDependencies']);
-        Route::post('/detach-media/{media}',[ AdminRoomController::class, 'detachMedia']);
-        Route::post('{room}/attach-media/{media}',[ AdminRoomController::class, 'attachMedia']);
-    });
-    Route::prefix('city')->group(function(){
-        Route::post('',[ AdminCityController::class, 'index']);
-        Route::post('/search',[ AdminCityController::class, 'search']);
-        Route::post('/store',[ AdminCityController::class, 'store']);
-        Route::post('/delete',[ AdminCityController::class, 'delete']);
-        Route::get('/update/{city}',[ AdminCityController::class, 'update']);
-        Route::post('/update/{city}',[ AdminCityController::class, 'change']);
-        Route::post('/detach-media/{media}',[ AdminCityController::class, 'detachMedia']);
-        Route::post('{city}/attach-media/{media}',[ AdminCityController::class, 'attachMedia']);
+Route::prefix('admin')->group(function () {
+
+    Route::prefix('media')->group(function () {
+        Route::post('', [MediaController::class, 'index']);
+        Route::post('/search', [MediaController::class, 'search']);
+        Route::post('/filter', [MediaController::class, 'filter']);
+        Route::post('/upload', [MediaController::class, 'upload']);
+        Route::post('/delete', [MediaController::class, 'delete']);
+        Route::post('/modal', [MediaController::class, 'modal']);
     });
 
-    Route::prefix('collection')->group(function(){
-        Route::post('',[ AdminCollectionController::class, 'index']);
-        Route::post('/search',[ AdminCollectionController::class, 'search']);
-        Route::post('/store',[ AdminCollectionController::class, 'store']);
-        Route::post('/delete',[ AdminCollectionController::class, 'delete']);
-        Route::get('/update/{collection}',[ AdminCollectionController::class, 'update']);
-        Route::post('/update/{collection}',[ AdminCollectionController::class, 'change']);
-        Route::post('/detach-media/{media}',[ AdminCollectionController::class, 'detachMedia']);
-        Route::post('{collection}/attach-media/{media}',[ AdminCollectionController::class, 'attachMedia']);
+    Route::prefix('room')->group(function () {
+        Route::post('', [AdminRoomController::class, 'index']);
+        Route::post('/search', [AdminRoomController::class, 'search']);
+        Route::post('/delete', [AdminRoomController::class, 'delete']);
+        Route::post('/store', [AdminRoomController::class, 'store']);
+        Route::get('/update/{room}', [AdminRoomController::class, 'update']);
+        Route::post('/update/{room}', [AdminRoomController::class, 'change']);
+        Route::post('/dependencies', [AdminRoomController::class, 'getDependencies']);
+        Route::post('/detach-media/{media}', [AdminRoomController::class, 'detachMedia']);
+        Route::post('{room}/attach-media/{media}', [AdminRoomController::class, 'attachMedia']);
     });
 
-    Route::prefix('genre')->group(function(){
-        Route::post('',[ AdminGenreController::class, 'index']);
-        Route::post('/search',[ AdminGenreController::class, 'search']);
-        Route::post('/store',[ AdminGenreController::class, 'store']);
-        Route::post('/delete',[ AdminGenreController::class, 'delete']);
-        Route::get('/update/{genre}',[ AdminGenreController::class, 'update']);
-        Route::post('/update/{genre}',[ AdminGenreController::class, 'change']);
-        Route::post('/detach-media/{media}',[ AdminGenreController::class, 'detachMedia']);
-        Route::post('{genre}/attach-media/{media}',[ AdminGenreController::class, 'attachMedia']);
+    Route::prefix('city')->group(function () {
+        Route::post('', [AdminCityController::class, 'index']);
+        Route::post('/search', [AdminCityController::class, 'search']);
+        Route::post('/store', [AdminCityController::class, 'store']);
+        Route::post('/delete', [AdminCityController::class, 'delete']);
+        Route::get('/update/{city}', [AdminCityController::class, 'update']);
+        Route::post('/update/{city}', [AdminCityController::class, 'change']);
+        Route::post('/detach-media/{media}', [AdminCityController::class, 'detachMedia']);
+        Route::post('{city}/attach-media/{media}', [AdminCityController::class, 'attachMedia']);
     });
 
-    Route::prefix('learn')->group(function(){
-        Route::post('',[ AdminLearnController::class, 'index']);
-        Route::post('/search',[ AdminLearnController::class, 'search']);
-        Route::post('/store',[ AdminLearnController::class, 'store']);
-        Route::post('/delete',[ AdminLearnController::class, 'delete']);
-        Route::get('/update/{post}',[ AdminLearnController::class, 'update']);
-        Route::post('/update/{post}',[ AdminLearnController::class, 'change']);
-        Route::post('/detach-media/{media}',[ AdminLearnController::class, 'detachMedia']);
-        Route::post('{post}/attach-media/{media}',[ AdminLearnController::class, 'attachMedia']);
+    Route::prefix('collection')->group(function () {
+        Route::post('', [AdminCollectionController::class, 'index']);
+        Route::post('/search', [AdminCollectionController::class, 'search']);
+        Route::post('/store', [AdminCollectionController::class, 'store']);
+        Route::post('/delete', [AdminCollectionController::class, 'delete']);
+        Route::get('/update/{collection}', [AdminCollectionController::class, 'update']);
+        Route::post('/update/{collection}', [AdminCollectionController::class, 'change']);
+        Route::post('/detach-media/{media}', [AdminCollectionController::class, 'detachMedia']);
+        Route::post('{collection}/attach-media/{media}', [AdminCollectionController::class, 'attachMedia']);
     });
 
-    Route::prefix('specific-medias')->group(function(){
-        Route::post('attach-media', [SpecificMediaController::class, 'attachMedia']);
+    Route::prefix('genre')->group(function () {
+        Route::post('', [AdminGenreController::class, 'index']);
+        Route::post('/search', [AdminGenreController::class, 'search']);
+        Route::post('/store', [AdminGenreController::class, 'store']);
+        Route::post('/delete', [AdminGenreController::class, 'delete']);
+        Route::get('/update/{genre}', [AdminGenreController::class, 'update']);
+        Route::post('/update/{genre}', [AdminGenreController::class, 'change']);
+        Route::post('/detach-media/{media}', [AdminGenreController::class, 'detachMedia']);
+        Route::post('{genre}/attach-media/{media}', [AdminGenreController::class, 'attachMedia']);
+    });
+
+    Route::prefix('learn')->group(function () {
+        Route::post('', [AdminLearnController::class, 'index']);
+        Route::post('/search', [AdminLearnController::class, 'search']);
+        Route::post('/store', [AdminLearnController::class, 'store']);
+        Route::post('/delete', [AdminLearnController::class, 'delete']);
+        Route::get('/update/{post}', [AdminLearnController::class, 'update']);
+        Route::post('/update/{post}', [AdminLearnController::class, 'change']);
+        Route::post('/detach-media/{media}', [AdminLearnController::class, 'detachMedia']);
+        Route::post('{post}/attach-media/{media}', [AdminLearnController::class, 'attachMedia']);
+    });
+
+    Route::prefix('specific-medias')->group(function () {
+        //`admin/specific-medias/${sm.sm_id}/attach-media/${sm.id}`
+        Route::post('{specificMedia}/attach-media/{media}', [SpecificMediaController::class, 'attachStaticMedia']);
+        Route::post('attach-media/{media}', [SpecificMediaController::class, 'attachDynamicMedia']);
+        // Route::post('attach-media', [SpecificMediaController::class, 'attachMedia']);
         Route::post('detach-static-media/{media}', [SpecificMediaController::class, 'detachStaticMedia']);
-        Route::post('detach-dynamic-media/{media}', [SpecificMediaController::class, 'detachDynamicMedia']);
+        Route::post('detach-dynamic-media/{specificMedia}', [SpecificMediaController::class, 'detachDynamicMedia']);
         Route::post('get-medias', [SpecificMediaController::class, 'getMedias']);
     });
-
 });

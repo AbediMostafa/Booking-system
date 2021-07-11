@@ -2,6 +2,8 @@ import HeaderPart from '../components/packages/Header-part.vue';
 import Scores from '../components/packages/Scores.vue';
 import contactInfos from '../components/packages/Contact-infos.vue';
 import DescriptionBox from '../components/packages/description-box.vue'
+import VideoModal from '../components/packages/Video-modal.vue'
+import PlayIcon from '../components/packages/Play-icon.vue'
 import Comment from '../components/cards/Comment.vue';
 import ModalComment from '../components/cards/Modal-comment.vue'
 import CollectionRoom from '../components/cards/Collection-room.vue';
@@ -15,6 +17,8 @@ const vue = new Vue({
     el: '#app',
     components: {
         HeaderPart,
+        VideoModal,
+        PlayIcon,
         Scores,
         contactInfos,
         DescriptionBox,
@@ -35,7 +39,9 @@ const vue = new Vue({
         displayModal: false,
         answers: {},
         currentComment: {},
-
+        videoSrc: '',
+        showVideo: false,
+        enterAnimations: sot.enterAnimations,
     },
     computed: {
         collectionRooms() {
@@ -55,6 +61,11 @@ const vue = new Vue({
                 this.room = response.data.data;
                 this.headerInfos.title = response.data.data.name;
             });
+        },
+        playVideo() {
+            this.videoSrc = this.room.teaser;
+            this.showVideo = true;
+            this.$refs.landingVideo.playVideo();
         },
 
         getComments(url) {

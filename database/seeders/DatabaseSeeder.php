@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GenreSeeder::class);
         $this->call(GenreRoomSeeder::class);
         $this->call(SpecificMediasSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

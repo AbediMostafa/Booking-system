@@ -161,4 +161,12 @@ class RoomController extends Controller
     {
         return RoomCommentsResource::collection($room->comments);
     }
+
+    public function insertComment(Room $room)
+    {
+        return view('insert_comment', [
+            'roomName'=>$room->name,
+            'roomId'=>$room->id,
+        ]);
+    }
 }
