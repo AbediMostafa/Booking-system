@@ -24,6 +24,7 @@ class AdminSpecificMediaResource extends JsonResource
         $firstPageFullVideo = $this->where('name', 'first_page_full_video')->first();
         $firstPageFullVideoMedia = $firstPageFullVideo->medias()->first();
 
+        $medias=[];
         foreach ($this->where('name', 'banner_slider')->all() as $specificMedia) {
             $smMedia = $specificMedia->medias()->first();
             $medias[] = [

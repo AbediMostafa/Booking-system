@@ -84,7 +84,7 @@
     const roomInfo = {
         name:'{{$roomName}}',
         id:'{{$roomId}}',
-    }
+    }   
 </script>
 <script src="{{asset('js/insertComment.js')}}"></script>
 @endsection

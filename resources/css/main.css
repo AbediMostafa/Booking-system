@@ -158,7 +158,8 @@ section.counts {
 .sr-text-container h4,
 .sr-text-container p {
     margin: 0;
-    padding: 0
+    padding: 0;
+    direction: rtl;
 }
 
 .sr-text-container h4,
@@ -481,6 +482,7 @@ nav {
 .header-main-title {
     font-size: 2rem;
     margin: 0;
+    direction: rtl;
 }
 
 .no-margin-hiro .container {
@@ -882,7 +884,7 @@ nav {
 
 .carot-child-container {
     margin: 1rem -1.5rem -1.5rem -1.5rem;
-    background: var(--second-color);
+    background: var(--first-color);
     padding: 1rem 1.2rem;
     border-top-right-radius: 1rem;
     border-bottom-left-radius: 10px;
@@ -1198,6 +1200,7 @@ nav {
     color: var(--second-color);
     margin: 7px 0;
     text-align: right;
+    direction: rtl;
 }
 
 .l-post-description {
@@ -1490,7 +1493,7 @@ ul.d-nav-items {
 .swal2-styled.swal2-confirm,
 .swal2-cancel,
 textarea {
-    font-family: IranSans;
+    font-family: IRANSansX;
 }
 
 .d-conditional-text {
@@ -2250,7 +2253,7 @@ fieldset[disabled] .multiselect {
     font-size: 1.1rem;
     transition: all 300ms;
     cursor: pointer;
-    font-family: 'IRANSANS';
+    font-family: 'IRANSansX';
 }
 
 .is-comment-score-container {
@@ -2384,7 +2387,7 @@ a.is-submit-comment {
     font-size: 1.1rem;
     transition: all 300ms;
     cursor: pointer;
-    font-family: 'IRANSANS';
+    font-family: 'IRANSansX';
 }
 
 @media screen and (min-width:480px) {

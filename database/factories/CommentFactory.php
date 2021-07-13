@@ -24,8 +24,6 @@ class CommentFactory extends Factory
     {
         return [
             'body' => $this->faker->text,
-            'up_rate' => $this->faker->numberBetween($min = 1, $max = 10),
-            'down_rate' => $this->faker->numberBetween($min = 1, $max = 10),
             'status'=>$this->faker->randomElement(['disagree','agree', 'no_idea']),
             'parent_id'=>null,
             'user_id'=>User::factory(),

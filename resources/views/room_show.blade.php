@@ -8,7 +8,6 @@
         <div class="header-filter-container" :style="{'--bg': background}">
             <header-part :info="headerInfos"></header-part>
             <play-icon  v-if="room.teaser" 
-                v-scrollAnimation="enterAnimations.leftWithUltraDelayAnimation" 
                 size="small" @click.native="playVideo" class="margin-auto">
 
             </play-icon>

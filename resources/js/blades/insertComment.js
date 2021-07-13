@@ -10,7 +10,6 @@ const vue = new Vue({
 
     data: {
         headerInfos: {
-            imageSrc: sot.absImgPath('carousel/2.jpg'),
             title: 'ثبت نظر',
             text: `
             `
@@ -45,7 +44,36 @@ const vue = new Vue({
 
         submitComment() {
             axios.post('/submit-comment', this.postData).then(response => {
-                // console.log(response.data);
+                if (response && typeof response.data === 'object' && 'status' in response.data) {
+
+                    let stat = response.data.status,
+                        msg = response.data.msg;
+
+                    Swal.fire({
+                        position: stat ? "bottom-end" : "",
+                        icon: stat ? "success" : "error",
+                        title: stat ? "" : "خطا",
+                        text: msg,
+                        showConfirmButton: !stat,
+                        timer: stat ? 2500 : "",
+                    });
+                }
+                setTimeout(() => {
+                    location.href = `/rooms/${this.postData.roomInfo.id}`
+                }, 2000);
+
+            }).catch(error => {
+                var errors = '';
+                _.forOwn(error.response.data.errors, (value, key) => {
+                    errors += value[0] + '<br>'
+                });
+
+                Swal.fire({
+                    title: 'خطا',
+                    html: errors,
+                    icon: 'error',
+                    confirmButtonText: 'باشه'
+                });
             });
         }
     }

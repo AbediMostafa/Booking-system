@@ -9,7 +9,6 @@ import ModalComment from '../components/cards/Modal-comment.vue'
 import CollectionRoom from '../components/cards/Collection-room.vue';
 import NoEntity from '../components/packages/No-entity.vue';
 import roomShowHeaderIcons from '../components/packages/Room-show-header-icons.vue';
-import { VueEditor } from 'vue2-editor';
 import axios from 'axios';
 import { sot } from '../sot';
 
@@ -27,7 +26,6 @@ const vue = new Vue({
         CollectionRoom,
         NoEntity,
         roomShowHeaderIcons,
-        VueEditor,
     },
     data: {
         room: {},
@@ -83,7 +81,7 @@ const vue = new Vue({
             return `background: url(../${image}) no-repeat center/cover`;
         },
         commentClicked(comment) {
-            let url = `/${sot.exactPath}comments/${comment.id}/answers`;
+            let url = `/comments/${comment.id}/answers`;
             this.currentComment = comment;
 
             axios.post(url).then(response => {
@@ -94,6 +92,6 @@ const vue = new Vue({
     },
     created() {
         this.getRoom();
-        this.getComments(`/${sot.exactPath}rooms/${roomId}/comments`);
+        this.getComments(`/rooms/${roomId}/comments`);
     }
 });

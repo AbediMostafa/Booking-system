@@ -58,6 +58,12 @@
           <img :src="iconPath('grey-media.svg')" class="d-icon d-nav-icon" />
         </router-link>
       </li>
+      <li>
+        <router-link to="/comments">
+          <span class="d-nav-text d-conditional-text">نظرات کاربران</span>
+          <img :src="iconPath('grey-pencil.svg')" class="d-icon d-nav-icon" />
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>

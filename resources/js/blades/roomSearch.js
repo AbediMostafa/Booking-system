@@ -62,6 +62,7 @@ const vue = new Vue({
 
         callComplicatedRoom(data = {}) {
             axios.post('rooms/complicated-search', data).then((response) => {
+                console.log(response.data);
                 this.totalData = response.data;
                 this.rooms = this.tmpRooms = response.data.rooms;
             });

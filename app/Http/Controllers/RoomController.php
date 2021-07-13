@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\cities\CitiesFilterResource;
+use App\Http\Resources\collections\CollectionFilterResource;
 use App\Http\Resources\comments\RoomCommentsResource;
+use App\Http\Resources\genres\GenresFilterResource;
 use App\Http\Resources\rooms\ComplicatedRoomResource;
 use App\Http\Resources\Rooms\RoomDescriptionResource;
 use App\Models\City;
@@ -17,9 +20,9 @@ class RoomController extends Controller
     public function complicatedSearch(request $request)
     {
         return [
-            'cities' => $this->getCity($request),
-            'genres' => $this->getGenre($request),
-            'collections' => $this->getCollection($request),
+            'cities' => CitiesFilterResource::collection($this->getCity($request)),
+            'genres' => GenresFilterResource::collection($this->getGenre($request)),
+            'collections' =>CollectionFilterResource::collection($this->getCollection($request)),
             'persons' => $this->getPersonRange($request),
             'rooms' => ComplicatedRoomResource::collection($this->getRoom($request))
         ];
@@ -159,7 +162,7 @@ class RoomController extends Controller
 
     public function comments(Room $room)
     {
-        return RoomCommentsResource::collection($room->comments);
+        return RoomCommentsResource::collection($room->comments()->whereSituation('promoted')->get());
     }
 
     public function insertComment(Room $room)

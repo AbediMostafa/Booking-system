@@ -43,5 +43,6 @@ export default {
   font-size: 0.9rem;
   margin-top: 1.8rem;
   line-height: 1.9;
+  font-weight: 500;
 }
 </style>

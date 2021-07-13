@@ -26,9 +26,27 @@ class CommentController extends Controller
             'scoresTitles.hobbiness.selectedKey' => 'required',
             'scoresTitles.creativeness.selectedKey' => 'required',
             'scoresTitles.mysteriness.selectedKey' => 'required',
+            'selectedStatus' => 'required'
         ]);
 
         $room = Room::findOrFail($request->input('roomInfo.id'));
+
+        $ratedBefore = Rate::where([
+            ['room_id' , $request->input('roomInfo.id')],
+            ['user_id' , Auth::id()]
+        ])->exists();
+
+        $commentedBefore = Comment::where([
+            ['commentable_id' , $request->input('roomInfo.id')],
+            ['user_id' , Auth::id()]
+        ])->exists();
+
+        if ($ratedBefore || $commentedBefore) {
+            return [
+                'status' => false,
+                'msg' => 'شما قبلا به این اتاق نظر داده اید.'
+            ];
+        }
 
         try {
 
@@ -49,13 +67,13 @@ class CommentController extends Controller
             ]);
 
             return [
-                'status'=>true,
-                'msg'=>'نظر شما با موفقیت ثبت، و پس از بررسی اضافه خواهد شد'
+                'status' => true,
+                'msg' => 'نظر شما با موفقیت ثبت، و پس از بررسی اضافه خواهد شد'
             ];
         } catch (\Throwable $th) {
             return [
-                'status'=>true,
-                'msg'=>'مشکل در ثبت نظر'
+                'status' => true,
+                'msg' => 'مشکل در ثبت نظر'
             ];
         }
     }
