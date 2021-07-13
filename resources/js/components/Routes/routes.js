@@ -4,6 +4,7 @@ import Genres from './components/Genres.vue';
 import Learns from './components/Learns.vue';
 import Medias from './components/Medias.vue';
 import Rooms from './components/Rooms.vue';
+import Comments from './components/comments.vue';
 import SpecificMedias from './components/Specific-medias.vue';
 import NewMedia from './create-components/Media.vue';
 import NewRoom from './create-components/Room.vue';
@@ -26,6 +27,7 @@ let routes = [
     { path: '/learns', component: Learns },
     { path: '/medias', component: Medias },
     { path: '/rooms', component: Rooms },
+    { path: '/comments', component: Comments },
     { path: '/create/media', component: NewMedia },
     { path: '/create/room', component: NewRoom },
     { path: '/create/city', component: NewCity },

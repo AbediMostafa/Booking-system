@@ -33,12 +33,14 @@
       ></header-badget>
 
       <div class="header-icon-child">
-        <img
-          :src="getIcon('grey-key.svg')"
-          class="room-key-icon header-room-icons"
-          v-for="hard in room.hardness"
-          :key="hard"
-        />
+        <div>
+          <img
+            :src="getIcon('grey-key.svg')"
+            class="room-key-icon header-room-icons"
+            v-for="hard in hardness"
+            :key="hard"
+          />
+        </div>
         <span class="header-icon-txt hardness-header-text">درجه سختی</span>
       </div>
     </div>
@@ -59,5 +61,13 @@ export default {
       return sot.iconPath(icon);
     },
   },
+
+  computed:{
+    hardness(){
+      
+      let hardness = parseInt(this.room.hardness);
+      return hardness ? parseInt(this.room.hardness):[];
+    }
+  }
 };
 </script>

@@ -35,7 +35,7 @@
         <a>
           <img :src="iconPath('logo.svg')" />
         </a>
-        <a class="cta footer-cta centered-flex">
+        <a target = "_blank" href="https://www.instagram.com/miss_escaperoom/" class="cta footer-cta centered-flex">
           <img :src="iconPath('white-instagram.svg')" alt="instagram logo" />
           <span>اینستاگرام</span>
         </a>

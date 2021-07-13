@@ -2,27 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\UltraFastSendSms;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use phpDocumentor\Reflection\PseudoTypes\False_;
 
 class ConfirmNumberController extends Controller
 {
     public function getConfirmNumber(Request $request)
     {
         $request->validate([
-            'phoneNumber' => 'required|numeric'
+            'phoneNumber' => 'required|regex:/(09)[0-9]{9}/|digits:11|numeric'
         ]);
 
-        session(['phoneRegistration' => [
-            'phoneNumber' => $request->input('phoneNumber'),
-            'code' => 1234
-        ]]);
+        $randomNumber = random_int(100000, 999999);
 
-        return [
-            'status' => true,
-        ];
+        try {
+
+            $ultra = new UltraFastSendSms();
+            $result = $ultra->generateData(
+                $request->input('phoneNumber'),
+                $randomNumber
+            )->UltraFastSend();
+
+            if(!$result){
+                return [
+                    'status' => false,
+                    'msg' => 'خطا در ارسال پیامک'
+                ];
+            }
+
+            session(['phoneRegistration' => [
+                'phoneNumber' => $request->input('phoneNumber'),
+                'code' => $randomNumber
+            ]]);
+
+            return [
+                'status' => true,
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'status' => false,
+                'msg' => 'خطا در ارسال پیامک'
+            ];
+        }
     }
 
     public function submitConfirmCode(Request $request)

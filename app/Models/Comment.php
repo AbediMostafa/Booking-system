@@ -10,6 +10,21 @@ class Comment extends Model
     use HasFactory;
 
     protected $guarded=[];
+
+    public static function booted()
+    {
+        static::deleting(function ($comment) {
+            $rate = Rate::where([
+                ['user_id', $comment->user_id],
+                ['room_id', $comment->commentable_id]
+            ])->first();
+
+            if($rate){
+                $rate->delete();
+            }
+        });
+    }
+
     //polymorphic one to many
     public function commentable()
     {
@@ -29,5 +44,10 @@ class Comment extends Model
     public function childs()
     {
         return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    public function agreements()
+    {
+        return $this->morphMany(Agreement::class, 'agreementable');
     }
 }

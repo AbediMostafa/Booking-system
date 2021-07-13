@@ -15,6 +15,7 @@ class CitiesResource extends JsonResource
     public function toArray($request)
     {
         $image = $this->medias()->first();
+        
         return [
             'id'=>$this->id,
             'name'=>$this->name,

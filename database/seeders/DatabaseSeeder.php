@@ -13,10 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RunFactories::class);
         $this->call(NavbarSeeder::class);
-        $this->call(GenreSeeder::class);
-        $this->call(GenreRoomSeeder::class);
         $this->call(SpecificMediasSeeder::class);
         $this->call(UserSeeder::class);
     }

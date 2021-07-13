@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import HeaderPart from '../components/packages/Header-part.vue';
 
 
@@ -25,9 +26,32 @@ const vue = new Vue({
     methods: {
         sendConfirmCode() {
             axios.post('/get-confirm-number', { phoneNumber: this.phoneNumber }).then(response => {
-                if (response.data) {
+                if (response.data.status) {
                     this.sendPhoneNumberStep = false;
                     this.sendConfirmCodeStep = true;
+                } else {
+                    Swal.fire({
+                        title: 'خطا',
+                        text: response.data.msg,
+                        icon: error,
+                        showConfirmButton: true,
+                    });
+                }
+            }).catch(error => {
+                if (error.response.status == 422) {
+                    var errors = '';
+
+                    _.forOwn(error.response.data.errors, (value, key) => {
+                        errors += value[0] + '<br>'
+                    });
+
+                    Swal.fire({
+                        title: 'خطا',
+                        html: errors,
+                        icon: 'error',
+                        confirmButtonText: 'باشه'
+                    });
+
                 }
             });
         },
@@ -37,6 +61,13 @@ const vue = new Vue({
                 if (response.data.status) {
                     if (this.backUrl == 'home') {
                         location.href = '/';
+                        return;
+                    }
+
+                    if (this.backUrl.split('_')[0] == 'room') {
+                        let roomId = this.backUrl.split('_')[1];
+
+                        location.href = `/rooms/${roomId}`;
                         return;
                     }
 

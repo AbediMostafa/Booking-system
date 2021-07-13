@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminCityController;
 use App\Http\Controllers\AdminCollectionController;
+use App\Http\Controllers\AdminCommentController;
 use App\Http\Controllers\AdminGenreController;
 use App\Http\Controllers\AdminLearnController;
 use App\Http\Controllers\AdminRoomController;
@@ -16,18 +17,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SpecialRoomCotroller;
 use App\Http\Controllers\SpecificMediaController;
+use App\Http\Controllers\VoteController;
 use App\Models\Room;
-use App\Models\SpecificMedia;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
-Route::get('/api', function (Request $request) {
-
-    dd($request->all());
-});
 Route::view('/login', 'login')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('postLogin');
 Route::post('/get-credentials', [LoginController::class, 'getCredentials']);
@@ -36,31 +31,31 @@ Route::get('/logout', [LoginController::class, 'logoutAndRedirect']);
 Route::post('/auth-check', [LoginController::class, 'checkLogin']);
 Route::post('/get-confirm-number', [ConfirmNumberController::class, 'getConfirmNumber']);
 Route::post('/submit-confirm-code', [ConfirmNumberController::class, 'submitConfirmCode']);
+Route::post('/vote/{type}/comment/{comment}', [VoteController::class, 'submitVote']);
 Route::get('/phone-check/{backUrl}', function ($backUrl) {
 
-    if(Auth::check()){
+    if (Auth::check()) {
         return redirect('/');
     }
-    
+
     return view('phone-check', ['backUrl' => $backUrl]);
 });
 
 Route::get('test', function () {
-    dd(User::whereEmail('ortiz.rosemarie@example.org')->exists());
 });
 Route::view('/cities', 'cities')->name('cities');
 Route::view('/collections', 'collections')->name('collections');
 Route::view('/genres', 'room_search')->name('roomSearch');
 Route::view('/learn', 'learnings')->name('learnings');
 
-Route::view('/dashboard', 'dashboard')->name('dashboard')->middleware('auth');
+Route::view('/dashboard', 'dashboard')->name('dashboard')->middleware('auth.admin');
 
 Route::get('/learn/{id}', function ($id) {
     return view('learning', ['id' => $id]);
 })->name('learnShow');
 
-Route::get('/rooms/{id}', function ($id) {
-    return view('room_show', ['id' => $id]);
+Route::get('/rooms/{room}', function (Room $room) {
+    return view('room_show', ['id' => $room->id]);
 })->name('roomShow');
 
 Route::get('/insert-comment/{room}', [RoomController::class, 'insertComment'])->middleware('auth.withNumber');
@@ -161,5 +156,12 @@ Route::prefix('admin')->group(function () {
         Route::post('detach-static-media/{media}', [SpecificMediaController::class, 'detachStaticMedia']);
         Route::post('detach-dynamic-media/{specificMedia}', [SpecificMediaController::class, 'detachDynamicMedia']);
         Route::post('get-medias', [SpecificMediaController::class, 'getMedias']);
+    });
+
+    Route::prefix('comment')->group(function () {
+        Route::post('', [AdminCommentController::class, 'index']);
+        Route::post('search', [AdminCommentController::class, 'search']);
+        Route::post('delete', [AdminCommentController::class, 'delete']);
+        Route::post('grant', [AdminCommentController::class, 'grant']);
     });
 });

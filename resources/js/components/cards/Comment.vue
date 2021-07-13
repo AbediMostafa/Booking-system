@@ -15,13 +15,13 @@
 
     <p class="comments-boxes-p">{{ comment.body }}</p>
     <div class="comment-thumbs-container">
-      <div class="cth-up-container cth-containers">
+      <div class="cth-up-container cth-containers" @click="vote('agree')">
         <img class="thumb-image" :src="iconPath('thumbs-up.svg')" />
-        <span class="thumb-text">{{ comment.up_rate }}</span>
+        <span class="thumb-text">{{ upRate }}</span>
       </div>
-      <div class="cth-down-container cth-containers">
+      <div class="cth-down-container cth-containers" @click="vote('disagree')">
         <img class="thumb-image" :src="iconPath('thumbs-down.svg')" />
-        <span class="thumb-text">{{ comment.down_rate }}</span>
+        <span class="thumb-text">{{ downRate }}</span>
       </div>
     </div>
   </div>
@@ -33,11 +33,50 @@ export default {
   components: {
     ScoreStars,
   },
+  data() {
+    return {
+      upRate: 0,
+      downRate: 0,
+    };
+  },
   props: ["comment"],
   methods: {
+    vote(type) {
+      axios.post("/auth-check").then((response) => {
+        if (!response.data) {
+          location.href = `/phone-check/room_${this.comment.roomId}`;
+          return;
+        }
+        axios
+          .post(`/vote/${type}/comment/${this.comment.id}`)
+          .then((result) => {
+            console.log(result)
+            if (!result.data.status) {
+              Swal.fire({
+                title: "خطا",
+                html: "مشکلی در ثبت نظر به وجود آمده",
+                icon: "error",
+                confirmButtonText: "باشه",
+              });
+              return;
+            }
+
+            result.data.increaseAgree ? this.upRate++ : "";
+            result.data.decreaseAgree ? this.upRate-- : "";
+            result.data.increaseDisagree ? this.downRate++ : "";
+            result.data.decreaseDisagree ? this.downRate-- : "";
+            return;
+          });
+      });
+    },
     iconPath(icon) {
       return sot.iconPath(icon);
     },
+  },
+
+  created() {
+    this.upRate = parseInt(this.comment.up_rate);
+    this.downRate = parseInt(this.comment.down_rate);
   },
 };
 </script>
@@ -78,8 +117,8 @@ export default {
   transition: all 300ms;
 }
 
-.cth-containers:hover{
-    box-shadow: 0 0 1rem 0 rgb(0 0 0 / 20%)
+.cth-containers:hover {
+  box-shadow: 0 0 1rem 0 rgb(0 0 0 / 20%);
 }
 
 .thumb-image {

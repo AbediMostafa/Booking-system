@@ -13,7 +13,7 @@
 
 <body>
     <div id="app">
-        <a href="https://wa.me/09192404569" class="whatsapp">
+        <a target="_blank" href="https://web.whatsapp.com/send?phone=0989123711964&text=سلام" class="whatsapp">
             <span>شروع گفتگو</span>
             <img src="/images/icons/whatsapp.svg">
         </a>

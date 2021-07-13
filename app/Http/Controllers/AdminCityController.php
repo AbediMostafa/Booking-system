@@ -36,7 +36,7 @@ class AdminCityController extends Controller
                     'status' => false,
                     'msg' => "شهر $city->name اتاق هایی دارد و نمیتواند پاک شود"
                 ];
-            }
+            }   
             $city->delete();
         }
         try {
@@ -128,7 +128,7 @@ class AdminCityController extends Controller
 
         $media = Media::findOrFail($request->input('media.id'));
         $media->update([
-            'media_if'=>'city',
+            'media_of'=>'city',
             'place'=>'front'
         ]);
 

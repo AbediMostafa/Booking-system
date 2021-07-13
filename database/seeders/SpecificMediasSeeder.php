@@ -18,9 +18,6 @@ class SpecificMediasSeeder extends Seeder
             ['name' => 'first_page_video'],
             ['name' => 'first_page_full_image'],
             ['name' => 'first_page_full_video'],
-            ['name' => 'banner_slider'],
-            ['name' => 'banner_slider'],
-            ['name' => 'banner_slider'],
         ]);
     }
 }

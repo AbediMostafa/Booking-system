@@ -21,14 +21,15 @@ class RoomCommentsResource extends JsonResource
         ->first();
         
         return [
-            'body' => $this->body,
-            'up_rate' => $this->up_rate,
-            'down_rate' => $this->down_rate,
+            'id'=>$this->id,
+            'body' => $this->body,  
+            'up_rate' => $this->agreements()->whereStatus('agree')->count(),
+            'down_rate' => $this->agreements()->whereStatus('disagree')->count(),
             'status' => $this->status,
-            'id' => $this->id,
+            'roomId'=>$this->commentable->id,
             'date'=> \Morilog\Jalali\Jalalian::forge($this->created_at)->format('%A %d %B %Y'),
             'user' => [
-                'name' => $this->user->name,
+                'name' => $this->user->email,
                 'rate' => $userRate ? $userRate-> rateAveragePercent : 0
             ],
         ];
