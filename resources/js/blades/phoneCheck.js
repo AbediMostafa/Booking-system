@@ -72,6 +72,13 @@ const vue = new Vue({
                     }
 
                     location.href = `/insert-comment/${this.backUrl}`;
+                } else {
+                    Swal.fire({
+                        title: 'خطا',
+                        html: response.data.msg,
+                        icon: 'error',
+                        confirmButtonText: 'باشه'
+                    });
                 }
             });
         }

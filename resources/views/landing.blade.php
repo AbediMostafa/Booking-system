@@ -6,13 +6,13 @@
     <section class="hiro">
         <video-modal :src="videoSrc" ref="landingVideo"></video-modal>
         <div class="container pb-0">
-            <carousel @play-video="playVideo"></carousel>
+            <carousel @play-video="playVideo" :carousel-data = "allData.carousel"></carousel>
         </div>
     </section>
 
     <!-- Counts section -->
     <section class="counts">
-            <counts></counts>
+            <counts :count-data="allData.entityCounts"></counts>
     </section>
 
     <section class="slider">
@@ -24,7 +24,7 @@
     <!-- Special Rooms Section -->
     <section class="special-rooms" :style="background('back1.svg', 'bottom')">
         <div class="container">
-            <special-rooms></special-rooms>
+            <special-rooms :special-room-data="allData.specialRooms"></special-rooms>
         </div>
     </section>
 
@@ -38,14 +38,14 @@
     <!-- Learning Section -->
     <section class="learning" :style="background('rotated-back1.svg', 'top')">
         <div class="container">
-            <learning></learning>
+            <learning :learning-data="allData.learning"></learning>
         </div>
     </section>
 
     <!-- Collections Section  -->
     <section class="collections">
         <div class="container">
-            <collections></collections>
+            <collections :collection-data="allData.collection"></collections>
         </div>
     </section>
 @endsection

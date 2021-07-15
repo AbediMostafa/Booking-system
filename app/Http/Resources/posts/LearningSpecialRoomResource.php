@@ -14,10 +14,11 @@ class LearningSpecialRoomResource extends JsonResource
      */
     public function toArray($request)
     {
+        $media = $this->medias()->first();
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'image'=>$this->image,
+            'image'=>$media?$media->path:'',
             'district'=>$this->district,
             'min_person'=>$this->min_person,
             'max_person'=>$this->max_person,

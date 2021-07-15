@@ -2,21 +2,21 @@
   <div class="count-container">
     <div class="count-parts">
       <div class="count-text-part">
-        <span>٧٥+</span>
+        <span>+{{countData? countData.city:''}}</span>
         <span>شهر</span>
       </div>
       <img :src="iconPath('white-city.svg')" class="white-icons" />
     </div>
     <div class="count-parts">
       <div class="count-text-part">
-        <span>۴۰+</span>
+        <span>+{{countData? countData.collection:''}}</span>
         <span>مجموعه</span>
       </div>
       <img :src="iconPath('white-collection.svg')" class="white-icons" />
     </div>
     <div class="count-parts">
       <div class="count-text-part">
-        <span>۵۰۰+</span>
+        <span>+{{countData? countData.room:''}}</span>
         <span>اتاق فرار</span>
       </div>
       <img :src="iconPath('white-escape.svg')" class="white-icons" />
@@ -25,6 +25,7 @@
 </template>
 <script>
 export default {
+  props:['countData'],
   methods: {
     /**
      * get exact path of icon

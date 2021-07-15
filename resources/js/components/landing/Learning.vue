@@ -7,7 +7,7 @@
       ></section-header>
 
       <div class="text-right">
-        <a class="cta main-cta learning-cta" href="/learn">همه آموزش ها</a>
+        <a class="cta main-cta learning-cta" href="/learn">{{learningData?learningData.button:''}}</a>
       </div>
     </div>
     <div class="learning-card-container">
@@ -24,6 +24,7 @@
 import SectionHeader from "../packages/Section-header.vue";
 import LearningCard from "../cards/Learning-card.vue";
 export default {
+  props:['learningData'],
   components: {
     SectionHeader,
     LearningCard,
@@ -32,16 +33,18 @@ export default {
     return {
       enterAnimations: sot.enterAnimations,
       learnings: [],
-      titles: {
-        mainTitle: "آموزش با",
+    };
+  },
+
+  computed:{
+    titles(){
+      return {
+        mainTitle: this.learningData?this.learningData.title:'',
         icon: true,
         secondTitle: "",
-        text: `
-        بعضی وقت ها توی بعضی از اتاق ها به مواردی برمیخوری که نیاز به اطلاعات قبلی داره. اطلاعاتی را جع به اتاق ها و انواع کلیدها.
-        ما توی این بخش یه سری آموزش ها رو به شما میدیم که بیشتر از اتاق ها لذت ببرید.
-        `,
-      },
-    };
+        text: this.learningData?this.learningData.text:''
+      };
+    }
   },
   methods: {
     getStarredPosts() {

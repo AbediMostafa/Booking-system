@@ -50,7 +50,6 @@ export default {
         axios
           .post(`/vote/${type}/comment/${this.comment.id}`)
           .then((result) => {
-            console.log(result)
             if (!result.data.status) {
               Swal.fire({
                 title: "خطا",

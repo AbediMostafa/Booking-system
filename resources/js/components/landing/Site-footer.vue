@@ -2,31 +2,32 @@
   <div class="footer-container">
     
     <div class="footer-navs">
-      <ul>
-        <li>تهرانی ها</li>
-        <li>شمال تهران</li>
-        <li>جنوب تهران</li>
-        <li>شرق تهران</li>
-        <li>غرب تهران</li>
-      </ul>
 
       <ul>
-        <li>شهرها</li>
-        <li>تهران</li>
-        <li>البرز</li>
-        <li>یزد</li>
-        <li>همدان</li>
-        <li>کاشان</li>
-        <li>شیراز</li>
-        <li>مشهد</li>
-        <li>کرمانشاه</li>
+        <li>اتاق های فرار</li>
+        <li>
+          <a href="/cities">شهرها</a>
+        </li>
+        <li>
+          <a href="/collections">مجموعه ها</a>
+        </li>
+        <li>
+          <a href="/learn">آموزش ها</a>
+        </li>
+        <li>
+          <a href="/genres">جستجوی پیشرفته</a>
+        </li>
       </ul>
 
       <ul>
         <li>Miss Escape</li>
-        <li>داستان ما</li>
-        <li>تماس با ما</li>
-        <li>درباره ما</li>
+        <li>
+          <a href="/about-us">داستان ما</a>
+        </li>
+
+        <li>
+          <a href="/contact-us">تماس با ما</a>
+        </li>
       </ul>
     </div>
     

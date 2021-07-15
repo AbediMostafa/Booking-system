@@ -11,12 +11,14 @@
 
 <section class="special-rooms">
     <div class="container">
-        <collections></collections>
+        <div class="about-contact-container">
+            {!!$aboutUs!!}
+        </div>
     </div>
 </section>
 
 @endsection
 
 @section('scripts')
-<script src="{{asset('js/collections.js')}}"></script>
+<script src="{{asset('js/aboutUs.js')}}"></script>
 @endsection

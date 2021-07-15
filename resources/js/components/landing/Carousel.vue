@@ -3,7 +3,9 @@
     <div class="overlay"></div>
 
     <img
-      :src="carouselImageSources[counter].path"
+      :src="
+        carouselImageSources.length ? carouselImageSources[counter].path : ''
+      "
       :class="['carousel-img', zoom ? 'zoom-in' : 'zoom-out']"
     />
     <div class="image-content">
@@ -11,13 +13,19 @@
         v-scrollAnimation="enterAnimations.topAnimation"
         class="ic-main-title"
       >
-        {{ carouselImageSources[counter].text }}
+        {{
+          carouselImageSources.length ? carouselImageSources[counter].text : ""
+        }}
       </h1>
       <p
         v-scrollAnimation="enterAnimations.topWithDelayAnimation"
         class="ic-text-part"
       >
-        {{ carouselImageSources[counter].paragraph }}
+        {{
+          carouselImageSources.length
+            ? carouselImageSources[counter].paragraph
+            : ""
+        }}
       </p>
       <div class="cta-container">
         <play-icon
@@ -30,7 +38,7 @@
           class="cta main-cta"
           v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
           href="/genres"
-          >شروع ماجراجویی</a
+          >{{ carouselData ? carouselData.buttonText : "" }}</a
         >
       </div>
     </div>
@@ -40,6 +48,7 @@
 <script>
 import PlayIcon from "./../packages/Play-icon.vue";
 export default {
+  props: ["carouselData"],
   components: {
     PlayIcon,
   },
@@ -48,7 +57,7 @@ export default {
       enterAnimations: sot.enterAnimations,
       counter: 0,
       zoom: false,
-      carouselImageSources: sot.carouselItems,
+      carouselImageSources: [],
     };
   },
   methods: {
@@ -72,19 +81,24 @@ export default {
     },
   },
 
-  mounted() {
-    this.addBreak();
-
-    setInterval(() => {
-      this.zoom = false;
+  watch: {
+    carouselData() {
+      this.carouselImageSources = this.carouselData.carouselItems;
       this.addBreak();
-      this.counter++;
 
-      if (this.carouselImageSources.length === this.counter) {
-        this.counter = 0;
-      }
-    }, 10000);
+      setInterval(() => {
+        this.zoom = false;
+        this.addBreak();
+        this.counter++;
+
+        if (this.carouselImageSources.length === this.counter) {
+          this.counter = 0;
+        }
+      }, 10000);
+    },
   },
+
+  mounted() {},
 };
 </script>
 

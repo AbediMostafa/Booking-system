@@ -12,43 +12,21 @@ const vue = new Vue({
     },
 
     data: {
-        background: "url('/storage/images/backgrounds/header-picture1.png') no-repeat -20% 50%, url('/storage/images/backgrounds/header-picture2.png') no-repeat 140% 50%",
         search: sot.reactiveVars.roomSearch,
         roomKey: '',
         rooms: [],
         tmpRooms: [],
         totalData: {},
         headerInfos: {
-            imageSrc: sot.absImgPath('carousel/1.jpg'),
             title: '',
-            text: ` 
-            همه اتاق های فرار بر اساس فیلترهایی تقسیم بندی شده اند. با استفاده از این فیلترها می توانید اتاق مورد نظر خود را پیدا کنید که در شهر خاص، مجموعه خاص و یا ژانر خاص وجود دارند
-            `
+            text: '',
+            media: ''
         },
     },
     computed: {
-        city() {
-            return this.search.city ? `شهر ${this.search.city}` : '';
+        background() {
+            return `url('..${this.headerInfos.media}') no-repeat center center /cover`;
         },
-        genre() {
-            return this.search.genre ? `در ژانر ${this.search.genre}` : '';
-        },
-        collection() {
-            return this.search.collection ? `در مجموعه ${this.search.collection}` : '';
-        },
-        personCount() {
-            return this.search.collection ? `${this.search.personCount} نفره` : '';
-        },
-
-        getTitle() {
-            return `
-                اتاق های فرار
-                ${this.city}
-                ${this.genre}
-                ${this.collection}
-                ${this.personCount}
-            `;
-        }
     },
     methods: {
         roomSearch(searchKey) {
@@ -62,15 +40,19 @@ const vue = new Vue({
 
         callComplicatedRoom(data = {}) {
             axios.post('rooms/complicated-search', data).then((response) => {
-                console.log(response.data);
                 this.totalData = response.data;
                 this.rooms = this.tmpRooms = response.data.rooms;
+            });
+        },
+        getVars() {
+            axios.post('/site-vars/genres-page').then(response => {
+                this.headerInfos = response.data;
             });
         }
     },
 
     created() {
-        this.headerInfos.title = this.getTitle;
-        this.callComplicatedRoom()
+        this.getVars();
+        this.callComplicatedRoom();
     }
 });

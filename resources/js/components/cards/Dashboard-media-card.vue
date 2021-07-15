@@ -50,6 +50,9 @@ export default {
         case "specific_media":
           type = "مدیای خاص";
           break;
+          case "site_vars":
+          type = "متغیرهای سایت";
+          break;
       }
       return type;
     },

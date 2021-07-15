@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubmitCommentRequest;
 use App\Http\Resources\comments\AnswerResource;
 use App\Models\Comment;
 use App\Models\Rate;
@@ -16,9 +17,8 @@ class CommentController extends Controller
         return AnswerResource::collection($comment->childs->paginate(4));
     }
 
-    public function submitComment(Request $request)
+    public function submitComment(SubmitCommentRequest $request)
     {
-
         $request->validate([
             'comment' => 'required',
             'scoresTitles.scariness.selectedKey' => 'required',

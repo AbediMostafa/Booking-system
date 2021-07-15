@@ -16,11 +16,11 @@ const vue = new Vue({
         },
         postData: {
             scoresTitles: {
-                scariness: { title: 'درجه ترس', selectedKey: '' },
-                room_decoration: { title: 'طراحی اتاق', selectedKey: '' },
-                hobbiness: { title: 'سرگرمی', selectedKey: '' },
-                creativeness: { title: 'خلاقیت', selectedKey: '' },
-                mysteriness: { title: 'جذابیت داستان', selectedKey: '' },
+                scariness: { title: '', selectedKey: '' },
+                room_decoration: { title: '', selectedKey: '' },
+                hobbiness: { title: '', selectedKey: '' },
+                creativeness: { title: '', selectedKey: '' },
+                mysteriness: { title: '', selectedKey: '' },
             },
 
             roomInfo,
@@ -76,5 +76,18 @@ const vue = new Vue({
                 });
             });
         }
-    }
+    },
+
+    created() {
+        axios.post('/site-vars/rate-titles').then(response => {
+            let titles = this.postData.scoresTitles;
+
+            titles.scariness.title = response.data.scariness
+            titles.room_decoration.title = response.data.decoration
+            titles.hobbiness.title = response.data.hobbiness
+            titles.creativeness.title = response.data.creativeness
+            titles.mysteriness.title = response.data.mysteriness
+
+        });
+    },
 });

@@ -16,6 +16,8 @@ js('resources/js/blades/learnings.js', 'public/js/learnings.js').
 js('resources/js/blades/learning.js', 'public/js/learning.js').
 js('resources/js/blades/dashboard.js', 'public/js/dashboard.js').
 js('resources/js/blades/login.js', 'public/js/login.js').
+js('resources/js/blades/contactUs.js', 'public/js/contactUs.js').
+js('resources/js/blades/aboutUs.js', 'public/js/aboutUs.js').
 js('resources/js/blades/insertComment.js', 'public/js/insertComment.js').
 js('resources/js/blades/phoneCheck.js', 'public/js/phoneCheck.js').
 vue().

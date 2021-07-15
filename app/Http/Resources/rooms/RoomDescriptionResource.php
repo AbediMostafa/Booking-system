@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Rooms;
 
 use App\Http\Resources\rooms\CollectionRoomResource;
+use App\Models\SiteVariables;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RoomDescriptionResource extends JsonResource
@@ -21,6 +22,7 @@ class RoomDescriptionResource extends JsonResource
         $teaser = $this->medias()->where('place', 'video')->first();
 
         $collectionMedia = $this->collection->medias()->first();
+        $this->rateTitles = SiteVariables::where('variable', 'like', '%rate_%')->get();
 
         return [
             'id' => $this->id,
@@ -61,26 +63,32 @@ class RoomDescriptionResource extends JsonResource
                 'items' => [
                     'scariness' => [
                         'value' => $this->rates->avg('scariness') * 100 / 5,
-                        'title' => 'درجه ترس',
+                        'title' =>$this->rateTitle('rate_scariness'),
                     ],
                     'room_decoration' => [
                         'value' => $this->rates->avg('room_decoration') * 100 / 5,
-                        'title' => 'طراحی اتاق',
+                        'title' =>$this->rateTitle('rate_room_decoration'),
                     ],
                     'hobbiness' => [
                         'value' => $this->rates->avg('hobbiness') * 100 / 5,
-                        'title' => 'سرگرمی',
+                        'title' =>$this->rateTitle('rate_hobbiness'),
                     ],
                     'creativeness' => [
                         'value' => $this->rates->avg('creativeness') * 100 / 5,
-                        'title' => 'خلاقیت',
+                        'title' =>$this->rateTitle('rate_creativeness'),
                     ],
                     'mysteriness' => [
                         'value' => $this->rates->avg('mysteriness') * 100 / 5,
-                        'title' => 'داستانی',
+                        'title' =>$this->rateTitle('rate_mysteriness'),
                     ],
                 ],
             ],
         ];
+    }
+
+    public function rateTitle($title)
+    {
+        return $this->rateTitles->where('variable', $title)->first()->value;
+
     }
 }
