@@ -25,7 +25,12 @@
     </div>
 
     <div class="special-room-cards">
-      <room-card v-for="room in rooms" :key="room.id" :room="room" :type="selectedSpecialKey"></room-card>
+      <room-card
+        v-for="room in rooms"
+        :key="room.id"
+        :room="room"
+        :type="selectedSpecialKey"
+      ></room-card>
     </div>
     <img :src="smallShap1" class="shape-1" ref="shape1" />
   </div>
@@ -36,6 +41,7 @@ import SectionHeader from "../packages/Section-header.vue";
 import RoomCard from "../cards/Room-card.vue";
 export default {
   components: { SectionHeader, RoomCard },
+  props: ["specialRoomData"],
   data() {
     return {
       specialTypes: {},
@@ -45,24 +51,26 @@ export default {
       selectedSpecialKey: 0,
       rotateDeg: 0,
       enterAnimations: sot.enterAnimations,
-      titles: {
-        mainTitle: "اتاق های ویژه با",
-        icon: true,
-        secondTitle: "",
-        text: "بعضی از اتاق ها تخفیف های مناسبی دارن و یا بعضیاشون پیشنهادهای ویژه ما هستن، یا بعضی از اتاق ها تازه درست شدن",
-      },
     };
   },
+  computed: {
+    titles() {
+      return {
+        mainTitle: this.specialRoomData ? this.specialRoomData.title : "",
+        icon: true,
+        secondTitle: "",
+        text: this.specialRoomData ? this.specialRoomData.text : "",
+      };
+    },
+  },
+
   methods: {
     /**
      * get called when special room clicked
      */
     specialClicked(key) {
       // set current rooms
-      this.getRooms(
-        this.specialTypes[key].route
-
-      );
+      this.getRooms(this.specialTypes[key].route);
       this.selectedSpecialKey = key;
 
       // set coordinate of navigation hr tag
@@ -98,13 +106,11 @@ export default {
       }
     },
 
-    getRooms(route){
-      axios
-      .post(route)
-      .then(response=>{
+    getRooms(route) {
+      axios.post(route).then((response) => {
         this.rooms = response.data.data;
       });
-    }
+    },
   },
 
   created() {
@@ -115,20 +121,25 @@ export default {
     });
   },
 
-  mounted() {
-    this.specialTypes = sot.specialTypes;
+  watch: {
+    specialRoomData() {
+      this.specialTypes = this.specialRoomData.nav;
 
-    let specialTypeKeys = Object.keys(this.specialTypes),
-    lastSpecialTypeKey = specialTypeKeys[specialTypeKeys.length - 1],
-    selectedSpecial = this.specialTypes[lastSpecialTypeKey];
-    this.getRooms(selectedSpecial.route);
+      let specialTypeKeys = Object.keys(this.specialTypes),
+        lastSpecialTypeKey = specialTypeKeys[specialTypeKeys.length - 1],
+        selectedSpecial = this.specialTypes[lastSpecialTypeKey];
+      
+      this.getRooms(selectedSpecial.route);
 
-    setTimeout(() => {
-      let el = this.$refs[lastSpecialTypeKey][0];
-      this.selectedSpecialKey = lastSpecialTypeKey;
-      this.setHrStyle(el);
-    }, 2000);
+      setTimeout(() => {
+        let el = this.$refs[lastSpecialTypeKey][0];
+        this.selectedSpecialKey = lastSpecialTypeKey;
+        this.setHrStyle(el);
+      }, 2000);
+    },
   },
+
+  mounted() {},
 };
 </script>
 

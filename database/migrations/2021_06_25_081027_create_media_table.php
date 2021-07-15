@@ -18,7 +18,7 @@ class CreateMediaTable extends Migration
             $table->string('display_name');
             $table->string('store_name')->nullable();
             $table->string('path');
-            $table->enum('media_of',['city', 'collection', 'post', 'room','genre', 'specific_media', 'other']);
+            $table->enum('media_of',['city', 'collection', 'post', 'room','genre', 'specific_media','site_vars', 'other']);
             $table->enum('type',['image','video']);
             $table->enum('place',['front','banner','other','video']);
             $table->integer('mediaable_id')->unsigned()->index()->nullable();

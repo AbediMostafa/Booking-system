@@ -6,6 +6,7 @@ import Medias from './components/Medias.vue';
 import Rooms from './components/Rooms.vue';
 import Comments from './components/comments.vue';
 import SpecificMedias from './components/Specific-medias.vue';
+import SiteVars from './components/Site-vars.vue';
 import NewMedia from './create-components/Media.vue';
 import NewRoom from './create-components/Room.vue';
 import NewCity from './create-components/City.vue';
@@ -28,6 +29,7 @@ let routes = [
     { path: '/medias', component: Medias },
     { path: '/rooms', component: Rooms },
     { path: '/comments', component: Comments },
+    { path: '/site-vars', component: SiteVars },
     { path: '/create/media', component: NewMedia },
     { path: '/create/room', component: NewRoom },
     { path: '/create/city', component: NewCity },

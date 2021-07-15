@@ -64,6 +64,12 @@
           <img :src="iconPath('grey-pencil.svg')" class="d-icon d-nav-icon" />
         </router-link>
       </li>
+      <li>
+        <router-link to="/site-vars">
+          <span class="d-nav-text d-conditional-text">متغیرهای سایت</span>
+          <img :src="iconPath('grey-pencil.svg')" class="d-icon d-nav-icon" />
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>

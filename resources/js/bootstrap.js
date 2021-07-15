@@ -25,18 +25,22 @@ axios.interceptors.response.use(response => {
 
     return response
 }, error => {
-    var errors = '';
 
-    _.forOwn(error.response.data.errors, (value, key) => {
-        errors += value[0] + '<br>'
-    });
+    if (error.response.status = 422) {
 
-    Swal.fire({
-        title: 'خطا',
-        html: errors,
-        icon: 'error',
-        confirmButtonText: 'باشه'
-    });
+        var errors = '';
+
+        _.forOwn(error.response.data.errors, (value, key) => {
+            errors += value[0] + '<br>'
+        });
+
+        Swal.fire({
+            title: 'خطا',
+            html: errors,
+            icon: 'error',
+            confirmButtonText: 'باشه'
+        });
+    }
 
     return Promise.reject(error);
 })

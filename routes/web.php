@@ -15,10 +15,13 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SiteVariablesController;
 use App\Http\Controllers\SpecialRoomCotroller;
 use App\Http\Controllers\SpecificMediaController;
 use App\Http\Controllers\VoteController;
+use App\Models\Media;
 use App\Models\Room;
+use App\Models\SiteVariables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,13 +45,35 @@ Route::get('/phone-check/{backUrl}', function ($backUrl) {
 });
 
 Route::get('test', function () {
+    $c =SiteVariables::all(); 
+
+    dd(
+        $c->where('variable', 'special_rooms_title')->first()->id
+    );
+
+    // $sv =SiteVariables::find(26);
+    // $media = Media::find(5);
+
+    // $sv->medias()->save($media);
+
+    $vars = SiteVariables::first('variable');
+
 });
 Route::view('/cities', 'cities')->name('cities');
 Route::view('/collections', 'collections')->name('collections');
 Route::view('/genres', 'room_search')->name('roomSearch');
 Route::view('/learn', 'learnings')->name('learnings');
-
 Route::view('/dashboard', 'dashboard')->name('dashboard')->middleware('auth.admin');
+
+Route::get('/about-us', function(){
+    $aboutUs = SiteVariables::whereVariable('our_story_text')->first()->value;
+    return view('about_us', ['aboutUs'=>$aboutUs]);
+});
+
+Route::get('/contact-us', function(){
+    $contactUs = SiteVariables::whereVariable('contact_us')->first()->value;
+    return view('contact_us', ['contactUs'=>$contactUs]);
+});
 
 Route::get('/learn/{id}', function ($id) {
     return view('learning', ['id' => $id]);
@@ -80,6 +105,17 @@ Route::get('/room-Description', [RoomController::class, 'roomDescription']);
 
 Route::post('/specific-medias/first-page-medias', [SpecificMediaController::class, 'getFirstPageMedias']);
 Route::post('/specific-medias/get-carousel-medias', [SpecificMediaController::class, 'getCarouselMedias']);
+
+Route::post('site-vars', [SiteVariablesController::class, 'index']);
+Route::post('site-vars/first-page', [SiteVariablesController::class, 'getFirstPageVars']);
+Route::post('site-vars/cities-page', [SiteVariablesController::class, 'getCitiesPageVars']);
+Route::post('site-vars/collections-page', [SiteVariablesController::class, 'getCollectionsPageVars']);
+Route::post('site-vars/genres-page', [SiteVariablesController::class, 'getGenresPageVars']);
+Route::post('site-vars/learnings-page', [SiteVariablesController::class, 'getLearningsPageVars']);
+Route::post('site-vars/rate-titles', [SiteVariablesController::class, 'rateTitles']);
+Route::post('site-vars/{siteVariables}/attach-media/{media}', [SiteVariablesController::class, 'attachMedia']);
+Route::post('site-vars/{siteVariables}/detach-media', [SiteVariablesController::class, 'detachMedia']);
+Route::post('site-vars/upate', [SiteVariablesController::class, 'update']);
 
 Route::prefix('admin')->group(function () {
 

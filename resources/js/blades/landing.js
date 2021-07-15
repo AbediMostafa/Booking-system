@@ -21,6 +21,7 @@ const vue = new Vue({
     },
     data: {
         showVideo: false,
+        allData: '',
         videoSrc: '',
     },
 
@@ -33,5 +34,10 @@ const vue = new Vue({
             this.showVideo = true;
             this.$refs.landingVideo.playVideo();
         }
-    }
+    },
+    created() {
+        axios.post('site-vars/first-page').then(response => {
+            this.allData = response.data.data;
+        });
+    },
 });

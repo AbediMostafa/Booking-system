@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NavbarSeeder::class);
         $this->call(SpecificMediasSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(SiteVariables::class);
     }
 }

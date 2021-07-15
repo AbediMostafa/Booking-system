@@ -11,10 +11,27 @@ const vue = new Vue({
 
     data: {
         headerInfos: {
-            title: 'همه برندهای اتاق فرار',
-            text: `بیش از 40 شهر و 250 اتاق فرار.با اتاق های فرار سرگرمی های مناسبی برای خودتان فراهم کنید و از ساعات مناسب برای خود 
-            لذت ببرید
-            `
+            title: '',
+            text: '',
+            media: ''
         }
+    },
+
+    computed: {
+        background() {
+            return `url('..${this.headerInfos.media}') no-repeat center center /cover`;
+        }
+    },
+
+    methods: {
+        getVars() {
+            axios.post('/site-vars/collections-page').then(response => {
+                this.headerInfos = response.data;
+            });
+        }
+    },
+
+    created() {
+        this.getVars();
     },
 });

@@ -175,6 +175,7 @@ section.counts {
     font-weight: normal;
     font-size: 0.7rem;
     margin-top: 0.3rem!important;
+    line-height: 1.9;
 }
 
 .sr-text-container {
@@ -777,7 +778,7 @@ nav {
 }
 
 .rs-diagram-shape-container {
-    height: 1rem;
+    height: .7rem;
     border-radius: .5rem;
     box-shadow: inset 1px 1px 10px 0 rgba(0, 0, 0, 0.2);
     position: relative;
@@ -794,12 +795,14 @@ nav {
 }
 
 .res-diagram-title h4 {
-    font-size: .8rem;
     margin: 0;
+    font-weight: normal;
+    font-size: 0.7rem;
+    color: #3f444a;
 }
 
 .res-diagram-title {
-    flex: 0 0 23%
+    flex: 0 0 27%
 }
 
 .sr-sticker:last-child {
@@ -952,7 +955,7 @@ nav {
 
 .rsd-p {
     font-size: .8rem;
-    color: var(--title);
+    color: #3f444a;
     line-height: 1.8;
 }
 
@@ -1004,9 +1007,9 @@ nav {
 }
 
 .comments-boxes-p {
-    font-size: .85rem;
-    line-height: 1.6;
-    color: var(--text);
+    font-size: .75rem;
+    line-height: 1.8;
+    color: #3f444a;
 }
 
 
@@ -2390,6 +2393,19 @@ a.is-submit-comment {
     font-family: 'IRANSansX';
 }
 
+.margin-auto {
+    margin: 0 auto;
+}
+
+.slick-track {
+    margin: 0 auto;
+}
+
+.about-contact-container {
+    text-align: right;
+    direction: rtl;
+}
+
 @media screen and (min-width:480px) {
     .d-each-image-select {
         flex: 0 0 calc(49% - 0.7rem);
@@ -2491,9 +2507,6 @@ a.is-submit-comment {
         justify-content: space-between;
         flex-wrap: wrap;
     }
-    .margin-auto {
-        margin: 0 auto;
-    }
     .learning-card {
         flex: 0 0 48%;
     }
@@ -2572,11 +2585,11 @@ a.is-submit-comment {
         margin: 0
     }
     .rs-description {
-        flex: 0 0 65%;
+        flex: 0 0 67%;
         order: initial;
     }
     .rs-other-infos {
-        flex: 0 0 29%;
+        flex: 0 0 30%;
         order: initial;
     }
     .search-input-container {
