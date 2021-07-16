@@ -43,22 +43,6 @@ Route::get('/phone-check/{backUrl}', function ($backUrl) {
 
     return view('phone-check', ['backUrl' => $backUrl]);
 });
-
-Route::get('test', function () {
-    $c =SiteVariables::all(); 
-
-    dd(
-        $c->where('variable', 'special_rooms_title')->first()->id
-    );
-
-    // $sv =SiteVariables::find(26);
-    // $media = Media::find(5);
-
-    // $sv->medias()->save($media);
-
-    $vars = SiteVariables::first('variable');
-
-});
 Route::view('/cities', 'cities')->name('cities');
 Route::view('/collections', 'collections')->name('collections');
 Route::view('/genres', 'room_search')->name('roomSearch');

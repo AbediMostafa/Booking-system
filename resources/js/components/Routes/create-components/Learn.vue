@@ -121,7 +121,7 @@ export default {
     },
     createEntity() {
       axios
-        .post(`/admin/learn/store/`, this.postData)
+        .post(`/admin/learn/store`, this.postData)
         .then((response) => {
           setTimeout(() => {
             this.$router.push({ path: "/learns" });
