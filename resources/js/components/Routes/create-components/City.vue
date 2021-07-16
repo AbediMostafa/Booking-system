@@ -88,7 +88,7 @@ export default {
     },
     createEntity() {
       axios
-        .post(`/admin/city/store/`, this.postData)
+        .post(`/admin/city/store`, this.postData)
         .then((response) => {
           setTimeout(() => {
             this.$router.push({ path: "/cities" });
