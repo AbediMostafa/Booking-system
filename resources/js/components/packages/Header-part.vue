@@ -10,6 +10,7 @@
       <p
         class="header-paragraph"
         v-scrollAnimation="enterAnimations.topWithDelayAnimation"
+        v-if="info.text"
       >
         {{ info.text }}
       </p>
@@ -34,7 +35,7 @@ export default {
 .header-txt-content {
   text-align: center;
     max-width: 40rem;
-    padding: 3rem 0;
+    padding: 3rem 0 1rem 0;
     margin: 0 auto;
 }
 

@@ -277,14 +277,6 @@ export default {
       this.$emit("search", value);
     },
   },
-
-  created(){
-    if(collectionTitle)
-      this.collectionClicked(collectionTitle);
-
-    if(cityTitle)
-      this.cityClicked(cityTitle);
-  }
 };
 </script>
 

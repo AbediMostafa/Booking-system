@@ -172,6 +172,7 @@
           <div class="d-form-input">
             <textarea
               type="text"
+              rows="7"
               class="d-search-input"
               v-model="postData.room.description"
             >
@@ -179,6 +180,21 @@
           </div>
         </div>
       </div>
+
+        <div class="d-form-row d-form">
+            <div class="mb-4 d-flex-100">
+                <span class="d-form-lable"> توضیحات تکمیلی </span>
+                <div class="d-form-input">
+            <textarea
+                type="text"
+                class="d-search-input"
+                rows="3"
+                v-model="postData.room.short_description"
+            >
+            </textarea>
+                </div>
+            </div>
+        </div>
 
       <div class="d-form-row d-form">
         <div class="d-flex-100">
@@ -332,7 +348,7 @@ export default {
     vueselect,
     MediaModal,
     VuePersianDatetimePicker,
-    Multiselect
+    Multiselect,
   },
   data() {
     return {
@@ -350,6 +366,7 @@ export default {
           address: "",
           district: "",
           description: "",
+          short_description:"",
           is_special: 0,
           is_new: 0,
           collection_id: "",
@@ -393,6 +410,7 @@ export default {
       },
       collections: [],
       cities: [],
+      genres: [],
       fileSelectTex: "انتخاب فایل",
       selectedFile: "",
       backgrounds: {
@@ -412,10 +430,9 @@ export default {
         .then((response) => {});
     },
     removeSelectedMedia(mediaOf) {
-      let media = this.postData.medias[mediaOf],
-        route = `admin/room/detach-media/${media.id}`;
+      let route = `admin/room/detach-media/${this.postData.room.id}`;
 
-      axios.post(route).then((response) => {});
+      axios.post(route, { type: mediaOf }).then((response) => {});
       this.postData.medias[mediaOf] = {
         background: "",
         id: "",

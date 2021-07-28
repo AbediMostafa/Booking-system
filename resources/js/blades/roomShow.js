@@ -10,7 +10,7 @@ import CollectionRoom from '../components/cards/Collection-room.vue';
 import NoEntity from '../components/packages/No-entity.vue';
 import roomShowHeaderIcons from '../components/packages/Room-show-header-icons.vue';
 import axios from 'axios';
-import { sot } from '../sot';
+import {sot} from '../sot';
 
 const vue = new Vue({
     el: '#app',
@@ -42,6 +42,16 @@ const vue = new Vue({
         enterAnimations: sot.enterAnimations,
     },
     computed: {
+        headerFilterClass(){
+            if(this.room.rates&& this.room.rates.rate_count == 0){
+                return 'header-filter-container';
+            }
+            return this.room.rates ? `common-header-filter ${this.room.rates.rateName}-header-filter-container`:'';
+        },
+
+        ratingIcon() {
+            return `/images/icons/${this.room.rates.rateName}.svg`;
+        },
         collectionRooms() {
             return this.room && this.room.collection ? this.room.collection.rooms : []
         },
@@ -55,8 +65,9 @@ const vue = new Vue({
     },
     methods: {
         getRoom() {
-            axios.post(`/${sot.exactPath}rooms/${roomId}`).then((response) => {
+            axios.post(`/rooms/${roomId}`).then((response) => {
                 this.room = response.data.data;
+                console.log(this.room);
                 this.headerInfos.title = response.data.data.name;
             });
         },
@@ -93,5 +104,6 @@ const vue = new Vue({
     created() {
         this.getRoom();
         this.getComments(`/rooms/${roomId}/comments`);
+
     }
 });

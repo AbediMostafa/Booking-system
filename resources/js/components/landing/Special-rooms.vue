@@ -126,9 +126,9 @@ export default {
       this.specialTypes = this.specialRoomData.nav;
 
       let specialTypeKeys = Object.keys(this.specialTypes),
-        lastSpecialTypeKey = specialTypeKeys[specialTypeKeys.length - 1],
+        lastSpecialTypeKey = specialTypeKeys[0],
         selectedSpecial = this.specialTypes[lastSpecialTypeKey];
-      
+
       this.getRooms(selectedSpecial.route);
 
       setTimeout(() => {
@@ -138,8 +138,6 @@ export default {
       }, 2000);
     },
   },
-
-  mounted() {},
 };
 </script>
 

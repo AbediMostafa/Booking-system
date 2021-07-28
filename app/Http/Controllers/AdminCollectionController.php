@@ -28,18 +28,14 @@ class AdminCollectionController extends Controller
             'collections.*' => 'exists:collections,id',
         ]);
 
-        $collections = Collection::whereIn('id', $request->get('collections'))->get();
 
-        foreach ($collections as $collection) {
-            if ($collection->rooms->count()) {
-                return [
-                    'status' => false,
-                    'msg' => "مجموعه $collection->title اتاق هایی دارد و نمیتواند پاک شود"
-                ];
-            }
-            $collection->delete();
-        }
         try {
+
+            Collection::whereIn('id', $request->get('collections'))
+                ->get()
+                ->each(function ($collection) {
+                    $collection->delete();
+                });
 
             return  [
                 'status' => true,
@@ -57,7 +53,7 @@ class AdminCollectionController extends Controller
     public function update(Collection $collection)
     {
 
-        $media = $collection->medias()->first();
+        $media = $collection->mediaType()->first();
         return [
             'collectionName' => $collection->title,
             'collection' => $collection->only('id', 'title'),
@@ -68,13 +64,9 @@ class AdminCollectionController extends Controller
         ];
     }
 
-    public function detachMedia(Media $media)
+    public function detachMedia(Collection $collection)
     {
-        $media->media_of = 'other';
-        $media->place = 'other';
-        $media->mediaable_id = null;
-        $media->mediaable_type = null;
-        $media->save();
+        $collection->medias()->detach();
 
         return [
             'status' => true,
@@ -84,11 +76,8 @@ class AdminCollectionController extends Controller
 
     public function attachMedia(Collection $collection, Media $media)
     {
-        $media->media_of = 'collection';
-        $media->place = 'front';
-        $media->save();
 
-        $collection->medias()->save($media);
+        $collection->medias()->sync($media);
 
         return [
             'status' => true,
@@ -118,25 +107,19 @@ class AdminCollectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'collection.name'=>'required',
-            'media.id'=>'required|exists:media,id'
+            'collection.name' => 'required',
+            'media.id' => 'required|exists:media,id'
         ]);
 
         $collection = Collection::create([
-            'title'=>$request->input('collection.name')
+            'title' => $request->input('collection.name')
         ]);
 
-        $media = Media::findOrFail($request->input('media.id'));
-        $media->update([
-            'media_of'=>'collection',
-            'place'=>'front',
-        ]);
+        $collection->medias()->attach($request->input('media.id'));
 
-        $collection->medias()->save($media);
-
-        return[
-            'status'=>true,
-            'msg'=>'مجموعه با موفقیت ایجاد شد'
+        return [
+            'status' => true,
+            'msg' => 'مجموعه با موفقیت ایجاد شد'
         ];
     }
 }

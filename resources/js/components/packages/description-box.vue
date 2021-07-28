@@ -1,7 +1,10 @@
 <template>
   <div class="rs-box-shadow rsd-image-text-container">
     <div class="rsd-descripton-text">
-      <h4 class="rsd-h">{{ room.name }}</h4>
+      <h4 class="rsd-h">
+            <small>داستان اتاق فرار</small>
+          {{room.name}}
+      </h4>
       <p class="rsd-p">{{ room.description }}</p>
       <div class="rsd-cta-collection-container">
         <a class="rsd-cta" @click="sendComment">
@@ -24,6 +27,13 @@
       class="rsd-image-container"
       :style="imageAsBackground(room.image)"
     ></div>
+
+      <div class="short-description" v-if="room.shortDescription">
+          <img src="/images/icons/blue-grey-check.svg" class="ml-2 header-room-icons">
+          <span>
+          {{room.shortDescription}}
+          </span>
+      </div>
   </div>
 </template>
 
@@ -41,7 +51,7 @@ export default {
       axios.post('/auth-check').then(response=>{
         location.href = response.data? `/insert-comment/${this.room.id}`:`/phone-check/${this.room.id}`;
       });
-    }, 
+    },
     iconPath(icon) {
       return sot.iconPath(icon);
     },

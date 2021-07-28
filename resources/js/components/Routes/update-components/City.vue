@@ -95,16 +95,15 @@ export default {
       axios
         .post(`/admin/city/update/${this.postData.city.id}`, this.postData.city)
         .then((response) => {
-            setTimeout(() => {
-                this.$router.push({path:'/cities'});
-            }, 2000);
+          setTimeout(() => {
+            this.$router.push({ path: "/cities" });
+          }, 2000);
         });
     },
     removeSelectedMedia(mediaOf) {
-      let media = this.postData.media,
-        route = `admin/city/detach-media/${media.id}`;
+      let route = `admin/city/detach-media/${this.postData.city.id}`;
 
-      axios.post(route).then((response) => {
+      axios.post(route, {mediaType:'front'}).then((response) => {
         this.postData.media = {
           background: "",
           id: "",
@@ -119,8 +118,7 @@ export default {
 
       let route = `admin/city/${this.postData.city.id}/attach-media/${payload.id}`;
 
-      axios.post(route, media).then((response) => {
-      });
+      axios.post(route, media).then((response) => {});
       this.mediaObj.show = false;
     },
 

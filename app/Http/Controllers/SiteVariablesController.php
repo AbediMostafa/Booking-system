@@ -75,17 +75,7 @@ class SiteVariablesController extends Controller
     {
 
         try {
-            if ($siteVariables->medias()->exists()) {
-                $siteVariables->medias()->first()->update([
-                    'media_of' => 'other',
-                    'mediaable_id' => null,
-                    'mediaable_type' => null,
-                ]);
-            }
-
-            $siteVariables->medias()->save($media);
-            $media->media_of = 'site_vars';
-            $media->save();
+            $siteVariables->medias()->sync($media);
 
             return [
                 'status' => true,
@@ -105,11 +95,7 @@ class SiteVariablesController extends Controller
     {
         try {
             if ($siteVariables->medias()->exists()) {
-                $siteVariables->medias()->first()->update([
-                    'media_of' => 'other',
-                    'mediaable_id' => null,
-                    'mediaable_type' => null,
-                ]);
+                $siteVariables->medias()->detach();
             }
 
             return [
@@ -143,7 +129,7 @@ class SiteVariablesController extends Controller
                 'msg'=>'بروزرسانی با موفقیت انجام شد'
             ];
         // } catch (\Throwable $th) {
-            
+
         //     return [
         //         'status'=>false,
         //         'msg'=>'خطا در انجام بروزرسانی'

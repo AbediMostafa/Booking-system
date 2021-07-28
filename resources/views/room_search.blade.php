@@ -6,7 +6,12 @@
         <div class="header-filter-container" :style="{'--bg': background}">
             <header-part :info="headerInfos"></header-part>
             @verbatim
-            <room-filter :total-data="totalData" @search="roomSearch" @filterchanged="filterChanged"></room-filter>
+            <room-filter
+                :total-data="totalData"
+                @search="roomSearch"
+                @filterchanged="filterChanged"
+                ref="filter"
+            ></room-filter>
             @endverbatim
         </div>
     </div>
@@ -25,8 +30,8 @@
 
 @section('scripts')
 <script>
-     const collectionTitle = '{{request()->get('collection')}}'  
-     const cityTitle = '{{request()->get('city')}}'  
+     const collectionTitle = '{{request()->get('collection')}}'
+     const cityTitle = '{{request()->get('city')}}'
 </script>
 <script src="{{asset('js/roomSearch.js')}}"></script>
 @endsection

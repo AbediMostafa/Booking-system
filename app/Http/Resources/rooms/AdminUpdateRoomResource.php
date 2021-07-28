@@ -15,9 +15,9 @@ class AdminUpdateRoomResource extends JsonResource
      */
     public function toArray($request)
     {
-        $img = $this->medias()->where('place', 'front')->first();
-        $banner = $this->medias()->where('place', 'banner')->first();
-        $video = $this->medias()->where('place', 'video')->first();
+        $img = $this->mediaType()->first();
+        $banner = $this->mediaType('banner')->first();
+        $video = $this->mediaType('video')->first();
 
         $startedAt = $this->discount ?
             Jalalian::forge($this->discount->started_at)->format('Y/m/d') : '';
@@ -41,6 +41,7 @@ class AdminUpdateRoomResource extends JsonResource
                 'address' => $this->address,
                 'district' => $this->district,
                 'description' => $this->description,
+                'short_description'=>$this->short_description,
                 'is_special' => $this->is_special ? 1 : 0,
                 'is_new' => $this->is_new ? 1 : 0,
                 'collection_id' => $this->collection_id,

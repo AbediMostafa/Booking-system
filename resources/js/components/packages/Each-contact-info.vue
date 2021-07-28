@@ -37,7 +37,7 @@ export default {
 
 .ci-text {
   flex: 0 0 85%;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--main-title);;
 }
 .ci-icon {

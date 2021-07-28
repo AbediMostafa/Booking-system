@@ -11,6 +11,13 @@ class Post extends Model
     //relation with comments table
 
     protected $guarded = [];
+
+    public static function booted()
+    {
+        static::deleting(function($post){
+            $post->medias()->detach();
+        });
+    }
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
@@ -23,6 +30,11 @@ class Post extends Model
 
     public function medias()
     {
-        return $this->morphMany(Media::class, 'mediaable');
+        return $this->morphToMany(Media::class, 'mediaable');
+    }
+
+    public function mediaType($place = 'front')
+    {
+        return $this->morphToMany(Media::class, 'mediaable')->wherePivot('place', $place);
     }
 }

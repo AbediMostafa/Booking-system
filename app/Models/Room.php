@@ -16,23 +16,14 @@ class Room extends Model
         'banner' => 'array'
     ];
     protected $deletedAt = 'deleted_at';
-    protected $guarded =[];
+    protected $guarded = [];
 
     public static function booted()
     {
         static::deleting(function ($room) {
             $room->genres()->detach();
+            $room->medias()->detach();
 
-            if($room->medias->count()){
-                $room->medias->each(function($media){
-                    $media->update([
-                        'media_of'=>'other',
-                        'place'=>'other',
-                        'mediaable_id'=>null,
-                        'mediaable_type'=>null,
-                    ]);
-                });
-            }
 
             if ($room->comments) {
                 $room->comments->each(function ($comment) {
@@ -84,6 +75,16 @@ class Room extends Model
 
     public function medias()
     {
-        return $this->morphMany(Media::class, 'mediaable');
+        return $this->morphToMany(Media::class, 'mediaable');
+    }
+
+    public function mediaType($place = 'front')
+    {
+        return $this->morphToMany(Media::class, 'mediaable')->wherePivot('place', $place);
+    }
+
+    public function specificMedia()
+    {
+        return $this->hasOne(SpecificMedia::class);
     }
 }

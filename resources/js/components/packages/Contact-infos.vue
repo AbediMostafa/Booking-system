@@ -7,13 +7,19 @@
         :text="infos ? infos.address : ''"
         v-if="infos && infos.address"
       ></each-contact-info>
-      
+
       <each-contact-info
         icon="phone.svg"
         :text="infos ? infos.phone : ''"
         v-if="infos&&infos.phone"
       ></each-contact-info>
-      
+
+        <each-contact-info
+            icon="mobile.svg"
+            :text="infos ? infos.mobile : ''"
+            v-if="infos&&infos.mobile"
+        ></each-contact-info>
+
       <each-contact-info
         icon="website.svg"
         :text="infos ? infos.website : ''"

@@ -51,7 +51,7 @@ class AdminLearnController extends Controller
     public function update(Post $post)
     {
 
-        $media = $post->medias()->first();
+        $media = $post->mediaType()->first();
         return [
             'learnName' => $post->title,
             'learn' => $post->only('id', 'title', 'brief', 'description','use_id', 'starred'),
@@ -62,13 +62,9 @@ class AdminLearnController extends Controller
         ];
     }
 
-    public function detachMedia(Media $media)
+    public function detachMedia(Post $post)
     {
-        $media->media_of = 'other';
-        $media->place = 'other';
-        $media->mediaable_id = null;
-        $media->mediaable_type = null;
-        $media->save();
+        $post->medias()->detach();
 
         return [
             'status' => true,
@@ -78,11 +74,7 @@ class AdminLearnController extends Controller
 
     public function attachMedia(Post $post, Media $media)
     {
-        $media->media_of = 'post';
-        $media->place = 'front';
-        $media->save();
-
-        $post->medias()->save($media);
+        $post->medias()->sync($media);
 
         return [
             'status' => true,
@@ -152,13 +144,7 @@ class AdminLearnController extends Controller
             'user_id'=>User::first()->id
         ]);
 
-        $media = Media::findOrFail($request->input('media.id'));
-        $media->update([
-            'media_of' => 'post',
-            'place' => 'front',
-        ]);
-
-        $genre->medias()->save($media);
+        $genre->medias()->attach($request->input('media.id'));
 
         return [
             'status' => true,

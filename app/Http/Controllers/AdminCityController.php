@@ -28,36 +28,29 @@ class AdminCityController extends Controller
             'cities.*' => 'exists:cities,id',
         ]);
 
-        $cities = City::whereIn('id', $request->get('cities'))->get();
+//        try {
 
-        foreach ($cities as $city) {
-            if ($city->rooms->count()) {
-                return [
-                    'status' => false,
-                    'msg' => "شهر $city->name اتاق هایی دارد و نمیتواند پاک شود"
-                ];
-            }   
-            $city->delete();
-        }
-        try {
+            City::whereIn('id', $request->get('cities'))->get()->each(function ($city) {
+                $city->delete();
+            });
 
             return  [
                 'status' => true,
                 'msg' => 'شهرها با موفقیت حذف شدند.'
             ];
-        } catch (\Throwable $th) {
-
-            return [
-                'status' => false,
-                'msg' => 'مشکل در حذف شهرها'
-            ];
-        }
+//        } catch (\Throwable $th) {
+//
+//            return [
+//                'status' => false,
+//                'msg' => 'مشکل در حذف شهرها'
+//            ];
+//        }
     }
 
     public function update(City $city)
     {
 
-        $media = $city->medias()->first();
+        $media = $city->mediaType()->first();
         return [
             'cityName' => $city->name,
             'city' => $city->only('id', 'name'),
@@ -68,13 +61,9 @@ class AdminCityController extends Controller
         ];
     }
 
-    public function detachMedia(Media $media)
+    public function detachMedia(Request $request, City $city)
     {
-        $media->media_of = 'other';
-        $media->place = 'other';
-        $media->mediaable_id = null;
-        $media->mediaable_type = null;
-        $media->save();
+        $city->mediaType($request->input('mediaType'))->detach();
 
         return [
             'status' => true,
@@ -84,11 +73,7 @@ class AdminCityController extends Controller
 
     public function attachMedia(City $city, Media $media)
     {
-        $media->media_of = 'city';
-        $media->place = 'front';
-        $media->save();
-
-        $city->medias()->save($media);
+        $city->medias()->sync($media);
 
         return [
             'status' => true,
@@ -98,6 +83,7 @@ class AdminCityController extends Controller
 
     public function change(Request $request, City $city)
     {
+        try {
         $city->update([
             'name' => $request->input('name')
         ]);
@@ -106,7 +92,6 @@ class AdminCityController extends Controller
             'status' => true,
             'msg' => 'بروزرسانی با موفقیت انجام شد.'
         ];
-        try {
         } catch (\Throwable $th) {
             return [
                 'status' => false,
@@ -118,25 +103,19 @@ class AdminCityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'city.name'=>'required',
-            'media.id'=>'exists:media,id'
+            'city.name' => 'required',
+            'media.id' => 'exists:media,id'
         ]);
 
         $city = City::create([
-            'name'=>$request->input('city.name')
+            'name' => $request->input('city.name')
         ]);
 
-        $media = Media::findOrFail($request->input('media.id'));
-        $media->update([
-            'media_of'=>'city',
-            'place'=>'front'
-        ]);
+        $city->medias()->attach($request->input('media.id'));
 
-        $city->medias()->save($media);
-
-        return[
-            'status'=>true,
-            'msg'=>'شهر با موفقیت ایجاد شد'
+        return [
+            'status' => true,
+            'msg' => 'شهر با موفقیت ایجاد شد'
         ];
     }
 }

@@ -10,20 +10,17 @@ use Illuminate\Http\Request;
 class SpecificMediaController extends Controller
 {
 
-    public function attachStaticMedia(SpecificMedia $specificMedia, Media $media)
+    public function attachStaticMedia(Request $request, SpecificMedia $specificMedia, Media $media)
     {
         try {
-            if ($specificMedia->medias()->exists()) {
-                $specificMedia->medias()->first()->update([
-                    'mediaable_id' => null,
-                    'mediaable_type' => null,
-                    'media_of' => 'other',
-                ]);
-            }
 
-            $specificMedia->medias()->save($media);
-            $media->media_of = 'specific_media';
-            $media->save();
+            $specificMedia->medias()->sync(
+                [
+                    $media->id => [
+                        'place' => $request->input('type') === 'video' ? 'video' : 'front'
+                    ]
+                ]
+            );
 
             return [
                 'status' => true,
@@ -36,77 +33,47 @@ class SpecificMediaController extends Controller
             ];
         }
     }
-    public function attachDynamicMedia(Media $media)
+
+    public function attachDynamicMedia(SpecificMedia $specificMedia, Media $media)
     {
         try {
+            $specificMedia->medias()->sync($media);
 
+            return [
+                'status' => true,
+                'msg' => 'مدیا با موفقیت تعویض شد.',
+                'sm_id' => $specificMedia->id
+            ];
+
+        }catch (\Throwable $th){
+            return [
+                'status' => false,
+                'msg' => 'مشکل در اضافه کردن مدیا'
+            ];
+        }
+    }
+
+    public function createDynamicMedia(Request $request, Media $media)
+    {
+
+        $request->validate([
+            'roomId'=>'nullable|exists:rooms,id'
+        ]);
+
+        try {
             $specificMedia = SpecificMedia::create([
-                'name' => 'banner_slider'
+                'name' => 'banner_slider',
+                'room_id'=>$request->input('roomId')
             ]);
 
-            $specificMedia->medias()->save($media);
-            $media->media_of = 'specific_media';
-            $media->save();
+            $specificMedia->medias()->attach($media);
 
             return [
                 'status' => true,
                 'msg' => 'مدیا با موفقیت اضافه شد.',
-                'sm_id'=>$specificMedia->id
+                'sm_id' => $specificMedia->id
             ];
-        } catch (\Throwable $th) {
-            return [
-                'status' => false,
-                'msg' => 'مشکل در اضافه کردن مدیا'
-            ];
-        }
-    }
 
-    public function attachMedia(Request $request)
-    {
-
-        $request->validate([
-            'media_id' => 'exists:media,id'
-        ]);
-
-
-        try {
-
-            $media = Media::findOrFail($request->input('media_id'));
-            $media->media_of = 'specific_media';
-            $media->save();
-
-            if ($request->input('type') == 'static') {
-                $specificMedia = SpecificMedia::where('name', $request->input('key'))->first();
-
-                if ($specificMedia->medias()->exists()) {
-                    $specificMedia->medias()->first()->update([
-                        'mediaable_id' => null,
-                        'mediaable_type' => null,
-                        'media_of' => 'other',
-                    ]);
-                }
-
-                $specificMedia->medias()->save($media);
-            } else {
-
-                $specificMedia = SpecificMedia::create([
-                    'name' => 'banner_slider'
-                ]);
-
-                $specificMedia->medias()->save($media);
-
-                return [
-                    'status' => true,
-                    'msg' => 'مدیا با موفقیت اضافه شد.',
-                    'sm_id' => $specificMedia->id
-                ];
-            }
-
-
-            return [
-                'status' => true,
-                'msg' => 'مدیا با موفقیت اضافه شد.'
-            ];
         } catch (\Throwable $th) {
             return [
                 'status' => false,
@@ -117,14 +84,14 @@ class SpecificMediaController extends Controller
 
     public function getMedias()
     {
-        return new AdminSpecificMediaResource(SpecificMedia::all());
+        return new AdminSpecificMediaResource(SpecificMedia::with('room')->get());
     }
 
-    public function detachStaticMedia(Media $media)
+    public function detachStaticMedia(SpecificMedia $specificMedia)
     {
-
         try {
-            $this->removeMedia($media);
+            $specificMedia->medias()->detach();
+
             return [
                 'status' => true,
                 'msg' => 'مدیا با موفقیت حذف شد'
@@ -140,13 +107,6 @@ class SpecificMediaController extends Controller
     public function detachDynamicMedia(SpecificMedia $specificMedia)
     {
         try {
-             
-            $media = $specificMedia->medias()->first();
-
-            if($media){
-                $this->removeMedia($media);
-            }
-
             $specificMedia->delete();
 
             return [
@@ -159,15 +119,6 @@ class SpecificMediaController extends Controller
                 'msg' => 'مشکل در حذف کردن مدیا'
             ];
         }
-    }
-
-    public function removeMedia($media)
-    {
-        $media->update([
-            'media_of' => 'other',
-            'mediaable_id' => null,
-            'mediaable_type' => null,
-        ]);
     }
 
     public function getFirstPageMedias(Request $request)
@@ -183,10 +134,13 @@ class SpecificMediaController extends Controller
     public function getCarouselMedias()
     {
         $medias = [];
-        
+
         foreach (SpecificMedia::where('name', 'banner_slider')->get() as $specificMedia) {
             $media = $specificMedia->medias()->first();
-            $medias[] = $media ? $media->path : '';
+            $medias[] = [
+                'media'=>$media ? $media->path : '',
+                'roomId'=>$specificMedia->room ? $specificMedia->room->id:''
+            ];
         }
 
         return $medias;

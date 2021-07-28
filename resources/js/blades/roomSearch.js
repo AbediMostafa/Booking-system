@@ -42,6 +42,7 @@ const vue = new Vue({
             axios.post('rooms/complicated-search', data).then((response) => {
                 this.totalData = response.data;
                 this.rooms = this.tmpRooms = response.data.rooms;
+            console.log('get rooms ', response.data.rooms);
             });
         },
         getVars() {
@@ -51,8 +52,18 @@ const vue = new Vue({
         }
     },
 
-    created() {
+    mounted() {
         this.getVars();
+        if(collectionTitle){
+            this.$refs.filter.collectionClicked(collectionTitle);
+            return;
+        }
+
+        if(cityTitle){
+            this.$refs.filter.cityClicked(cityTitle);
+            return;
+        }
+
         this.callComplicatedRoom();
     }
 });

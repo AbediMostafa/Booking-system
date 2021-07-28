@@ -34,6 +34,7 @@ class ConfirmNumberController extends Controller
 
             session(['phoneRegistration' => [
                 'phoneNumber' => $request->input('phoneNumber'),
+                'username' => $request->input('username'),
                 'code' => $randomNumber
             ]]);
 
@@ -57,9 +58,10 @@ class ConfirmNumberController extends Controller
 
         if ($request->input('confirmCode') == session('phoneRegistration.code')) {
 
-            $user = User::firstOrCreate([
-                'email' => session('phoneRegistration.phoneNumber')
-            ]);
+            $user = User::firstOrCreate(
+                ['email' => session('phoneRegistration.phoneNumber')],
+                ['name' => session('phoneRegistration.username')],
+            );
 
             Auth::login($user);
 

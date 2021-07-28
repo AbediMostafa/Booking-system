@@ -24,10 +24,19 @@ class RoomDescriptionResource extends JsonResource
         $collectionMedia = $this->collection->medias()->first();
         $this->rateTitles = SiteVariables::where('variable', 'like', '%rate_%')->get();
 
+        if($this->rateAverage<3.5){
+            $rateTitle = 'برنزی';
+            $rateName = 'bronz';
+        }else{
+            $rateTitle = $this->rateAverage<4.5 ? 'نقری ای':'طلایی';
+            $rateName = $this->rateAverage<4.5 ? 'silver':'gold';
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'shortDescription'=>$this->short_description,
             'image' => $img ? $img->path : '',
             'banner' => $banner ? $banner->path : '',
             'teaser'=>$teaser ? $teaser->path:'',
@@ -57,6 +66,8 @@ class RoomDescriptionResource extends JsonResource
                 ),
             ],
             'rates' => [
+                'rateTitle'=>$rateTitle,
+                'rateName'=>$rateName,
                 'total' => $this->rate_percent,
                 'rate_count' => $this->rates->count(),
                 'rate_average' => $this->rateAverage,

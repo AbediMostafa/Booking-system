@@ -8,16 +8,23 @@ use Illuminate\Http\Request;
 
 class AdminCommentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return RoomCommentsResource::collection(Comment::whereSituation('not_seen')->paginate(10));
+        $comments = Comment::when($request->input('commentType') === 'unApproved', function ($query) {
+            $query->where('situation', 'not_seen');
+        })->paginate(10);
+
+        return RoomCommentsResource::collection($comments);
     }
 
     public function search(Request $request)
     {
-        return RoomCommentsResource::collection(
-            Comment::where('body', 'like', '%' . $request->get('search') . '%')->paginate(10)
-        );
+
+        $comments = Comment::when($request->input('commentType') === 'unApproved', function ($query) {
+            $query->where('situation', 'not_seen');
+        })->where('body', 'like', '%' . $request->get('search') . '%')->paginate(10);
+
+        return RoomCommentsResource::collection($comments);
     }
 
     public function delete(Request $request)
@@ -33,7 +40,7 @@ class AdminCommentController extends Controller
 
         try {
 
-            return  [
+            return [
                 'status' => true,
                 'msg' => 'نظرها با موفقیت حذف شدند.'
             ];
@@ -45,6 +52,7 @@ class AdminCommentController extends Controller
             ];
         }
     }
+
     public function grant(Request $request)
     {
         $request->validate([
@@ -53,13 +61,13 @@ class AdminCommentController extends Controller
         ]);
 
         Comment::whereIn('id', $request->input('comments'))->get()->each(function ($comment) {
-            $comment->situation= 'promoted';
+            $comment->situation = 'promoted';
             $comment->save();
         });
 
         try {
 
-            return  [
+            return [
                 'status' => true,
                 'msg' => 'نظرها با موفقیت دارای مجوز شدند.'
             ];
