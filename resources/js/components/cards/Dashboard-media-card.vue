@@ -12,7 +12,9 @@
     </video>
 
     <div class="d-card-text">{{ card.name }}</div>
-    <div class="d-media-of">{{ cardType }}</div>
+    <div class="d-media-of" :key="media_of" v-for="media_of in card.media_of">
+      {{ cardType(media_of) }}
+    </div>
   </div>
 </template>
 
@@ -28,10 +30,11 @@ export default {
     roomStyle() {
       return `background: url('${this.card.path}') no-repeat center center/cover;`;
     },
+  },
 
-    cardType() {
-      let type = "بدون دسته";
-      switch (this.card.media_of) {
+  methods: {
+    cardType(type = "بدون دسته") {
+      switch (type) {
         case "room":
           type = "اتاق";
           break;
@@ -47,10 +50,10 @@ export default {
         case "post":
           type = "آموزش";
           break;
-        case "specific_media":
+        case "specific-media":
           type = "مدیای خاص";
           break;
-          case "site_vars":
+        case "site-variable":
           type = "متغیرهای سایت";
           break;
       }
@@ -69,10 +72,11 @@ export default {
 
 .d-media-of {
   background: var(--second-color);
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: white;
   border-radius: 0.5rem;
   display: inline-block;
   padding: 0.2rem 1rem;
+  margin-left: .2rem;
 }
 </style>

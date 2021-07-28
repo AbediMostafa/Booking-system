@@ -19,11 +19,52 @@ use App\Http\Controllers\SiteVariablesController;
 use App\Http\Controllers\SpecialRoomCotroller;
 use App\Http\Controllers\SpecificMediaController;
 use App\Http\Controllers\VoteController;
+use App\Models\City;
+use App\Models\Collection;
+use App\Models\Genre;
 use App\Models\Media;
+use App\Models\Mediaable;
 use App\Models\Room;
 use App\Models\SiteVariables;
+use App\Models\SpecificMedia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+
+Route::get('test', function () {
+
+    dd(
+
+        explode('_', '1_be_to_')[0]
+    );
+
+    $sm = SpecificMedia::all();
+
+    dd(
+
+        $sm->where('name','like' ,'%banner_slider%')->all()
+    );
+
+    dd(Media::find(1)->mediaables()->delete());
+
+
+    // $entity = City::find(2);
+
+    // // $media = Media::find(2);
+
+    // $entity->medias()->sync([1,2,3]);
+    // dd();
+
+//     DB::table('cities')->insert([
+//         ['name'=>'scary'],
+//         ['name'=>'yuimi'],
+//         ['name'=>'genre'],
+//     ]);
+
+//     dd();
+
+//    dd(Media::find(1)->media_of);
+});
 
 Route::view('/', 'landing')->name('home');
 Route::view('/login', 'login')->name('login');
@@ -49,14 +90,14 @@ Route::view('/genres', 'room_search')->name('roomSearch');
 Route::view('/learn', 'learnings')->name('learnings');
 Route::view('/dashboard', 'dashboard')->name('dashboard')->middleware('auth.admin');
 
-Route::get('/about-us', function(){
+Route::get('/about-us', function () {
     $aboutUs = SiteVariables::whereVariable('our_story_text')->first()->value;
-    return view('about_us', ['aboutUs'=>$aboutUs]);
+    return view('about_us', ['aboutUs' => $aboutUs]);
 });
 
-Route::get('/contact-us', function(){
+Route::get('/contact-us', function () {
     $contactUs = SiteVariables::whereVariable('contact_us')->first()->value;
-    return view('contact_us', ['contactUs'=>$contactUs]);
+    return view('contact_us', ['contactUs' => $contactUs]);
 });
 
 Route::get('/learn/{id}', function ($id) {
@@ -120,7 +161,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/update/{room}', [AdminRoomController::class, 'update']);
         Route::post('/update/{room}', [AdminRoomController::class, 'change']);
         Route::post('/dependencies', [AdminRoomController::class, 'getDependencies']);
-        Route::post('/detach-media/{media}', [AdminRoomController::class, 'detachMedia']);
+        Route::post('/room-dependency', [AdminRoomController::class, 'getRoomDependency']);
+        Route::post('/detach-media/{room}', [AdminRoomController::class, 'detachMedia']);
         Route::post('{room}/attach-media/{media}', [AdminRoomController::class, 'attachMedia']);
     });
 
@@ -131,7 +173,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/delete', [AdminCityController::class, 'delete']);
         Route::get('/update/{city}', [AdminCityController::class, 'update']);
         Route::post('/update/{city}', [AdminCityController::class, 'change']);
-        Route::post('/detach-media/{media}', [AdminCityController::class, 'detachMedia']);
+        Route::post('/detach-media/{city}', [AdminCityController::class, 'detachMedia']);
         Route::post('{city}/attach-media/{media}', [AdminCityController::class, 'attachMedia']);
     });
 
@@ -142,7 +184,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/delete', [AdminCollectionController::class, 'delete']);
         Route::get('/update/{collection}', [AdminCollectionController::class, 'update']);
         Route::post('/update/{collection}', [AdminCollectionController::class, 'change']);
-        Route::post('/detach-media/{media}', [AdminCollectionController::class, 'detachMedia']);
+        Route::post('/detach-media/{collection}', [AdminCollectionController::class, 'detachMedia']);
         Route::post('{collection}/attach-media/{media}', [AdminCollectionController::class, 'attachMedia']);
     });
 
@@ -153,7 +195,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/delete', [AdminGenreController::class, 'delete']);
         Route::get('/update/{genre}', [AdminGenreController::class, 'update']);
         Route::post('/update/{genre}', [AdminGenreController::class, 'change']);
-        Route::post('/detach-media/{media}', [AdminGenreController::class, 'detachMedia']);
+        Route::post('/detach-media/{genre}', [AdminGenreController::class, 'detachMedia']);
         Route::post('{genre}/attach-media/{media}', [AdminGenreController::class, 'attachMedia']);
     });
 
@@ -164,16 +206,15 @@ Route::prefix('admin')->group(function () {
         Route::post('/delete', [AdminLearnController::class, 'delete']);
         Route::get('/update/{post}', [AdminLearnController::class, 'update']);
         Route::post('/update/{post}', [AdminLearnController::class, 'change']);
-        Route::post('/detach-media/{media}', [AdminLearnController::class, 'detachMedia']);
+        Route::post('/detach-media/{post}', [AdminLearnController::class, 'detachMedia']);
         Route::post('{post}/attach-media/{media}', [AdminLearnController::class, 'attachMedia']);
     });
 
     Route::prefix('specific-medias')->group(function () {
-        //`admin/specific-medias/${sm.sm_id}/attach-media/${sm.id}`
         Route::post('{specificMedia}/attach-media/{media}', [SpecificMediaController::class, 'attachStaticMedia']);
-        Route::post('attach-media/{media}', [SpecificMediaController::class, 'attachDynamicMedia']);
-        // Route::post('attach-media', [SpecificMediaController::class, 'attachMedia']);
-        Route::post('detach-static-media/{media}', [SpecificMediaController::class, 'detachStaticMedia']);
+        Route::post('{specificMedia}/attach-dynamic-media/{media}', [SpecificMediaController::class, 'attachDynamicMedia']);
+        Route::post('attach-media/{media}', [SpecificMediaController::class, 'createDynamicMedia']);
+        Route::post('detach-static-media/{specificMedia}', [SpecificMediaController::class, 'detachStaticMedia']);
         Route::post('detach-dynamic-media/{specificMedia}', [SpecificMediaController::class, 'detachDynamicMedia']);
         Route::post('get-medias', [SpecificMediaController::class, 'getMedias']);
     });

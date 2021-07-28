@@ -175,6 +175,7 @@ return [
         'room.address' => 'آدرس',
         'room.district' => 'محله',
         'room.description' => 'توضیحات',
-        'phoneNumber'=>'موبایل'
+        'phoneNumber'=>'موبایل',
+        'roomId'=>'اتاق'
     ],
 ];

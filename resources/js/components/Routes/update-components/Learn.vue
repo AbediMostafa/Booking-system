@@ -7,7 +7,7 @@
       </h3>
     </div>
 
-     <div class="d-form-container">
+    <div class="d-form-container">
       <div class="d-form-row d-form d-special-room-container">
         <div class="d-for-group d-flex-30">
           <span class="d-form-lable"> نام آموزش </span>
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-         <div class="d-for-group d-flex-70 mr-4">
+        <div class="d-for-group d-flex-70 mr-4">
           <span class="d-form-lable"> خلاصه </span>
           <div class="d-form-input">
             <textarea
@@ -32,22 +32,20 @@
           </div>
         </div>
 
-         <div
-              :class="[
-                'd-special-room', 'mr-4',
-                postData.learn.starred ? 'selected-checked-item' : '',
-              ]"
-              @click="
-                postData.learn.starred =
-                  postData.learn.starred === 0 ? 1 : 0
-              "
-            >
-              آموزش ستاره دار
-            </div>
+        <div
+          :class="[
+            'd-special-room',
+            'mr-4',
+            postData.learn.starred ? 'selected-checked-item' : '',
+          ]"
+          @click="postData.learn.starred = postData.learn.starred === 0 ? 1 : 0"
+        >
+          آموزش ستاره دار
+        </div>
       </div>
 
       <div class="d-form-row d-form">
-          <vue-editor v-model="postData.learn.description"></vue-editor>
+        <vue-editor v-model="postData.learn.description"></vue-editor>
       </div>
       <div class="d-form-row d-form">
         <div
@@ -92,22 +90,21 @@
 import MediaModal from "../../packages/Media-modal.vue";
 import { VueEditor } from "vue2-editor";
 
-
 export default {
   components: {
     MediaModal,
-    VueEditor
+    VueEditor,
   },
   data() {
     return {
       postData: {
-        learnName:'',
+        learnName: "",
         learn: {
-            id:'',
+          id: "",
           title: "",
           brief: "",
           description: "",
-          starred:0
+          starred: 0,
         },
         media: {
           background: "",
@@ -127,16 +124,20 @@ export default {
     },
     updateEntity() {
       axios
-        .post(`/admin/learn/update/${this.postData.learn.id}`, this.postData.learn)
+        .post(
+          `/admin/learn/update/${this.postData.learn.id}`,
+          this.postData.learn
+        )
         .then((response) => {
-            setTimeout(() => {
-                this.$router.push({path:'/learns'});
-            }, 2000);
+          setTimeout(() => {
+            this.$router.push({ path: "/learns" });
+          }, 2000);
         });
     },
     removeSelectedMedia() {
-      let media = this.postData.media,
-        route = `admin/learn/detach-media/${media.id}`;
+      let route = `admin/learn/detach-media/${this.postData.learn.id}`;
+
+      console.log(route);
 
       axios.post(route).then((response) => {
         this.postData.media = {
@@ -153,8 +154,7 @@ export default {
 
       let route = `admin/learn/${this.postData.learn.id}/attach-media/${payload.id}`;
 
-      axios.post(route, media).then((response) => {
-      });
+      axios.post(route, media).then((response) => {});
       this.mediaObj.show = false;
     },
 

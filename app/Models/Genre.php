@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends Model
 {
     use HasFactory;
-    
-    protected $fillable=[
+
+    protected $fillable = [
         'title'
     ];
 
@@ -18,17 +18,7 @@ class Genre extends Model
         static::deleting(function ($genre) {
 
             $genre->rooms()->detach();
-
-            if ($genre->medias->count()) {
-                $genre->medias->each(function ($media) {
-                    $media->update([
-                        'media_of' => 'other',
-                        'place' => 'other',
-                        'mediaable_id' => null,
-                        'mediaable_type' => null,
-                    ]);
-                });
-            }
+            $genre->medias()->detach();
         });
     }
     //relation with rooms table
@@ -37,9 +27,13 @@ class Genre extends Model
         return $this->belongsToMany(Room::class);
     }
 
-    
     public function medias()
     {
-        return $this->morphMany(Media::class, 'mediaable');
+        return $this->morphToMany(Media::class, 'mediaable');
+    }
+
+    public function mediaType($place = 'front')
+    {
+        return $this->morphToMany(Media::class, 'mediaable')->wherePivot('place', $place);
     }
 }

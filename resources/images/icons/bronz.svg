@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40.5" height="51.75" viewBox="0 0 40.5 51.75">
+  <defs>
+    <filter id="bronz" x="0" y="0" width="40.5" height="51.75" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#69412f" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#bronz)">
+    <path id="bronz-2" data-name="bronz" d="M7.39,15.75H5.625A1.125,1.125,0,0,0,4.5,16.875v2.25A1.125,1.125,0,0,0,5.625,20.25H6.75v.386c0,3.094-.291,6.089-1.687,8.614H17.438c-1.4-2.525-1.687-5.52-1.687-8.614V20.25h1.125A1.125,1.125,0,0,0,18,19.125v-2.25a1.125,1.125,0,0,0-1.125-1.125H15.11a7.313,7.313,0,1,0-7.72,0ZM21.375,31.5H1.125A1.125,1.125,0,0,0,0,32.625v2.25A1.125,1.125,0,0,0,1.125,36h20.25A1.125,1.125,0,0,0,22.5,34.875v-2.25A1.125,1.125,0,0,0,21.375,31.5Z" transform="translate(9 3.75)" fill="#f6a27e"/>
+  </g>
+</svg>

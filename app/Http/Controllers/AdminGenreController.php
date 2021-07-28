@@ -50,7 +50,7 @@ class AdminGenreController extends Controller
     public function update(Genre $genre)
     {
 
-        $media = $genre->medias()->first();
+        $media = $genre->mediaType()->first();
         return [
             'genreName' => $genre->title,
             'genre' => $genre->only('id', 'title'),
@@ -61,13 +61,9 @@ class AdminGenreController extends Controller
         ];
     }
 
-    public function detachMedia(Media $media)
+    public function detachMedia(Genre $genre)
     {
-        $media->media_of = 'other';
-        $media->place = 'other';
-        $media->mediaable_id = null;
-        $media->mediaable_type = null;
-        $media->save();
+        $genre->medias()->detach();
 
         return [
             'status' => true,
@@ -77,11 +73,7 @@ class AdminGenreController extends Controller
 
     public function attachMedia(Genre $genre, Media $media)
     {
-        $media->media_of = 'genre';
-        $media->place = 'front';
-        $media->save();
-
-        $genre->medias()->save($media);
+        $genre->medias()->sync($media);
 
         return [
             'status' => true,
@@ -119,13 +111,7 @@ class AdminGenreController extends Controller
             'title' => $request->input('genre.name')
         ]);
 
-        $media = Media::findOrFail($request->input('media.id'));
-        $media->update([
-            'media_of' => 'genre',
-            'place' => 'front',
-        ]);
-
-        $genre->medias()->save($media);
+        $genre->medias()->attach($request->input('media.id'));
 
         return [
             'status' => true,

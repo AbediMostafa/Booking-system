@@ -32,6 +32,11 @@
         :text="`${room.game_time} دقیقه`"
       ></header-badget>
 
+        <header-badget
+            :icon="'grey-dollar'"
+            :text="`${room.price} تومان`"
+        ></header-badget>
+
       <div class="header-icon-child">
         <div>
           <img
@@ -64,7 +69,7 @@ export default {
 
   computed:{
     hardness(){
-      
+
       let hardness = parseInt(this.room.hardness);
       return hardness ? parseInt(this.room.hardness):[];
     }

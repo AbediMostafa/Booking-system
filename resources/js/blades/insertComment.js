@@ -59,7 +59,7 @@ const vue = new Vue({
                     });
                 }
                 setTimeout(() => {
-                    location.href = `/rooms/${this.postData.roomInfo.id}`
+                    // location.href = `/rooms/${this.postData.roomInfo.id}`
                 }, 2000);
 
             }).catch(error => {

@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('content')
+<video-modal :src="videoSrc" ref="landingVideo"></video-modal>
 
 <!-- Hiro Section -->
 <section class="hiro">

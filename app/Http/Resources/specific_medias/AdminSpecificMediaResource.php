@@ -31,6 +31,7 @@ class AdminSpecificMediaResource extends JsonResource
                 'id' => $smMedia ? $smMedia->id : '',
                 'background' => $smMedia ? $smMedia->path : '',
                 'sm_id' => $specificMedia->id,
+                'roomId'=>$specificMedia->room?$specificMedia->room->id:''
             ];
         }
 

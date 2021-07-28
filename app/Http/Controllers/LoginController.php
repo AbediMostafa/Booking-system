@@ -26,12 +26,12 @@ class LoginController extends Controller
 
     public function getCredentials()
     {
-        return Auth::check()?Auth::user()->email:'';
+        return Auth::check()?Auth::user()->name:'';
     }
 
     public function checkLogin(Request $request)
     {
-        return Auth::check();   
+        return Auth::check();
     }
 
     public function logout(Request $request)
@@ -47,10 +47,5 @@ class LoginController extends Controller
     {
         $this->logout($request);
         return redirect('/');
-    }
-
-    public function phoneCheck()
-    {
-        # code...
     }
 }

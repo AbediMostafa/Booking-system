@@ -12,12 +12,31 @@
       </div>
     </div>
     <div class="d-second-status-bar">
+      <div class="d-type-filter-container">
+        <ul class="d-inner-type-filter">
+          <li
+            @click="itemTypeClicked('allComments')"
+            :class="[commentType === 'allComments' ? 'clicked-d-inner-filter' : '']"
+          >
+            همه کامنت ها
+          </li>
+          <li
+            @click="itemTypeClicked('unApproved')"
+            :class="[commentType ==='unApproved' ? 'clicked-d-inner-filter' : '']"
+          >
+            تایید نشده ها
+          </li>
+        </ul>
+      </div>
+
       <div v-if="selectedEntities.length" class="flex-center">
         <div class="d-delete-items-cta" @click="deleteEntities">
           حذف کامنت ها
         </div>
 
-        <div class="d-delete-items-cta d-grant-cta" @click="grantEntities">دادن مجوز</div>
+        <div v-if="commentType ==='unApproved'  " class="d-delete-items-cta d-grant-cta" @click="grantEntities">
+          دادن مجوز
+        </div>
       </div>
     </div>
 
@@ -27,7 +46,8 @@
         :key="key"
         :comment="entity"
         :class="[
-         'pointer', selectedEntities.includes(entity.id) ? 'selected-checked-item' : '',
+          'pointer',
+          selectedEntities.includes(entity.id) ? 'selected-checked-item' : '',
         ]"
         @click.native="cardClicked(entity)"
       ></comment>
@@ -48,7 +68,7 @@
 </template>
 
 <script>
-import Comment from "../../cards/Comment.vue";
+import Comment from "../../cards/admin-comment";
 export default {
   components: {
     Comment,
@@ -59,15 +79,24 @@ export default {
       paginations: {},
       entities: [],
       selectedEntities: [],
+      commentType : 'unApproved',
+      allComments: false,
+      unApproved: false,
       itemKey: "",
     };
   },
   methods: {
+    itemTypeClicked(type) {
+      this.commentType = type
+      this.selectedEntities = [];
+      this.itemKey = '';
+      this.getEntities("/admin/comment", {commentType :this.commentType});
+    },
     grantEntities() {
-        axios
+      axios
         .post("/admin/comment/grant", { comments: this.selectedEntities })
         .then((response) => {
-          this.getEntities("/admin/comment");
+          this.getEntities("/admin/comment",{commentType :this.commentType});
           this.selectedEntities = [];
         });
     },
@@ -75,7 +104,7 @@ export default {
       axios
         .post("/admin/comment/delete", { comments: this.selectedEntities })
         .then((response) => {
-          this.getEntities("/admin/comment");
+          this.getEntities("/admin/comment", {commentType :this.commentType});
           this.selectedEntities = [];
         });
     },
@@ -92,7 +121,6 @@ export default {
         this.paginations = response.data.meta.links;
       });
     },
-
     iconPath(icon) {
       return sot.iconPath(icon);
     },
@@ -100,22 +128,27 @@ export default {
 
   watch: {
     itemKey(value) {
-      this.getEntities("admin/comment/search", { search: value });
+      this.getEntities("/admin/comment/search", { search: value, commentType:this.commentType });
     },
   },
 
   created() {
-    this.getEntities("/admin/comment");
+    this.getEntities("/admin/comment", {commentType :this.commentType});
   },
 };
 </script>
 
 <style scoped>
-.pointer{
-    cursor: pointer;
+
+.d-inner-type-filter li{
+    width:6.5rem;
+    font-size: 0.75rem;
+}
+.pointer {
+  cursor: pointer;
 }
 
-.d-grant-cta{
-    background:#65a856;
+.d-grant-cta {
+  background: #65a856;
 }
 </style>

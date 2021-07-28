@@ -93,16 +93,18 @@ export default {
     },
     updateEntity() {
       axios
-        .post(`/admin/collection/update/${this.postData.collection.id}`, this.postData.collection)
+        .post(
+          `/admin/collection/update/${this.postData.collection.id}`,
+          this.postData.collection
+        )
         .then((response) => {
-            setTimeout(() => {
-                this.$router.push({path:'/collections'});
-            }, 2000);
+          setTimeout(() => {
+            this.$router.push({ path: "/collections" });
+          }, 2000);
         });
     },
     removeSelectedMedia(mediaOf) {
-      let media = this.postData.media,
-        route = `admin/collection/detach-media/${media.id}`;
+      let route = `admin/collection/detach-media/${this.postData.collection.id}`;
 
       axios.post(route).then((response) => {
         this.postData.media = {
@@ -119,8 +121,7 @@ export default {
 
       let route = `admin/collection/${this.postData.collection.id}/attach-media/${payload.id}`;
 
-      axios.post(route, media).then((response) => {
-      });
+      axios.post(route, media).then((response) => {});
       this.mediaObj.show = false;
     },
 

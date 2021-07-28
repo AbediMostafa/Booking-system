@@ -25,6 +25,17 @@ export default {
     getCollections() {
       axios.post("/collections/logos").then((Response) => {
         this.logos = Response.data.data;
+
+          if (this.logos.length) {
+              setInterval(() => {
+                  let randomNumber = this.random(0, this.logos.length - 1);
+                  this.logos[randomNumber].visible = false;
+
+                  setTimeout(() => {
+                      this.logos[randomNumber].visible = true;
+                  }, 3000);
+              }, 2000);
+          }
       });
     },
   },
@@ -39,17 +50,6 @@ export default {
 
   created() {
     this.getCollections();
-
-    if (this.logos.length) {
-      setInterval(() => {
-        let randomNumber = this.random(0, this.logos.length - 1);
-        this.logos[randomNumber].visible = false;
-
-        setTimeout(() => {
-          this.logos[randomNumber].visible = true;
-        }, 3000);
-      }, 2000);
-    }
   },
 };
 </script>

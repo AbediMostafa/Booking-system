@@ -4,7 +4,7 @@ import Genres from './components/Genres.vue';
 import Learns from './components/Learns.vue';
 import Medias from './components/Medias.vue';
 import Rooms from './components/Rooms.vue';
-import Comments from './components/comments.vue';
+import Comments from './components/Comments.vue';
 import SpecificMedias from './components/Specific-medias.vue';
 import SiteVars from './components/Site-vars.vue';
 import NewMedia from './create-components/Media.vue';

@@ -9,20 +9,23 @@ class MediaController extends Controller
 {
     public function index()
     {
-        return Media::select('id', 'display_name as name', 'path', 'type', 'media_of')->paginate(12);
+        return Media::select('id', 'display_name as name', 'path', 'type')->paginate(12);
     }
 
     public function search(Request $request)
     {
-        return Media::select('id', 'display_name as name', 'path', 'type', 'media_of')
+        return Media::select('id', 'display_name as name', 'path', 'type')
             ->where('display_name', 'like', '%' . $request->get('search') . '%')
             ->paginate(12);
     }
 
     public function filter(Request $request)
     {
-        return Media::select('id', 'display_name as name', 'path', 'type', 'media_of')->when($request->get('filter'), function ($query) use ($request) {
-            $query->where('media_of', $request->get('filter'));
+
+        return Media::select('id', 'display_name as name', 'path', 'type',)->when($request->get('filter'), function ($query) use ($request) {
+            $query->whereHas('mediaables', function ($mediaQuery) use ($request) {
+                $mediaQuery->where('mediaable_type', $request->input('filter'));
+            });
         })->paginate(12);
     }
 
@@ -35,23 +38,19 @@ class MediaController extends Controller
 
         $imageExtensions = ['jpg', 'jpeg', 'png', 'bmp'];
         $file = $request->file('file');
-        $month = date('m');
+        $date = date('y/m');
         $extension = $file->getClientOriginalExtension();
 
         $fileType = in_array($extension, $imageExtensions) ? 'image' : 'video';
-        
-        if ($path = $file->store("public/uploads/$month")) {
+
+        if ($path = $file->store("public/uploads/$date")) {
             $publicPath = str_replace('public', '/storage', $path);
-            
+
             Media::create([
                 'display_name' => $file->getClientOriginalName(),
                 'store_name' => $file->hashName(),
                 'path' => $publicPath,
-                'media_of' => 'other',
                 'type' => $fileType,
-                'place' => 'other',
-                'mediaable_id' => null,
-                'mediaable_type' => null
             ]);
 
             return [
@@ -93,10 +92,7 @@ class MediaController extends Controller
 
     public function modal(Request $request)
     {
-        return Media::select('id', 'display_name as name', 'path', 'media_of', 'type')
-            ->where([
-                ['media_of', 'other'],
-                ['type', $request->get('type')],
-            ])->get();
+        return Media::select('id', 'display_name as name', 'path', 'type')
+            ->where('type', $request->get('type'))->get();
     }
 }

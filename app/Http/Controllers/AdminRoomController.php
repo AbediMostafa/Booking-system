@@ -32,8 +32,13 @@ class AdminRoomController extends Controller
         return [
             'collections' => Collection::select('title as text', 'id')->get(),
             'cities' => City::select('id', 'name as text')->get(),
-            'genres'=>Genre::select('id', 'title as text')->get()
+            'genres' => Genre::select('id', 'title as text')->get()
         ];
+    }
+
+    public function getRoomDependency()
+    {
+        return Room::select('id', 'name as text')->get();
     }
 
     public function delete(Request $request)
@@ -70,7 +75,7 @@ class AdminRoomController extends Controller
                 $this->addRoomDiscount($room);
             }
             $this->addRoomMedias($room);
-            
+
             $room->genres()->attach($request->input('genreIds'));
 
             return  [
@@ -88,20 +93,14 @@ class AdminRoomController extends Controller
     public function addRoomMedias($room)
     {
         if (request()->input('medias')) {
-
-            foreach (request()->input('medias') as $media) {
-
+            foreach (request()->input('medias') as $type => $media) {
                 if (empty($media)) {
                     continue;
                 }
 
-                $mediaModel = tap(Media::find($media['id']))->update([
-                    'type' => $media['type'],
-                    'place' => $media['place'],
-                    'media_of' => 'room',
+                $room->mediaType($type)->attach([
+                    $media['id'] => ['place' => $type]
                 ]);
-
-                $room->medias()->save($mediaModel);
             }
         }
     }
@@ -160,13 +159,9 @@ class AdminRoomController extends Controller
         ];
     }
 
-    public function detachMedia(Media $media)
+    public function detachMedia(Request $request, Room $room)
     {
-        $media->media_of = 'other';
-        $media->place = 'other';
-        $media->mediaable_id = null;
-        $media->mediaable_type = null;
-        $media->save();
+        $room->mediaType($request->input('type'))->detach();
 
         return [
             'status' => true,
@@ -176,26 +171,11 @@ class AdminRoomController extends Controller
 
     public function attachMedia(Request $request, Room $room, Media $media)
     {
-
-        $previousMediaQuery = $room->medias()->where('place', $request->input('place'));
-        $previousMedia = $previousMediaQuery->first();
-
-        if ($previousMedia) {
-            $previousMediaQuery->update([
-                'media_of' => 'other',
-                'place' => 'other',
-                'mediaable_id' => null,
-                'mediaable_type' => null,
-            ]);
-        }
-
-        $mediaModel = tap($media)->update([
-            'type' => $request->input('type'),
-            'place' => $request->input('place'),
-            'media_of' => 'room',
-        ]);
-
-        $room->medias()->save($mediaModel);
+        $room->mediaType($request->input('place'))->sync(
+            [$media->id => [
+                'place' => $request->input('place')
+            ]]
+        );
 
         return [
             'status' => true,

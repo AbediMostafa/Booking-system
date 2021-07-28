@@ -16,12 +16,14 @@ class PostWithSpecialRoomResource extends JsonResource
      */
     public function toArray($request)
     {
+        $image = $this->medias()->first();
+
         return [
             'post'=>[
                 'id'=>$this->id,
                 'title'=>$this->title,
                 'description'=>$this->description,
-                'image'=>$this->image,
+                'image' => $image? $image->path:'',
                 'user'=>$this->user->name,
                 'date'=> \Morilog\Jalali\Jalalian::forge($this->created_at)->format('%A %d %B %Y'),
             ],

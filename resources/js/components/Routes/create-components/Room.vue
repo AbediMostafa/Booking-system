@@ -169,12 +169,28 @@
             <textarea
               type="text"
               class="d-search-input"
+              rows="7"
               v-model="postData.room.description"
             >
             </textarea>
           </div>
         </div>
       </div>
+
+        <div class="d-form-row d-form">
+            <div class="mb-4 d-flex-100">
+                <span class="d-form-lable"> توضیحات تکمیلی </span>
+                <div class="d-form-input">
+            <textarea
+                type="text"
+                class="d-search-input"
+                rows="3"
+                v-model="postData.room.short_description"
+            >
+            </textarea>
+                </div>
+            </div>
+        </div>
 
       <div class="d-form-row d-form">
         <div class="mb-4 d-flex-100">
@@ -345,6 +361,7 @@ export default {
           address: "",
           district: "",
           description: "",
+          short_description:"",
           is_special: 0,
           is_new: 0,
           collection_id: "",
@@ -400,7 +417,7 @@ export default {
       this.postData.genreIds = _.map(this.postData.selectedGenres, "id");
       axios.post("/admin/room/store", this.postData).then((response) => {
         setTimeout(() => {
-          this.$router.push({ path: "/rooms" });
+          // this.$router.push({ path: "/rooms" });
         }, 2000);
       });
     },

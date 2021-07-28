@@ -11,6 +11,13 @@
 <section class="login">
     <div class="li_container" v-if="sendPhoneNumberStep">
         <div class="li_form_group">
+            <span class="li_label">نام کابری</span>
+            <div class="li_input">
+                <input type="text" v-model="username" class="d-search-input p-4">
+            </div>
+        </div>
+
+        <div class="li_form_group">
             <span class="li_label">شماره تلفن همراه</span>
             <div class="li_input">
                 <input type="text" v-model="phoneNumber" class="d-search-input p-4">

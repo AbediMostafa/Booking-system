@@ -15,7 +15,7 @@ class AdminRoomResource extends JsonResource
     public function toArray($request)
     {
 
-        $media = $this->medias()->where('place', 'front')->first();
+        $media = $this->mediaType()->first();
 
         return [
             'id'=>$this->id,

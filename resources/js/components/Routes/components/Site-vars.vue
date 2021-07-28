@@ -394,7 +394,7 @@
       <!-- about us -->
       <div class="sv-form-row">
         <div class="sv-form-group">
-          <span class="d-form-lable"> داستان ما</span>
+          <span class="d-form-lable">متن صفحه داستان ما</span>
           <vue-editor v-model="postData.our_story_text"></vue-editor>
         </div>
       </div>
@@ -402,7 +402,7 @@
        <!-- contact us -->
       <div class="sv-form-row">
         <div class="sv-form-group">
-          <span class="d-form-lable"> داستان ما</span>
+          <span class="d-form-lable">متن صفحه تماس با ما</span>
           <vue-editor v-model="postData.contact_us"></vue-editor>
         </div>
       </div>
@@ -553,7 +553,6 @@ export default {
   methods: {
     updateVars() {
       axios.post("/site-vars/upate", this.postData).then((response) => {
-          console.log(response);
       });
     },
     removeSelectedMedia(siteVar) {

@@ -8,26 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Collection extends Model
 {
     use HasFactory;
-    //relation with rooms table
 
     protected $guarded = [];
 
     public static function booted()
     {
-        static::deleting(function ($city) {
-
-            if ($city->medias->count()) {
-                $city->medias->each(function ($media) {
-                    $media->update([
-                        'media_of' => 'other',
-                        'place' => 'other',
-                        'mediaable_id' => null,
-                        'mediaable_type' => null,
-                    ]);
-                });
-            }
+        static::deleting(function ($collection) {
+            $collection->medias()->detach();
         });
     }
+
     public function rooms()
     {
         return $this->hasMany(Room::class);
@@ -35,6 +25,11 @@ class Collection extends Model
 
     public function medias()
     {
-        return $this->morphMany(Media::class, 'mediaable');
+        return $this->morphToMany(Media::class, 'mediaable');
+    }
+
+    public function mediaType($place = 'front')
+    {
+        return $this->morphToMany(Media::class, 'mediaable')->wherePivot('place', $place);
     }
 }

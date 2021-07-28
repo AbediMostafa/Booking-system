@@ -18,15 +18,8 @@
           :text="`${room.min_person} - ${room.max_person}`"
         ></badget>
         <badget :icon="'white-timer'" :text="`${room.game_time}`"></badget>
+          <badget :icon="'white-dollar'" :text="`${room.price}`"></badget>
 
-        <div class="span-child">
-          <img
-            :src="getIcon('white-key')"
-            class="room-key-icon"
-            v-for="hard in Number(room.hardness)"
-            :key="hard"
-          />
-        </div>
       </div>
       <read-more v-if="noReadmore !== 'learn'"></read-more>
     </div>

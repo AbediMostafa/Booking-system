@@ -17,7 +17,7 @@
           </div>
         </div>
 
-         <div class="d-for-group d-flex-70 mr-4">
+        <div class="d-for-group d-flex-70 mr-4">
           <span class="d-form-lable"> خلاصه </span>
           <div class="d-form-input">
             <textarea
@@ -29,36 +29,56 @@
           </div>
         </div>
 
-         <div
-              :class="[
-                'd-special-room', 'mr-4',
-                postData.learn.starred ? 'selected-checked-item' : '',
-              ]"
-              @click="
-                postData.learn.starred =
-                  postData.learn.starred === 0 ? 1 : 0
-              "
-            >
-              آموزش ستاره دار
-            </div>
+        <div
+          :class="[
+            'd-special-room',
+            'mr-4',
+            postData.learn.starred ? 'selected-checked-item' : '',
+          ]"
+          @click="postData.learn.starred = postData.learn.starred === 0 ? 1 : 0"
+        >
+          آموزش ستاره دار
+        </div>
       </div>
 
       <div class="d-form-row d-form">
-          <vue-editor v-model="postData.learn.description"></vue-editor>
+        <vue-editor v-model="postData.learn.description"></vue-editor>
       </div>
       <div class="d-form-row d-form">
         <div
           class="d-each-image-select"
-          @click="mediaObj.show = true"
+          @click="selectMedia('image')"
           :style="getBackground"
         >
           <img
             :src="trashIcon"
             v-if="postData.media.background"
             class="shadowed-icon"
-            @click.stop="removeSelectedMedia()"
+            @click.stop="removeSelectedMedia('image')"
           />
           <span v-else> انتخاب عکس</span>
+        </div>
+
+        <div class="d-each-image-select" @click="selectMedia('video')">
+          <div v-if="postData.medias.video.background">
+            <img
+              :src="trashIcon"
+              class="shadowed-icon"
+              @click.stop="removeSelectedMedia('video')"
+            />
+            <video controls>
+              <source
+                :src="postData.medias.video.background"
+                type="video/mp4"
+              />
+              <source
+                :src="postData.medias.video.background"
+                type="video/ogg"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <span v-else> انتخاب ویدئوی تیزر </span>
         </div>
       </div>
 
@@ -92,7 +112,7 @@ import { VueEditor } from "vue2-editor";
 export default {
   components: {
     MediaModal,
-    VueEditor
+    VueEditor,
   },
   data() {
     return {
@@ -101,11 +121,17 @@ export default {
           title: "",
           brief: "",
           description: "",
-          starred:0
+          starred: 0,
         },
-        media: {
-          background: "",
-          id: "",
+        medias: {
+          video: {
+            background: "",
+            id: "",
+          },
+          image: {
+            background: "",
+            id: "",
+          },
         },
       },
       trashIcon: sot.iconPath("trash.svg"),
@@ -116,28 +142,33 @@ export default {
     };
   },
   methods: {
+    selectMedia(type) {
+      this.mediaObj.type = type;
+      this.mediaObj.show = true;
+    },
     cancelCreatingRoom() {
       this.$router.push({ path: "/learns" });
     },
     createEntity() {
-      axios
-        .post(`/admin/learn/store`, this.postData)
-        .then((response) => {
-          setTimeout(() => {
-            this.$router.push({ path: "/learns" });
-          }, 2000);
-        });
+      axios.post(`/admin/learn/store`, this.postData).then((response) => {
+        setTimeout(() => {
+          this.$router.push({ path: "/learns" });
+        }, 2000);
+      });
     },
-    removeSelectedMedia() {
-      this.postData.media = {
+    removeSelectedMedia(type) {
+      this.postData.medias[type] = {
         background: "",
         id: "",
       };
     },
 
     modalMediaClicked(payload) {
-      this.postData.media.background = payload.path;
-      this.postData.media.id = payload.id;
+
+      this.postData.medias[this.mediaObj.type] = {
+        background:payload.path,
+        id:payload.id
+      }
 
       this.mediaObj.show = false;
     },

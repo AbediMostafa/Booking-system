@@ -49,7 +49,7 @@ This set of fonts are used in this project under the license: (NY6Q9A)
     font-family: IRANSansX;
     font-style: normal;
     font-weight: 600;
-    src: url('../fonts/woff/IRANSansX-demibold.woff') format('woff'), url('../fonts/woff2/IRANSansX-demibold.woff2') format('woff2');
+    src: url('../fonts/woff/IRANSansX-DemiBold.woff') format('woff'), url('../fonts/woff2/IRANSansX-DemiBold.woff2') format('woff2');
 }
 
 @font-face {

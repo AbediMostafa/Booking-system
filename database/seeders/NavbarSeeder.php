@@ -34,7 +34,7 @@ class NavbarSeeder extends Seeder
             ],
 
             [
-                'title' => 'ژانر',
+                'title' => 'همه اتاق ها',
                 'name'=>'genres',
                 'route' => '/genres'
             ],

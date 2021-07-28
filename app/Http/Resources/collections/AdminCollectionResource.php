@@ -14,7 +14,7 @@ class AdminCollectionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $media = $this->medias()->first();
+        $media = $this->mediaType()->first();
 
         return [
             'id'=>$this->id,

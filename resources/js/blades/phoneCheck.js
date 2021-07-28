@@ -16,6 +16,7 @@ const vue = new Vue({
             text: `لطفا برای ورود به سایت شماره تلفن همراه خود را وارد کنید.
             `
         },
+        username:'',
         phoneNumber: '',
         confirmCode: '',
         sendPhoneNumberStep: true,
@@ -25,7 +26,13 @@ const vue = new Vue({
 
     methods: {
         sendConfirmCode() {
-            axios.post('/get-confirm-number', { phoneNumber: this.phoneNumber }).then(response => {
+
+            let data = {
+                phoneNumber: this.phoneNumber,
+                username:this.username
+            }
+
+            axios.post('/get-confirm-number', data ).then(response => {
                 if (response.data.status) {
                     this.sendPhoneNumberStep = false;
                     this.sendConfirmCodeStep = true;
