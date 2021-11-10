@@ -29,42 +29,38 @@ class AdminLearnController extends Controller
             'posts.*' => 'exists:posts,id',
         ]);
 
-        Post::whereIn('id', $request->input('posts'))->get()->each(function ($post) {
-            $post->delete();
-        });
-
-        try {
-
-            return  [
-                'status' => true,
-                'msg' => 'آموزش ها با موفقیت حذف شدند.'
-            ];
-        } catch (\Throwable $th) {
-
-            return [
-                'status' => false,
-                'msg' => 'مشکل در حذف آموزش ها'
-            ];
-        }
+        return tryCatch(function () use ($request) {
+            Post::destroy(\request('posts'));
+        }, 'آموزش ها با موفقیت حذف شدند.', 'مشکل در حذف آموزش ها');
     }
 
     public function update(Post $post)
     {
 
-        $media = $post->mediaType()->first();
+        $image = $post->mediaType()->first();
+        $video = $post->mediaType('video')->first();
         return [
             'learnName' => $post->title,
-            'learn' => $post->only('id', 'title', 'brief', 'description','use_id', 'starred'),
-            'media' => [
-                'background' => $media ? $media->path : '',
-                'id' => $media ? $media->id : '',
+            'learn' => $post->only('id', 'title', 'brief', 'description', 'use_id', 'starred'),
+            'selectedTags'=>$post->tags()->select('id', 'name')->get(),
+            'medias' => [
+                'image' => [
+                    'background' => $image ? $image->path : '',
+                    'id' => $image ? $image->id : '',
+                ],
+                'video' => [
+                    'background' => $video ? $video->path : '',
+                    'id' => $video ? $video->id : '',
+                ]
             ]
         ];
     }
 
-    public function detachMedia(Post $post)
+    public function detachMedia(Request $request, Post $post)
     {
-        $post->medias()->detach();
+        $type = $request->input('type') == 'video' ? 'video' : 'front';
+
+        $post->mediaType($type)->detach();
 
         return [
             'status' => true,
@@ -72,9 +68,15 @@ class AdminLearnController extends Controller
         ];
     }
 
-    public function attachMedia(Post $post, Media $media)
+    public function attachMedia(Request $request, Post $post, Media $media)
     {
-        $post->medias()->sync($media);
+        $type = $request->input('type') == 'video' ? 'video' : 'front';
+
+        $post->mediaType($type)->sync([
+            $media->id => [
+                'place' => $type
+            ]
+        ]);
 
         return [
             'status' => true,
@@ -84,47 +86,38 @@ class AdminLearnController extends Controller
 
     public function change(Request $request, Post $post)
     {
-        if(!$post->starred && $request->input('starred')){
+        if (!$post->starred && $request->input('starred')) {
             $starredLearnsCount = Post::where('starred', 1)->count();
 
-            if($starredLearnsCount>=2){
+            if ($starredLearnsCount >= 2) {
                 return [
-                    'status'=>false,
-                    'msg'=>'تعداد آموزش های ستاره دار بیش از حد مجاز است.'
+                    'status' => false,
+                    'msg' => 'تعداد آموزش های ستاره دار بیش از حد مجاز است.'
                 ];
             }
         }
 
-        $post->update([
-            'title' => $request->input('title'),
-            'brief' => $request->input('brief'),
-            'description' => $request->input('description'),
-            'starred' => $request->input('starred'),
-        ]);
-
-        return [
-            'status' => true,
-            'msg' => 'بروزرسانی با موفقیت انجام شد.'
-        ];
-        try {
-        } catch (\Throwable $th) {
-            return [
-                'status' => false,
-                'msg' => 'مشکل در بروزرسانی '
-            ];
-        }
+        return tryCatch(function () use ($post, $request) {
+            $post->tags()->sync($request->input('tagIds'));
+            $post->update([
+                'title' => $request->input('title'),
+                'brief' => $request->input('brief'),
+                'description' => $request->input('description'),
+                'starred' => $request->input('starred'),
+            ]);
+        }, 'بروزرسانی با موفقیت انجام شد.', 'مشکل در بروزرسانی ');
     }
 
     public function store(Request $request)
     {
 
-        if($request->input('learn.starred')){
+        if ($request->input('learn.starred')) {
             $starredLearnsCount = Post::where('starred', 1)->count();
 
-            if($starredLearnsCount>=2){
+            if ($starredLearnsCount >= 2) {
                 return [
-                    'status'=>false,
-                    'msg'=>'تعداد آموزش های ستاره دار بیش از حد مجاز است.'
+                    'status' => false,
+                    'msg' => 'تعداد آموزش های ستاره دار بیش از حد مجاز است.'
                 ];
             }
         }
@@ -133,22 +126,36 @@ class AdminLearnController extends Controller
             'learn.title' => 'required',
             'learn.brief' => 'required',
             'learn.description' => 'required',
-            'media.id' => 'required|exists:media,id'
+            'medias.image.id' => 'required|exists:media,id',
+            'tagIds'=>'array',
+            'tagIds.*'=>'exists:tags,id'
         ]);
 
-        $genre = Post::create([
-            'title' => $request->input('learn.title'),
-            'brief' => $request->input('learn.brief'),
-            'description' => $request->input('learn.description'),
-            'starred' => $request->input('learn.starred'),
-            'user_id'=>User::first()->id
-        ]);
+        return tryCatch(function () use($request){
+            $post = Post::create([
+                'title' => $request->input('learn.title'),
+                'brief' => $request->input('learn.brief'),
+                'description' => $request->input('learn.description'),
+                'starred' => $request->input('learn.starred'),
+                'user_id' => User::first()->id
+            ]);
 
-        $genre->medias()->attach($request->input('media.id'));
+            $post->medias()->attach([
+                $request->input('medias.image.id') => [
+                    'place' => 'front'
+                ]
+            ]);
 
-        return [
-            'status' => true,
-            'msg' => 'آموزش با موفقیت ایجاد شد'
-        ];
+            $post->tags()->attach($request->input('tagIds'));
+
+            if ($request->input('medias.video.id')) {
+                $post->medias()->attach([
+                    $request->input('medias.video.id') => [
+                        'place' => 'video'
+                    ]
+                ]);
+            }
+
+        },'آموزش با موفقیت ایجاد شد','خطا در ایجاد آموزش');
     }
 }

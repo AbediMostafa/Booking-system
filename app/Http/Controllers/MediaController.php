@@ -33,10 +33,10 @@ class MediaController extends Controller
     {
 
         $request->validate([
-            'file' => 'required|mimes:jpg,jpeg,png,bmp,tiff,mp4,mov,ogg,qt,flv,3gp,avi,wmv',
+            'file' => 'required|mimes:jpg,jpeg,png,bmp,tiff,mp4,mov,ogg,qt,flv,3gp,avi,wmv,gif',
         ]);
 
-        $imageExtensions = ['jpg', 'jpeg', 'png', 'bmp'];
+        $imageExtensions = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
         $file = $request->file('file');
         $date = date('y/m');
         $extension = $file->getClientOriginalExtension();
@@ -72,27 +72,17 @@ class MediaController extends Controller
             'medias.*' => 'exists:media,id',
         ]);
 
-        try {
-
-            Media::whereIn('id', $request->get('medias'))->get()->each(function ($media) {
-                $media->delete();
-            });
-
-            return [
-                'status' => true,
-                'msg' => 'مدیاها با موفقیت حذف شدند.'
-            ];
-        } catch (\Throwable $th) {
-            [
-                'status' => false,
-                'msg' => 'مشکل در حذف مدیاها'
-            ];
-        }
+        return tryCatch(function () {
+            Media::destroy(\request('medias'));
+        }, 'مدیاها با موفقیت حذف شدند.', 'مشکل در حذف مدیا ها');
     }
 
     public function modal(Request $request)
     {
-        return Media::select('id', 'display_name as name', 'path', 'type')
+        return Media::when($request->get('itemKey'), function ($media) use ($request) {
+            $media->where('display_name', 'like', '%' . $request->get('itemKey') . '%');
+
+        })->select('id', 'display_name as name', 'path', 'type')
             ->where('type', $request->get('type'))->get();
     }
 }

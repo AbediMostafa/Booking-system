@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
             'room'=>'App\Models\Room',
             'genre'=>'App\Models\Genre',
             'post'=>'App\Models\Post',
+            'movie'=>'App\Models\Movie',
+            'news'=>'App\Models\News',
             'collection'=>'App\Models\Collection',
             'specific-media'=>'App\Models\SpecificMedia',
             'site-variable'=>'App\Models\SiteVariables',

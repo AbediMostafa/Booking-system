@@ -19,7 +19,8 @@ class CollectionRoomResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'district'=>$this->district,
-            'image'=>$img?$img->path:''
+            'image'=>$img?$img->path:'',
+            'total' => $this->rate_percent,
         ];
     }
 }

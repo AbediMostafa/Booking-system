@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class User extends Authenticatable
 {
@@ -18,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id', 'phone', 'score'
     ];
 
     /**
@@ -42,9 +44,53 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'type'
+    ];
+
+    public function getTypeAttribute()
+    {
+        return $this->role ? $this->role->name : '';
+    }
+
+    public static function getFirstOrCreate($person)
+    {
+        return User::firstOrCreate(
+            ['phone' => $person->phone],
+            [
+                'name' => $person->name,
+                'role_id' => Role::where('name', 'user')->first()->id
+            ]
+        );
+    }
+
+    public function isModerator()
+    {
+        $role = $this->role->name;
+
+        return $role === 'admin'
+            || $role === 'manager'
+            || $role === 'room_owner';
+    }
+
+    public function isRoomOwner()
+    {
+        return $this->role->name === 'room_owner';
+    }
+
     public function isAdmin()
     {
-        return $this->email === 'admin';
+        return $this->role->name === 'admin';
+    }
+
+    public function isManager()
+    {
+        return $this->role->name === 'manager';
+    }
+
+    public function isSuperUser(): bool
+    {
+        return Auth::check() && ($this->isAdmin() || $this->isManager());
     }
 
     //relation with posts table
@@ -52,11 +98,25 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    //relation with news table
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
+
+    //relation with news table
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+    }
+
     //relation with comments table
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
     //relation with rates table
     public function rates()
     {
@@ -66,5 +126,20 @@ class User extends Authenticatable
     public function agreements()
     {
         return $this->hasMany(Agreement::class);
+    }
+
+    public function reservations(): object
+    {
+        return $this->belongsToMany(Reservation::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class, 'user_room');
     }
 }

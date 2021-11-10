@@ -59,7 +59,7 @@ export const sot = {
     },
 
     complicatedPath(entityName, value) {
-        return `${window.location.origin}/genres?${entityName}=${value}`
+        return `${window.location.origin}/rooms?${entityName}=${value}`
     },
 
     reactiveVars: {

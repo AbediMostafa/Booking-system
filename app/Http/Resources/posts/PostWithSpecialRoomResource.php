@@ -11,23 +11,28 @@ class PostWithSpecialRoomResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
-        $image = $this->medias()->first();
+        $image = $this->mediaType()->first();
+        $video = $this->mediaType('video')->first();
+        $user = $this->user->type === 'admin' || $this->user->type === 'manager' ?
+            'ادمین' : $this->user->name;
 
         return [
-            'post'=>[
-                'id'=>$this->id,
-                'title'=>$this->title,
-                'description'=>$this->description,
-                'image' => $image? $image->path:'',
-                'user'=>$this->user->name,
+            'post' => [
+                'id' => $this->id,
+                'title' => $this->title,
+                'description' => $this->description,
+                'image' => $image ? $image->path : '',
+                'video' => $video ? $video->path : '',
+                'user' => $user,
                 'date'=> \Morilog\Jalali\Jalalian::forge($this->created_at)->format('%A %d %B %Y'),
             ],
-            'special_rooms'=> LearningSpecialRoomResource::collection(Room::where('is_special', 1)->get())
+            'tags'=>$this->tags()->select('id', 'name')->get(),
+            'special_rooms'=> LearningSpecialRoomResource::collection(Room::where('is_special', 1)->whereDisabled(0)->get())
         ];
     }
 }

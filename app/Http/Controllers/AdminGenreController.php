@@ -28,23 +28,9 @@ class AdminGenreController extends Controller
             'genres.*' => 'exists:genres,id',
         ]);
 
-        Genre::whereIn('id', $request->input('genres'))->get()->each(function ($genre) {
-            $genre->delete();
-        });
-
-        try {
-
-            return  [
-                'status' => true,
-                'msg' => 'ژانرها با موفقیت حذف شدند.'
-            ];
-        } catch (\Throwable $th) {
-
-            return [
-                'status' => false,
-                'msg' => 'مشکل در حذف ژانرها'
-            ];
-        }
+        return tryCatch(function (){
+            Genre::destroy(\request('genres'));
+        },'ژانرها با موفقیت حذف شدند.','مشکل در حذف ژانرها');
     }
 
     public function update(Genre $genre)

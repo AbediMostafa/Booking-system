@@ -18,7 +18,10 @@ class CreatePostsTable extends Migration
             $table->string('title',255);
             $table->text('brief');
             $table->mediumText('description');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained('users')
+                ->onDelete('set null');
             $table->boolean('starred');
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);

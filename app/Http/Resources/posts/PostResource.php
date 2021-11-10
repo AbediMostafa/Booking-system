@@ -14,11 +14,12 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        $image = $this->medias()->first();
+        $image = $this->mediaType()->first();
+        $video = $this->mediaType('video')->first();
         return [
             'id' => $this->id,
             'image' => $image? $image->path:'',
+            'video'=>$video?$video->path:'',
             'date' => $this->date,
             'title' => $this->title,
             'brief' => $this->brief,

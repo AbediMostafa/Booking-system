@@ -18,7 +18,7 @@ class CreateAgreementsTable extends Migration
             $table->enum('status', ['agree', 'disagree']);
             $table->integer('agreementable_id')->unsigned()->index();
             $table->string('agreementable_type');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

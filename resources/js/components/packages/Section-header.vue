@@ -22,27 +22,3 @@ export default {
   props: ["titles"],
 };
 </script>
-
-<style scoped>
-.header-section {
-  text-align: right;
-  margin: 2rem 1.5rem 2rem 0;
-}
-
-.title-icon {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.title-icon img {
-  width: 3rem;
-  margin-right: 0.5rem;
-}
-.header-text {
-  font-size: 0.9rem;
-  margin-top: 1.8rem;
-  line-height: 1.9;
-  font-weight: 500;
-}
-</style>

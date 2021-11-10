@@ -16,14 +16,14 @@ class CreateRatesTable extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');;
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('scariness',[1,2,3,4,5]);
             $table->enum('room_decoration',[1,2,3,4,5]);
             $table->enum('hobbiness',[1,2,3,4,5]);
             $table->enum('creativeness',[1,2,3,4,5]);
             $table->enum('mysteriness',[1,2,3,4,5]);
             $table->timestamps();
-            $table->softDeletes($column = 'deleted_at', $precision = 0);        
+            $table->softDeletes($column = 'deleted_at', $precision = 0);
         });
     }
 

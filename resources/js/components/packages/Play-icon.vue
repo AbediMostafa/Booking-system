@@ -44,7 +44,6 @@ export default {
   border-radius: 50%;
   background: white;
   animation: shi-shine 1500ms cubic-bezier(0.53, 1.33, 0.81, 0.8) infinite;
-  animation-delay: 3s;
   position: absolute;
 }
 
@@ -78,7 +77,7 @@ export default {
   border-left: 10px solid #a300cf;
   border-bottom: 5px solid transparent;
   position: relative;
-  left: 51%;
+  left: 50%;
 }
 
 .shi-large-triangle {

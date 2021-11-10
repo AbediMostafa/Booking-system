@@ -1,183 +1,115 @@
 <template>
-  <div class="relative-position">
-    <div class="between-flex column-reverse">
-      <div class="order1 flex-45">
-        <section-header
-          :titles="titles"
-          v-scrollAnimation="enterAnimations.topAnimation"
-        ></section-header>
-      </div>
-
-      <div class="text-center">
-        <div class="mt-12 s-offer-nav-container">
-          <span
-            v-for="(specialType, key) in specialTypes"
-            :class="[key == selectedSpecialKey ? 'special-active' : '']"
-            :key="key"
-            :ref="key"
-            @click="specialClicked(key)"
-          >
-            {{ specialType.title }}
-          </span>
+    <div class="lsr-container">
+        <div class="lsr-text-container">
+            <div class="header-section">
+                <div class="title-icon">
+                    <img :src="iconPath" alt="icon"/>
+                    <h1>{{ specialRoomData ? specialRoomData.title : "" }}</h1>
+                </div>
+                <p class="header-text">{{ specialRoomData ? specialRoomData.text : "" }}</p>
+            </div>
+            <div class="text-right mr-3">
+                <a class="cta main-cta learning-cta" href="/special-rooms/special">{{ specialRoomData? specialRoomData.button:'' }}</a>
+            </div>
         </div>
-      </div>
-      <hr class="s-o-n-hr" :style="hrStyle" />
+
+        <div class="lsr-images-section">
+            <div
+                @click="goto('special')"
+                class="lsr-image-container sr-learning-image-container learning-card mb-4 lsr-top-image">
+                <div :style="getImage('special')" class="relative-position learning-card-image">
+                    <div class="lsr-text-part">
+                        <span>{{ specialRoomData? specialRoomData.nav.special.title:'' }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="between-flex flex-wrap">
+                <div
+                    @click="goto('new')"
+                    class="lsr-image-container sr-learning-image-container learning-card lsr-bottom-right-image">
+                    <div :style="getImage('new')" class="relative-position learning-card-image">
+                        <div class="lsr-text-part">
+                            <span>{{ specialRoomData?specialRoomData.nav.new.title:''}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    @click="goto('discount')"
+                    class="lsr-image-container sr-learning-image-container learning-card lsr-bottom-left-image">
+                    <div :style="getImage('discount')" class="relative-position learning-card-image">
+                        <div class="lsr-text-part">
+                            <span>{{ specialRoomData?specialRoomData.nav.discount.title:''}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-    <div class="special-room-cards">
-      <room-card
-        v-for="room in rooms"
-        :key="room.id"
-        :room="room"
-        :type="selectedSpecialKey"
-      ></room-card>
-    </div>
-    <img :src="smallShap1" class="shape-1" ref="shape1" />
-  </div>
 </template>
 
 <script>
-import SectionHeader from "../packages/Section-header.vue";
-import RoomCard from "../cards/Room-card.vue";
+
 export default {
-  components: { SectionHeader, RoomCard },
-  props: ["specialRoomData"],
-  data() {
-    return {
-      specialTypes: {},
-      rooms: [],
-      hrStyle: "",
-      smallShap1: sot.iconPath("large-shape3.svg"),
-      selectedSpecialKey: 0,
-      rotateDeg: 0,
-      enterAnimations: sot.enterAnimations,
-    };
-  },
-  computed: {
-    titles() {
-      return {
-        mainTitle: this.specialRoomData ? this.specialRoomData.title : "",
-        icon: true,
-        secondTitle: "",
-        text: this.specialRoomData ? this.specialRoomData.text : "",
-      };
+    props: ["specialRoomData"],
+    data() {
+        return {
+            iconPath: sot.iconPath("logo.svg"),
+            enterAnimations: sot.enterAnimations,
+        };
     },
-  },
-
-  methods: {
-    /**
-     * get called when special room clicked
-     */
-    specialClicked(key) {
-      // set current rooms
-      this.getRooms(this.specialTypes[key].route);
-      this.selectedSpecialKey = key;
-
-      // set coordinate of navigation hr tag
-      let el = this.$refs[key][0];
-      this.setHrStyle(el);
+    methods: {
+        goto(type){
+            window.location.href = `/special-rooms/${type}`
+        },
+        getImage(type) {
+            let img = this.specialRoomData ? this.specialRoomData.nav[type].image : sot.noImage;
+            return `background: url('${img}') no-repeat center center/cover;`;
+        }
     },
-
-    /**
-     * Set style of navigation HR
-     */
-    setHrStyle(el) {
-      this.hrStyle = `
-        width: ${el.getBoundingClientRect().width}px;
-        left : ${el.offsetLeft}px;
-        top: ${
-          el.parentNode.offsetTop + el.parentNode.getBoundingClientRect().height
-        }px
-      `;
-    },
-
-    /**
-     * move element on scroll
-     */
-    runOnScroll() {
-      let position = window.pageYOffset / 10,
-        degree = window.pageYOffset / 20,
-        el = this.$refs.shape1;
-
-      if (el) {
-        el.style.cssText = `
-        transform:translate(${position}px, ${position}px) rotate(${degree}deg) scale(.6)
-        `;
-      }
-    },
-
-    getRooms(route) {
-      axios.post(route).then((response) => {
-        this.rooms = response.data.data;
-      });
-    },
-  },
-
-  created() {
-    var runOnScroll = this.runOnScroll;
-
-    window.addEventListener("scroll", function (event) {
-      runOnScroll();
-    });
-  },
-
-  watch: {
-    specialRoomData() {
-      this.specialTypes = this.specialRoomData.nav;
-
-      let specialTypeKeys = Object.keys(this.specialTypes),
-        lastSpecialTypeKey = specialTypeKeys[0],
-        selectedSpecial = this.specialTypes[lastSpecialTypeKey];
-
-      this.getRooms(selectedSpecial.route);
-
-      setTimeout(() => {
-        let el = this.$refs[lastSpecialTypeKey][0];
-        this.selectedSpecialKey = lastSpecialTypeKey;
-        this.setHrStyle(el);
-      }, 2000);
-    },
-  },
 };
 </script>
 
 <style scoped>
 .relative-position {
-  position: relative;
+    position: relative;
 }
 
 .s-offer-nav-container span:last-child {
-  margin-left: 0;
+    margin-left: 0;
 }
+
 .s-offer-nav-container span:hover {
-  color: #010101;
+    color: #010101;
 }
 
 .s-offer-nav-container {
-  border-bottom: 1px solid #dadada;
-  padding-bottom: 1rem;
-  display: inline-block;
-  direction: rtl;
+    border-bottom: 1px solid #dadada;
+    padding-bottom: 1rem;
+    display: inline-block;
+    direction: rtl;
 }
 
 .s-o-n-hr {
-  position: absolute;
-  border-top: 3px solid var(--first-color);
-  transition: all 300ms ease-in-out;
-  margin: 0;
-  padding: 0;
+    position: absolute;
+    border-top: 3px solid var(--first-color);
+    transition: all 300ms ease-in-out;
+    margin: 0;
+    padding: 0;
 }
 
 .shape-1,
 .shape-2 {
-  position: absolute;
-  width: 20%;
-  height: auto;
-  z-index: -1;
+    position: absolute;
+    width: 20%;
+    height: auto;
+    z-index: -1;
 }
 
 .shape-1 {
-  top: -7rem;
-  left: -12rem;
+    top: -7rem;
+    left: -12rem;
 }
 </style>

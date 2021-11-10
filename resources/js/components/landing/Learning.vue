@@ -15,6 +15,7 @@
         v-for="learning in learnings"
         :key="learning.id"
         :card="learning"
+        uri="learn"
       ></learning-card>
     </div>
   </div>

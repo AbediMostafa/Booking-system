@@ -19,27 +19,7 @@ class SiteVariableFirstPageResource extends JsonResource
         $sv = new SiteVariableService($this);
 
         return [
-            'carousel' => [
-                'carouselItems' => [
-                    [
-                        'path' => $sv->itemMedia('first_page_header_title_1'),
-                        'text' => $sv->item('first_page_header_title_1'),
-                        'paragraph' => $sv->item('first_page_header_text_1'),
-                    ],
-                    [
-                        'path' => $sv->itemMedia('first_page_header_title_2'),
-                        'text' => $sv->item('first_page_header_title_2'),
-                        'paragraph' => $sv->item('first_page_header_text_2'),
-                    ],
-                    [
-                        'path' => $sv->itemMedia('first_page_header_title_3'),
-                        'text' => $sv->item('first_page_header_title_3'),
-                        'paragraph' => $sv->item('first_page_header_text_3'),
-                    ],
-
-                ],
-                'buttonText' => $sv->item('first_page_header_button_text')
-            ],
+            'carousel' => $sv->carouselItems(),
 
             //entity counts
             'entityCounts' => [
@@ -52,20 +32,31 @@ class SiteVariableFirstPageResource extends JsonResource
             'specialRooms' => [
                 'title' => $sv->item('special_rooms_title'),
                 'text' => $sv->item('special_rooms_text'),
+                'button'=>$sv->item('special_rooms_button'),
                 'nav' => [
                     'special' => [
                         'route' => 'special-rooms/special',
-                        'title' => $sv->item('special_rooms_nav_special')
+                        'title' => $sv->item('special_rooms_poster_special'),
+                        'image'=>$sv->itemMedia('special_rooms_nav_special'),
                     ],
                     'new' => [
                         'route' => 'special-rooms/new',
-                        'title' => $sv->item('special_rooms_nav_new')
+                        'title' => $sv->item('special_rooms_poster_new'),
+                        'image'=>$sv->itemMedia('special_rooms_nav_new'),
                     ],
                     'discount' => [
                         'route' => 'special-rooms/discount',
-                        'title' => $sv->item('special_rooms_nav_discount')
+                        'title' => $sv->item('special_rooms_poster_discount'),
+                        'image'=>$sv->itemMedia('special_rooms_nav_discount'),
                     ]
                 ]
+            ],
+
+            //room search
+            'search'=>[
+                'title'=>$sv->item('first_page_search_title'),
+                'text'=>$sv->item('first_page_search_text'),
+                'button'=>$sv->item('first_page_search_button'),
             ],
 
             //first page learning
@@ -75,6 +66,13 @@ class SiteVariableFirstPageResource extends JsonResource
                 'button' => $sv->item('first_page_learning_button_text'),
             ],
 
+            //first page multimedia
+            'multimedia' =>[
+                'title' => $sv->item('first_page_multimedia_title'),
+                'text' => $sv->item('first_page_multimedia_text'),
+            ],
+
+            //first page collection
             'collection' => [
                 'title' => $sv->item('first_page_collection_title'),
                 'text' => $sv->item('first_page_collection_text'),

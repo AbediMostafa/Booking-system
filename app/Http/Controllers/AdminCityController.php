@@ -28,23 +28,9 @@ class AdminCityController extends Controller
             'cities.*' => 'exists:cities,id',
         ]);
 
-//        try {
-
-            City::whereIn('id', $request->get('cities'))->get()->each(function ($city) {
-                $city->delete();
-            });
-
-            return  [
-                'status' => true,
-                'msg' => 'شهرها با موفقیت حذف شدند.'
-            ];
-//        } catch (\Throwable $th) {
-//
-//            return [
-//                'status' => false,
-//                'msg' => 'مشکل در حذف شهرها'
-//            ];
-//        }
+        return tryCatch(function (){
+            City::destroy(\request('cities'));
+        },'شهرها با موفقیت حذف شدند.','مشکل در حذف شهرها');
     }
 
     public function update(City $city)
@@ -84,14 +70,14 @@ class AdminCityController extends Controller
     public function change(Request $request, City $city)
     {
         try {
-        $city->update([
-            'name' => $request->input('name')
-        ]);
+            $city->update([
+                'name' => $request->input('name')
+            ]);
 
-        return [
-            'status' => true,
-            'msg' => 'بروزرسانی با موفقیت انجام شد.'
-        ];
+            return [
+                'status' => true,
+                'msg' => 'بروزرسانی با موفقیت انجام شد.'
+            ];
         } catch (\Throwable $th) {
             return [
                 'status' => false,

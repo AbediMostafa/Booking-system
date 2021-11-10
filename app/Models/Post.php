@@ -37,4 +37,14 @@ class Post extends Model
     {
         return $this->morphToMany(Media::class, 'mediaable')->wherePivot('place', $place);
     }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function multimedia()
+    {
+        return $this->morphOne(Multimedia::class, 'multimediaable');
+    }
 }

@@ -15,12 +15,12 @@ class ConfirmNumberController extends Controller
             'phoneNumber' => 'required|regex:/(09)[0-9]{9}/|digits:11|numeric'
         ]);
 
-        $randomNumber = random_int(100000, 999999);
+        $randomNumber = random_int(1000, 9999);
 
         try {
 
             $ultra = new UltraFastSendSms();
-            $result = $ultra->generateData(
+            $result = $ultra->activationSms(
                 $request->input('phoneNumber'),
                 $randomNumber
             )->UltraFastSend();
@@ -59,7 +59,7 @@ class ConfirmNumberController extends Controller
         if ($request->input('confirmCode') == session('phoneRegistration.code')) {
 
             $user = User::firstOrCreate(
-                ['email' => session('phoneRegistration.phoneNumber')],
+                ['phone' => session('phoneRegistration.phoneNumber')],
                 ['name' => session('phoneRegistration.username')],
             );
 

@@ -6,6 +6,8 @@ import Collections from '../components/landing/Collections.vue';
 import Slider from '../components/landing/Slider.vue';
 import VideoModal from '../components/packages/Video-modal.vue';
 import Counts from '../components/landing/Counts.vue';
+import LandingSearch from '../components/landing/Landing-search.vue';
+import Multimedia from '../components/landing/Multimedia.vue';
 
 const vue = new Vue({
     el: '#app',
@@ -17,7 +19,9 @@ const vue = new Vue({
         Collections,
         VideoModal,
         Counts,
-        Slider
+        Slider,
+        LandingSearch,
+        Multimedia
     },
     data: {
         showVideo: false,
@@ -26,8 +30,8 @@ const vue = new Vue({
     },
 
     methods: {
-        background(icon, position) {
-            return `background: url(${sot.imgPath(icon)}) no-repeat ${position} center/contain;`
+        background(icon, position, coverage = 'cover') {
+            return `background: url(${sot.imgPath(icon)}) no-repeat ${position} center/${coverage};`
         },
         playVideo(videoPath) {
             this.videoSrc = videoPath

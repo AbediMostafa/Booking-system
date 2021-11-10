@@ -7,6 +7,7 @@ use App\Http\Resources\site_variables\SiteVariableCollection;
 use App\Http\Resources\site_variables\SiteVariableFirstPageResource;
 use App\Http\Resources\site_variables\SiteVariableIndexPageResource;
 use App\Http\Resources\site_variables\SiteVariableResourceForIndexCollection;
+use App\Http\Resources\site_variables\SpecialRoomResource;
 use App\Models\Media;
 use App\Models\SiteVariables;
 use phpDocumentor\Reflection\PseudoTypes\False_;
@@ -23,6 +24,11 @@ class SiteVariablesController extends Controller
     public function getFirstPageVars()
     {
         return new SiteVariableFirstPageResource(SiteVariables::all());
+    }
+
+    public function getSpecialRoomsVars()
+    {
+        return new SpecialRoomResource(SiteVariables::all());
     }
 
     public function getVar($title, $text)
@@ -55,11 +61,21 @@ class SiteVariablesController extends Controller
         return $this->getVar('learning_page_title', 'learning_page_text');
     }
 
+    public function getMoviesPageVars()
+    {
+        return $this->getVar('movie_page_title', 'movie_page_text');
+    }
+
+    public function getNewsPageVars()
+    {
+        return $this->getVar('news_page_title', 'news_page_text');
+    }
+
     public function rateTitles()
     {
         return [
             'scariness' => $this->getValue('rate_scariness'),
-            'decoration' => $this->getValue('rate_room_decoration'),
+            'room_decoration' => $this->getValue('rate_room_decoration'),
             'hobbiness' => $this->getValue('rate_hobbiness'),
             'creativeness' => $this->getValue('rate_creativeness'),
             'mysteriness' => $this->getValue('rate_mysteriness'),
@@ -114,27 +130,14 @@ class SiteVariablesController extends Controller
 
     public function update(UpdateSiteVarsRequest $request)
     {
-
         $siteVars = SiteVariables::all();
 
-        // try {
+        return tryCatch(function () use ($request, $siteVars) {
             foreach ($request->all() as $key => $singleRequest) {
                 $siteVars->where('variable', $key)->first()->update([
-                    'value'=>$singleRequest
+                    'value' => $singleRequest
                 ]);
             }
-
-            return [
-                'status'=>true,
-                'msg'=>'بروزرسانی با موفقیت انجام شد'
-            ];
-        // } catch (\Throwable $th) {
-
-        //     return [
-        //         'status'=>false,
-        //         'msg'=>'خطا در انجام بروزرسانی'
-        //     ];
-        // }
-
+        }, 'بروزرسانی با موفقیت انجام شد', 'خطا در انجام بروزرسانی');
     }
 }
