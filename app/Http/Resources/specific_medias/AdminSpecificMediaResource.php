@@ -6,6 +6,22 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdminSpecificMediaResource extends JsonResource
 {
+
+    public function getSliderItems($place)
+    {
+        $medias=[];
+        foreach ($this->where('name', $place)->all() as $specificMedia) {
+            $smMedia = $specificMedia->medias()->first();
+            $medias[] = [
+                'id' => $smMedia ? $smMedia->id : '',
+                'background' => $smMedia ? $smMedia->path : '',
+                'sm_id' => $specificMedia->id,
+                'roomId'=>$specificMedia->room?$specificMedia->room->id:''
+            ];
+        }
+
+        return $medias;
+    }
     /**
      * Transform the resource into an array.
      *
@@ -23,17 +39,6 @@ class AdminSpecificMediaResource extends JsonResource
 
         $firstPageFullVideo = $this->where('name', 'first_page_full_video')->first();
         $firstPageFullVideoMedia = $firstPageFullVideo->medias()->first();
-
-        $medias=[];
-        foreach ($this->where('name', 'banner_slider')->all() as $specificMedia) {
-            $smMedia = $specificMedia->medias()->first();
-            $medias[] = [
-                'id' => $smMedia ? $smMedia->id : '',
-                'background' => $smMedia ? $smMedia->path : '',
-                'sm_id' => $specificMedia->id,
-                'roomId'=>$specificMedia->room?$specificMedia->room->id:''
-            ];
-        }
 
         return [
 
@@ -57,7 +62,8 @@ class AdminSpecificMediaResource extends JsonResource
                 ]
             ],
 
-            'dynamicMedias' => $medias
+            'ourSuggestionSlider' => $this->getSliderItems('banner_slider'),
+            'heroSlider' => $this->getSliderItems('hero_slider'),
         ];
     }
 }

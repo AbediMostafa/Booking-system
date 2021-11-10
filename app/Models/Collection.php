@@ -16,6 +16,11 @@ class Collection extends Model
         static::deleting(function ($collection) {
             $collection->medias()->detach();
         });
+
+        static::created(function ($collection) {
+            $collection->collection_order = $collection->id * 100 + 350000;
+            $collection->save();
+        });
     }
 
     public function rooms()

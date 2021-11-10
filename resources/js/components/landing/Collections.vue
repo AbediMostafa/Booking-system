@@ -1,6 +1,6 @@
 <template>
   <div class="collection-container">
-    <div class="collection-text-part">
+    <div class="text-right collection-text-part">
       <section-header
         :titles="titles"
         v-scrollAnimation="enterAnimations.topAnimation"

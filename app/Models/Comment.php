@@ -9,18 +9,22 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
     public static function booted()
     {
         static::deleting(function ($comment) {
-            $rate = Rate::where([
-                ['user_id', $comment->user_id],
-                ['room_id', $comment->commentable_id]
-            ])->first();
 
-            if($rate){
-                $rate->delete();
+            if ($comment->parent_id === null) {
+
+                $rate = Rate::where([
+                    ['user_id', $comment->user_id],
+                    ['room_id', $comment->commentable_id]
+                ])->first();
+
+                if ($rate) {
+                    $rate->delete();
+                }
             }
         });
     }
@@ -30,6 +34,7 @@ class Comment extends Model
     {
         return $this->morphTo();
     }
+
     //relation with users table
     public function user()
     {
@@ -38,7 +43,7 @@ class Comment extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Comment::class,'parent_id');
+        return $this->belongsTo(Comment::class, 'parent_id');
     }
 
     public function childs()

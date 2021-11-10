@@ -3,6 +3,7 @@
     :href="getRoomPath"
     class="special-room-card learning-card"
     v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
+    dir="ltr"
   >
     <div class="sr-image-container sr-learning-image-container">
       <div :style="roomStyle" class="learning-card-image"></div>
@@ -11,7 +12,7 @@
     <div class="sr-text-container">
       <h1>{{ room.name }}</h1>
       <h4>{{ room.collectionName }} ({{ room.district }})</h4>
-      <score-stars :score="room.rate_percent"></score-stars>
+      <score-stars :score="room.rate_percent" :rates_count="room.rates_count"></score-stars>
       <div class="span-container">
         <badget
           :icon="'white-person'"

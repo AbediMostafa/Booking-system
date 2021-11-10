@@ -2,10 +2,12 @@
   <div
     class="d-card-container"
   >
+      <div class="room-disabled-container">
+          <div class="disabled-child" v-if="card.disabled">غیرفعال</div>
+          <div class="disabled-child" v-if="card.reservable === 0">رزرو غیرفعال</div>
+      </div>
     <div :style="roomStyle" class="d-card-image"></div>
-
     <div class="d-card-text">{{card.name}}</div>
-
     <div class="d-edit-card" v-if="hasEdit" @click.stop="editCard">ویرایش</div>
   </div>
 </template>
@@ -21,7 +23,7 @@ export default {
   props: ["card", 'hasEdit', 'editRoute'],
   computed: {
     roomStyle() {
-      let image = this.card.image ? this.card.image : sot.noImage; 
+      let image = this.card.image ? this.card.image : sot.noImage;
       return `background: url('${image}') no-repeat center center/cover;`;
     },
   },

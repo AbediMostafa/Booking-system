@@ -1,6 +1,10 @@
 <template>
   <div class="score-container">
-    <div class="star-container" v-if="score">
+      <div class="rates-count" v-if="rates_count">
+          {{` از مجموع ${rates_count} امتیاز`}}
+      </div>
+
+    <div class="star-container">
       <div class="c-empty-stars"></div>
       <div class="c-filled-stars" :style="starStyle"></div>
     </div>
@@ -9,7 +13,7 @@
 
 <script>
 export default {
-  props: ["score"],
+  props: ["score", 'rates_count'],
   computed: {
     starStyle() {
       return `width:${this.score}%`;

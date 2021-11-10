@@ -1,8 +1,7 @@
 <template>
   <div class="each-contact-info">
     <div class="ci-text">
-      {{ text }}
-    </div>
+      {{ text }}</div>
     <div class="ci-icon">
       <img :src="iconPath" />
     </div>
@@ -36,7 +35,7 @@ export default {
 }
 
 .ci-text {
-  flex: 0 0 85%;
+  flex: 1 0 85%;
   font-size: 0.8rem;
   color: var(--main-title);;
 }

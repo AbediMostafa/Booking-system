@@ -1,41 +1,41 @@
 <template>
-    <div class="d-item-container">
+    <div class="d-item-container" v-if="userHasAccessToCreate">
         <div class="d-status-bar flex-end">
             <h3 class="create-media-title">مدیاهای خاص</h3>
         </div>
         <div class="d-form-container">
-            <div class="sm-row">
-                <div
-                    class="d-each-image-select sm-image-placeholder"
-                    @click="selectStaticMedia('first_page_video', 'video')"
-                >
-                    <div v-if="postData.staticMedias.first_page_video.background">
-                        <img
-                            :src="trashIcon"
-                            class="shadowed-icon"
-                            @click.stop="removeSelectedStaticMedia('first_page_video')"
-                        />
-                        <video
-                            controls
-                            style="height: 12rem"
-                            :key="postData.staticMedias.first_page_video.background"
-                        >
-                            <source
-                                :src="postData.staticMedias.first_page_video.background"
-                                type="video/mp4"
-                            />
-                            <source
-                                :src="postData.staticMedias.first_page_video.background"
-                                type="video/ogg"
-                            />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
+            <!--            <div class="sm-row">-->
+            <!--                <div-->
+            <!--                    class="d-each-image-select sm-image-placeholder"-->
+            <!--                    @click="selectStaticMedia('first_page_video', 'video')"-->
+            <!--                >-->
+            <!--                    <div v-if="postData.staticMedias.first_page_video.background">-->
+            <!--                        <img-->
+            <!--                            :src="trashIcon"-->
+            <!--                            class="shadowed-icon"-->
+            <!--                            @click.stop="removeSelectedStaticMedia('first_page_video')"-->
+            <!--                        />-->
+            <!--                        <video-->
+            <!--                            controls-->
+            <!--                            style="height: 12rem"-->
+            <!--                            :key="postData.staticMedias.first_page_video.background"-->
+            <!--                        >-->
+            <!--                            <source-->
+            <!--                                :src="postData.staticMedias.first_page_video.background"-->
+            <!--                                type="video/mp4"-->
+            <!--                            />-->
+            <!--                            <source-->
+            <!--                                :src="postData.staticMedias.first_page_video.background"-->
+            <!--                                type="video/ogg"-->
+            <!--                            />-->
+            <!--                            Your browser does not support the video tag.-->
+            <!--                        </video>-->
+            <!--                    </div>-->
 
-                    <span v-else> ویدئوی صفحه اول </span>
-                </div>
-                <div class="sm-lable">ویدئوی صفحه اول</div>
-            </div>
+            <!--                    <span v-else> ویدئوی صفحه اول </span>-->
+            <!--                </div>-->
+            <!--                <div class="sm-lable">ویدئوی صفحه اول</div>-->
+            <!--            </div>-->
             <div class="sm-row">
                 <div
                     class="d-each-image-select sm-image-placeholder"
@@ -88,14 +88,17 @@
                 <div class="sm-lable">ویدئوی تمام صفحه</div>
             </div>
 
+            <!--  Main slider-->
+            <hr>
+            <h3 class="mb-4">اسلایدر اصلی</h3>
             <div
                 class="sm-row"
-                v-for="(dynamicMedia, key) in postData.dynamicMedias"
+                v-for="(dynamicMedia, key) in postData.heroSlider"
                 :key="key"
             >
                 <div
                     class="d-entity-cta d-make-entity high-order"
-                    @click="createDynamicMedia(key)"
+                    @click="createDynamicMedia(key, 'hero_slider')"
                 >
                     ایجاد
                 </div>
@@ -107,32 +110,85 @@
                             name="select1"
                             :options="rooms"
                             :searchable="true"
-                            v-model="postData.dynamicMedias[key].roomId"
+                            v-model="dynamicMedia.roomId"
                         >
                         </vueselect>
                     </div>
                 </div>
                 <div
                     class="d-each-image-select sm-image-placeholder"
-                    @click="selectDynamicMedia(key, 'image')"
-                    :style="getBackground(postData.dynamicMedias[key].background)"
+                    @click="selectDynamicMedia(key, 'image','hero_slider')"
+                    :style="getBackground(dynamicMedia.background)"
                 >
                     <img
                         :src="trashIcon"
                         class="shadowed-icon"
-                        @click.stop="removeDynamicMedia(key)"
+                        @click.stop="removeDynamicMedia(key, 'hero_slider')"
                     />
                     <span
-                        v-if="!getBackground(postData.dynamicMedias[key].background)"
+                        v-if="!getBackground(dynamicMedia.background)"
                     >
-            عکس اسلایدر
-          </span>
+                      عکس اسلایدر
+                    </span>
                 </div>
                 <div class="sm-lable">عکس اسلایدر</div>
             </div>
 
             <div class="sm-row">
-                <div class="add-dynamic-media-holder" @click="addDynamicMedia">
+                <div class="add-dynamic-media-holder" @click="addDynamicMedia('hero_slider')">
+                    <img :src="iconPath('grey-add.svg')" class="small-icon mr-2"/>
+                    <span>اضافه کردن اسلایدر جدید</span>
+                </div>
+            </div>
+
+            <!--  Our suggestion slider -->
+            <hr>
+            <h3 class="mb-4">اسلایدر پیشنهاد ما</h3>
+            <div
+                class="sm-row"
+                v-for="(dynamicMedia, key) in postData.ourSuggestionSlider"
+                :key="key"
+            >
+                <div
+                    class="d-entity-cta d-make-entity high-order"
+                    @click="createDynamicMedia(key, 'banner_slider')"
+                >
+                    ایجاد
+                </div>
+
+                <div class="width-10">
+                    <span class="d-form-lable"> اتاق </span>
+                    <div class="d-form-input">
+                        <vueselect
+                            name="select1"
+                            :options="rooms"
+                            :searchable="true"
+                            v-model="dynamicMedia.roomId"
+                        >
+                        </vueselect>
+                    </div>
+                </div>
+                <div
+                    class="d-each-image-select sm-image-placeholder"
+                    @click="selectDynamicMedia(key, 'image', 'banner_slider')"
+                    :style="getBackground(dynamicMedia.background)"
+                >
+                    <img
+                        :src="trashIcon"
+                        class="shadowed-icon"
+                        @click.stop="removeDynamicMedia(key, 'banner_slider')"
+                    />
+                    <span
+                        v-if="!getBackground(dynamicMedia.background)"
+                    >
+                      عکس اسلایدر
+                    </span>
+                </div>
+                <div class="sm-lable">عکس اسلایدر</div>
+            </div>
+
+            <div class="sm-row">
+                <div class="add-dynamic-media-holder" @click="addDynamicMedia('banner_slider')">
                     <img :src="iconPath('grey-add.svg')" class="small-icon mr-2"/>
                     <span>اضافه کردن اسلایدر جدید</span>
                 </div>
@@ -152,6 +208,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="alert alert-danger" v-else>
+        شما اجازه دسترسی به این صفحه را ندارید
     </div>
 </template>
 
@@ -185,7 +245,8 @@ export default {
                     },
                 },
 
-                dynamicMedias: [],
+                ourSuggestionSlider: [],
+                heroSlider: [],
             },
             selectedMedia: {
                 type: "static",
@@ -212,8 +273,8 @@ export default {
             this.selectedMedia.key = media;
             this.lunchModal(type);
         },
-        selectDynamicMedia(key, type) {
-            this.selectedMedia.type = "dynamic";
+        selectDynamicMedia(key, type, place) {
+            this.selectedMedia.type = `dynamic_${place}`;
             this.selectedMedia.key = key;
             this.lunchModal(type);
         },
@@ -227,37 +288,45 @@ export default {
                     .then((response) => {
                     });
             } else {
-                sm = this.postData.dynamicMedias[this.selectedMedia.key];
+                sm = this.selectedMedia.type === 'dynamic_hero_slider' ?
+                    this.postData.heroSlider[this.selectedMedia.key] :
+                    this.postData.ourSuggestionSlider[this.selectedMedia.key];
             }
 
             sm.id = payload.id;
             sm.background = payload.path;
             this.mediaObj.show = false;
         },
-        createDynamicMedia(key) {
+        createDynamicMedia(key, place) {
 
-            let sm = this.postData.dynamicMedias[key],
-            route = sm.sm_id ?
-                `admin/specific-medias/${sm.sm_id}/attach-dynamic-media/${sm.id}` :
-                `admin/specific-medias/attach-media/${sm.id}`;
+            let sm = place === 'hero_slider' ?
+                this.postData.heroSlider[key] :
+                this.postData.ourSuggestionSlider[key],
+
+                route = sm.sm_id ?
+                    `admin/specific-medias/${sm.sm_id}/attach-dynamic-media/${sm.id}` :
+                    `admin/specific-medias/attach-media/${sm.id}`;
+
+            let data = {
+                roomId: sm.roomId,
+                place
+            }
 
             axios
-                .post(route, {roomId:sm.roomId})
+                .post(route, data)
                 .then((response) => {
                     sm.sm_id = response.data.sm_id;
                 });
         },
-        removeDynamicMedia(key) {
-            let sm_id = this.postData.dynamicMedias[key].sm_id;
+        removeDynamicMedia(key, place) {
+            let sm = place === 'hero_slider' ?
+                this.postData.heroSlider :
+                this.postData.ourSuggestionSlider,
+            smId = sm[key].sm_id;
 
-            if (sm_id) {
-                axios
-                    .post(`/admin/specific-medias/detach-dynamic-media/${sm_id}`)
-                    .then((response) => {
-                    });
-            }
+            smId && axios.post(`/admin/specific-medias/detach-dynamic-media/${smId}`)
 
-            this.postData.dynamicMedias.splice(key, 1);
+            sm.splice(key, 1);
         },
         removeSelectedStaticMedia(type) {
             axios
@@ -269,17 +338,18 @@ export default {
                     this.postData.staticMedias[type].background = "";
                 });
         },
-        addDynamicMedia() {
-            this.$set(
-                this.postData.dynamicMedias,
-                this.postData.dynamicMedias.length,
+        addDynamicMedia(place) {
+            let slider = place === 'banner_slider' ?
+                this.postData.ourSuggestionSlider :
+                this.postData.heroSlider;
+
+            this.$set(slider, slider.length,
                 {
                     id: "",
                     background: "",
                     sm_id: '',
                     roomId: ''
-                }
-            );
+                });
         },
         iconPath(icon) {
             return sot.iconPath(icon);
@@ -303,6 +373,12 @@ export default {
         }
     },
 
+    computed: {
+        userHasAccessToCreate() {
+            return user.type === 'admin' || user.type === 'manager';
+        }
+    },
+
     created() {
         this.getMedias();
         this.getRooms();
@@ -318,14 +394,6 @@ export default {
     margin-bottom: .5rem;
 }
 
-.sm-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-
 .sm-lable {
     text-align: right;
     font-size: 0.9rem;
@@ -336,23 +404,5 @@ export default {
 
 .sm-image-placeholder {
     flex: 0 0 15rem !important;
-}
-
-.add-dynamic-media-holder:hover {
-    background: #e2e8f0;
-}
-
-.add-dynamic-media-holder {
-    width: 15rem;
-    height: 4rem;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border: 1px dashed #9398a0;
-    border-radius: 0.5rem;
-    font-size: 0.8rem;
-    color: #9daac5;
-    cursor: pointer;
-    transition: all 300ms;
 }
 </style>

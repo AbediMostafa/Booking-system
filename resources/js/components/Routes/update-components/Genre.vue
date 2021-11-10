@@ -1,5 +1,5 @@
 <template>
-  <div class="d-item-container">
+  <div class="d-item-container" v-if="userHasAccessToCreate">
     <div class="d-status-bar flex-end">
       <h3 class="create-media-title">
         ویرایش ژانر
@@ -58,6 +58,11 @@
       </div>
     </div>
   </div>
+
+    <div class="alert alert-danger" v-else>
+        شما اجازه دسترسی به این صفحه را ندارید
+    </div>
+
 </template>
 
 <script>
@@ -138,6 +143,10 @@ export default {
     getBackground() {
       return `background:url(${this.postData.media.background}) no-repeat center/cover`;
     },
+
+      userHasAccessToCreate() {
+          return user.type === 'admin' || user.type === 'manager';
+      }
   },
 
   created() {

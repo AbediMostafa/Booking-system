@@ -1,5 +1,5 @@
 <template>
-  <div class="d-item-container">
+  <div class="d-item-container" v-if="userHasAccessToCreate">
     <div class="d-status-bar">
       <router-link to="/create/city" class="d-add-item-cta">
         <img :src="iconPath('white-add.svg')" class="small-icon mr-2" />
@@ -48,6 +48,10 @@
       </div>
     </div>
   </div>
+
+    <div class="alert alert-danger" v-else>
+        شما اجازه دسترسی به این صفحه را ندارید
+    </div>
 </template>
 
 <script>
@@ -92,6 +96,12 @@ export default {
       return sot.iconPath(icon);
     },
   },
+
+    computed: {
+        userHasAccessToCreate() {
+            return user.type === 'admin' || user.type === 'manager';
+        }
+    },
 
   watch: {
     itemKey(value) {

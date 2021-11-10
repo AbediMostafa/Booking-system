@@ -14,7 +14,7 @@ class LearningSpecialRoomResource extends JsonResource
      */
     public function toArray($request)
     {
-        $media = $this->medias()->first();
+        $media = $this->mediaType()->first();
         return [
             'id'=>$this->id,
             'name'=>$this->name,
@@ -23,6 +23,7 @@ class LearningSpecialRoomResource extends JsonResource
             'min_person'=>$this->min_person,
             'max_person'=>$this->max_person,
             'game_time'=>$this->game_time,
+            'price'=>$this->price,
             'hardness'=>$this->hardness,
             'collection'=>[
                 'title'=>$this->collection->title

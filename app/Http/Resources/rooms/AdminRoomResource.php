@@ -20,6 +20,8 @@ class AdminRoomResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
+            'disabled'=>$this->disabled,
+            'reservable'=>$this->reservable,
             'image'=>$media?$media->path:'',
         ];
     }

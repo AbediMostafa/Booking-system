@@ -27,6 +27,10 @@
 
     </div>
 
+    <script>
+        const user = {!!$user!!}
+        const tags = {!!$tags!!}
+    </script>
     <script src="{{asset('/js/dashboard.js')}}"></script>
     @yield('scripts')
 

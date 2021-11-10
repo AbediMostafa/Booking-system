@@ -34,12 +34,12 @@ class AdminRoomRequest extends FormRequest
             'room.address' => 'required',
             'room.district' => 'required',
             'room.description' => 'required',
+            'room.ticket_count' => 'required|lte:room.max_person',
             'collection'=>'exists:collections,id',
             'city'=>'exists:cities,id',
             'discount.started_at'=>'exclude_if:hasDiscount,false|required',
             'discount.ended_at'=>'exclude_if:hasDiscount,false|required',
             'discount.amount'=>'exclude_if:hasDiscount,false|required',
-            'genreIds'=>'required|array',
             'genreIds'=>'exists:genres,id',
         ];
     }

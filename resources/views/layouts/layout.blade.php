@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="robots" content="noindex,nofollow">
 
     <title>Miss escape</title>
 
@@ -13,11 +14,6 @@
 
 <body>
     <div id="app">
-        <a target="_blank" href="https://web.whatsapp.com/send?phone=0989123711964&text=سلام" class="whatsapp">
-            <span>شروع گفتگو</span>
-            <img src="/images/icons/whatsapp.svg">
-        </a>
-
         <!-- Hiro Section -->
         <section class="navbar">
             <div class="container">
@@ -33,6 +29,42 @@
             </div>
         </section>
     </div>
+    <script>
+        var url = 'https://wati-integration-service.clare.ai/ShopifyWidget/shopifyWidget.js?43458';
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = url;
+        var options = {
+            "enabled":true,
+            "chatButtonSetting":{
+                "backgroundColor":"#4dc247",
+                "ctaText":"شروع گفتگو",
+                "borderRadius":"25",
+                "marginLeft":"0",
+                "marginBottom":"50",
+                "marginRight":"50",
+                "position":"right"
+            },
+            "brandSetting":{
+                "brandName":"Miss Escape",
+                "brandSubTitle":"",
+                "brandImg":"https://cdn.clare.ai/wati/images/WATI_logo_square_2.png",
+                "welcomeText":"سلام\nچطور میتونم شما رو کمک کنم؟",
+                "backgroundColor":"#0a5f54",
+                "ctaText":"شروع گفتگو",
+                "borderRadius":"25",
+                "autoShow":false,
+                "phoneNumber":"989123711964"
+            }
+        };
+        s.onload = function() {
+            CreateWhatsappChatWidget(options);
+        };
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    </script>
+
 
     <script src="{{asset('/js/app.js')}}"></script>
     @yield('scripts')

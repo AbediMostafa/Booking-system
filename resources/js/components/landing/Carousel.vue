@@ -1,121 +1,105 @@
 <template>
-  <div class="carousel">
-    <div class="overlay"></div>
+    <!--    <div class="carousel">-->
+    <swiper
+        class="pt-0 swiper-autoplay"
+        :options="swiperOptions"
+    >
+        <swiper-slide
+            v-for="(data, key) in carouselItems"
+            :key="key"
+        >
+            <a :href="`/rooms/${data.roomId}`" target="_blank">
+                <img :src="data.media" class="carousel-img"/>
+            </a>
 
-    <img
-      :src="
-        carouselImageSources.length ? carouselImageSources[counter].path : ''
-      "
-      :class="['carousel-img', zoom ? 'zoom-in' : 'zoom-out']"
-    />
-    <div class="image-content">
-      <h1
-        v-scrollAnimation="enterAnimations.topAnimation"
-        class="ic-main-title"
-      >
-        {{
-          carouselImageSources.length ? carouselImageSources[counter].text : ""
-        }}
-      </h1>
-      <p
-        v-scrollAnimation="enterAnimations.topWithDelayAnimation"
-        class="ic-text-part"
-      >
-        {{
-          carouselImageSources.length
-            ? carouselImageSources[counter].paragraph
-            : ""
-        }}
-      </p>
-      <div class="cta-container">
-        <play-icon
-          v-scrollAnimation="enterAnimations.leftWithUltraDelayAnimation"
-          size="small"
-          @click.native="playVideo"
-        >
-        </play-icon>
-        <a
-          class="cta main-cta"
-          v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
-          href="/genres"
-          >{{ carouselData ? carouselData.buttonText : "" }}</a
-        >
-      </div>
-    </div>
-  </div>
+            <div class="count-container">
+                <div class="count-parts">
+                    <a class="count-text-part" href="/cities" target="_blank">
+                        <span>+{{ countData ? countData.city : '' }}</span>
+                        <span>شهر</span>
+                    </a>
+                    <img src="/images/icons/white-city.svg" class="white-icons"/>
+                </div>
+                <div class="count-parts">
+                    <a class="count-text-part" href="/collections" target="_blank">
+                        <span>+{{ countData ? countData.collection : '' }}</span>
+                        <span>مجموعه</span>
+                    </a>
+                    <img src="/images/icons/white-collection.svg" class="white-icons"/>
+                </div>
+                <div class="count-parts">
+                    <a class="count-text-part" href="/rooms" target="_blank">
+                        <span>+{{ countData ? countData.room : '' }}</span>
+                        <span>اتاق فرار</span>
+                    </a>
+                    <img src="/images/icons/white-escape.svg" class="white-icons"/>
+                </div>
+            </div>
+
+        </swiper-slide>
+        <div
+            slot="button-next"
+            class="swiper-button-next"
+        />
+        <div
+            slot="button-prev"
+            class="swiper-button-prev"
+        />
+    </swiper>
 </template>
-
 <script>
 import PlayIcon from "./../packages/Play-icon.vue";
+import {Swiper, SwiperSlide} from 'vue-awesome-swiper';
+import 'swiper/css/swiper.css';
+
 export default {
-  props: ["carouselData"],
-  components: {
-    PlayIcon,
-  },
-  data() {
-    return {
-      enterAnimations: sot.enterAnimations,
-      counter: 0,
-      zoom: false,
-      carouselImageSources: [],
-    };
-  },
-  methods: {
-    playVideo() {
-      axios
-        .post("/specific-medias/first-page-medias", {
-          type: "first_page_video",
-        })
-        .then((response) => {
-          this.$emit("play-video", response.data);
-        });
+    props: ["carouselData", "countData"],
+    components: {
+        Swiper,
+        SwiperSlide,
+        PlayIcon,
+    },
+    data() {
+        return {
+            enterAnimations: sot.enterAnimations,
+            counter: 0,
+            zoom: false,
+            carouselImageSources: [],
+            swiperOptions: {
+                effect: 'cube',
+                cubeEffect: {
+                    shadow: false,
+                    slideShadows: false,
+                },
+                // spaceBetween: 30,
+                // centeredSlides: true,
+                autoplay: {
+                    delay: 4500,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            },
+        };
+    },
+    methods: {
+        playVideo() {
+            axios
+                .post("/specific-medias/first-page-medias", {
+                    type: "first_page_video",
+                })
+                .then((response) => {
+                    this.$emit("play-video", response.data);
+                });
+        },
     },
 
-    /**
-     * changes zoom to true after 20ms
-     */
-    addBreak() {
-      setTimeout(() => {
-        this.zoom = true;
-      }, 20);
-    },
-  },
-
-  watch: {
-    carouselData() {
-      this.carouselImageSources = this.carouselData.carouselItems;
-      this.addBreak();
-
-      setInterval(() => {
-        this.zoom = false;
-        this.addBreak();
-        this.counter++;
-
-        if (this.carouselImageSources.length === this.counter) {
-          this.counter = 0;
+    computed: {
+        carouselItems() {
+            return this.carouselData ? this.carouselData : [];
         }
-      }, 10000);
     },
-  },
-
-  mounted() {},
 };
 </script>
-
-<style scoped>
-.zoom-in {
-  transition: all 10s;
-  transform: scale(1.4) !important;
-}
-
-.zoom-out {
-  transition: all 0s;
-  transform: scale(1);
-}
-
-.cta-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-</style>

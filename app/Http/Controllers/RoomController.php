@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Pagination;
 use App\Http\Resources\cities\CitiesFilterResource;
 use App\Http\Resources\collections\CollectionFilterResource;
 use App\Http\Resources\comments\RoomCommentsResource;
 use App\Http\Resources\genres\GenresFilterResource;
+use App\Http\Resources\rooms\CollectionRoomResource;
 use App\Http\Resources\rooms\ComplicatedRoomResource;
 use App\Http\Resources\Rooms\RoomDescriptionResource;
 use App\Models\City;
 use App\Models\Collection;
+use App\Models\Comment;
 use App\Models\Genre;
 use App\Models\Room;
+use App\Models\SiteVariables;
 use Illuminate\Http\Request;
-use stdClass;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -22,9 +26,8 @@ class RoomController extends Controller
         return [
             'cities' => CitiesFilterResource::collection($this->getCity($request)),
             'genres' => GenresFilterResource::collection($this->getGenre($request)),
-            'collections' =>CollectionFilterResource::collection($this->getCollection($request)),
+            'collections' => CollectionFilterResource::collection($this->getCollection($request)),
             'persons' => $this->getPersonRange($request),
-            'rooms' => ComplicatedRoomResource::collection($this->getRoom($request))
         ];
     }
 
@@ -51,6 +54,7 @@ class RoomController extends Controller
     {
         return range($rooms->min('min_person'), $rooms->max('max_person'));
     }
+
     public function getCity($request)
     {
         $cities = City::when($request->collections, function ($cityQuery) use ($request) {
@@ -79,6 +83,7 @@ class RoomController extends Controller
         )->get();
         return $cities;
     }
+
     public function getGenre($request)
     {
         $genres = Genre::when(
@@ -106,6 +111,7 @@ class RoomController extends Controller
             ->get();
         return $genres;
     }
+
     public function getCollection($request)
     {
         $collections = Collection::when($request->cities, function ($collectionQuery) use ($request) {
@@ -130,13 +136,23 @@ class RoomController extends Controller
             ->get();
         return $collections;
     }
-    public function getRoom($request)
+
+    public function complicatedRooms(Request $request)
     {
-        $rooms = Room::with('collection')->when($request->collections, function ($roomQuery) use ($request) {
-            $roomQuery->whereHas('collection', function ($collectionQuery) use ($request) {
-                $collectionQuery->where('title', $request->collections);
-            });
-        })
+        \DB::statement("SET SQL_MODE=''");
+        $rooms = Room::leftJoin(
+            'rates',
+            'rooms.id', '=', 'rates.room_id')
+            ->selectRaw(
+                'AVG((rates.scariness+ rates.room_decoration + rates.hobbiness+rates.creativeness+rates.mysteriness)/5) as averages,
+            rooms.*',
+
+            )->with('collection')
+            ->when($request->collections, function ($roomQuery) use ($request) {
+                $roomQuery->whereHas('collection', function ($collectionQuery) use ($request) {
+                    $collectionQuery->where('title', $request->collections);
+                });
+            })
             ->when($request->cities, function ($roomQuery) use ($request) {
                 $roomQuery->whereHas('city', function ($cityQuery) use ($request) {
                     $cityQuery->where('name', $request->cities);
@@ -150,26 +166,88 @@ class RoomController extends Controller
             ->when($request->personCount, function ($roomQuery) use ($request) {
                 $roomQuery->where([['min_person', '<=', $request->personCount], ['max_person', '>=', $request->personCount]]);
             })
-            ->get();
+            ->when($request->searchKey, function ($roomQuery) use ($request) {
+                $roomQuery->where('name', 'like', '%' . $request->searchKey . '%');
+            })
+            ->whereDisabled(0)
+            ->withCount('comments')
+            ->withCount('rates')
+            ->groupBy('rooms.id')
+            ->orderBy('room_order')
+            ->orderBy('averages','DESC')
+            ->orderBy('page_views','DESC')
+            ->orderBy('comments_count','DESC')
+            ->paginate(Pagination::$paginationCount);
 
-        return $rooms;
+        return ComplicatedRoomResource::collection($rooms);
     }
 
-    public function show(Room $room)
+    public function show($room)
     {
+        $room = Room::whereDisabled(0)->findOrFail($room);
         return new RoomDescriptionResource($room);
     }
 
     public function comments(Room $room)
     {
-        return RoomCommentsResource::collection($room->comments()->whereSituation('promoted')->get());
+        $comments = $room->comments()
+            ->with(['childs' => function ($child) {
+                $child->whereSituation('promoted');
+            }])
+            ->whereSituation('promoted')
+            ->whereParentId(null)
+            ->paginate(10);
+
+        return RoomCommentsResource::collection($comments);
     }
 
     public function insertComment(Room $room)
     {
         return view('insert_comment', [
-            'roomName'=>$room->name,
-            'roomId'=>$room->id,
+            'type' => 'insert',
+            'roomName' => $room->name,
+            'roomId' => $room->id,
+            'comment' => '',
+            'commenting_rules' => SiteVariables::where('variable', 'commenting_rules')->first()->value
         ]);
+    }
+
+    public function editComment(Comment $comment)
+    {
+        $comment->load(['commentable.rates' => function ($rate) {
+            $rate->where('user_id', Auth::id());
+        }]);
+
+        $rate = $comment->commentable->rates[0];
+
+        return view('insert_comment', [
+            'type' => 'edit',
+            'comment' => [
+                'scoresTitles' => [
+                    'scariness' => ['title' => '', 'selectedKey' => $rate->scariness],
+                    'room_decoration' => ['title' => '', 'selectedKey' => $rate->room_decoration],
+                    'hobbiness' => ['title' => '', 'selectedKey' => $rate->hobbiness],
+                    'creativeness' => ['title' => '', 'selectedKey' => $rate->creativeness],
+                    'mysteriness' => ['title' => '', 'selectedKey' => $rate->mysteriness],
+                ],
+
+                'roomInfo' => [
+                    'name' => $comment->commentable->name,
+                    'id' => $comment->commentable->id
+                ],
+                'selectedStatus' => $comment->status,
+                'comment' => $comment->body
+            ],
+            'commenting_rules' => SiteVariables::where('variable', 'commenting_rules')->first()->value
+        ]);
+    }
+
+    public function landingSearch(Request $request)
+    {
+        return CollectionRoomResource::collection(
+            Room::where('name', 'like', '%' . $request->input('query') . '%')
+                ->whereDisabled(0)
+                ->get()
+        );
     }
 }

@@ -1,12 +1,15 @@
 @extends('layouts.layout')
 @section('content')
-<video-modal :src="videoSrc" ref="landingVideo"></video-modal>
+<video-modal :src="videoSrc" ref="video"></video-modal>
 
 <!-- Hiro Section -->
 <section class="hiro">
     <div class="container pb-4">
-        <div class="header-filter-container" :style="{'--bg': background}">
+        <div class="header-filter-container pb-8" :style="{'--bg': background}">
             <header-part :info="headerInfos"></header-part>
+            <play-icon v-if="post.video"
+                       size="small" @click.native="playVideo" class="margin-auto mb-4">
+            </play-icon>
         </div>
     </div>
 </section>
@@ -18,11 +21,11 @@
             <h2 class="l-post-title"> اتاق های ویژه</h2>
 
                 <div class="global-card-container">
-                    <complicated-room-card 
-                        v-for="room in specialRooms" 
-                        :key="room.id" 
+                    <complicated-room-card
+                        v-for="room in specialRooms"
+                        :key="room.id"
                         :room="room"
-                        no-readmore="learn" 
+                        no-readmore="learn"
                         class="l-complicated-room"></complicated-room-card>
                 </div>
             </div>
@@ -39,6 +42,11 @@
                     </div>
                 </div>
                 <p class="l-post-description" v-html="post.description"></p>
+                <div class="end-flex flex-wrap">
+                    <span v-for="(tag, key) in tags" class="rs-room-genre tag-addition">
+                        {{tag.name}}
+                    </span>
+                </div>
             </div>
 
         </div>

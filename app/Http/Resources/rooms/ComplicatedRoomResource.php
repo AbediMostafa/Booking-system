@@ -27,6 +27,7 @@ class ComplicatedRoomResource extends JsonResource
             'game_time'=>$this->game_time,
             'hardness'=>$this->hardness,
             'price'=>$this->price,
+            'rates_count'=>$this->rates_count
         ];
     }
 }

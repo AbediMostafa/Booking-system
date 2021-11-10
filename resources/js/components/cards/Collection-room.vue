@@ -1,8 +1,8 @@
 <template>
   <a class="collection-room-container" :href="getRoomPath">
     <div class="cr-text">
-      <h4>{{ collectionRoom.name }}</h4>
-      <score-stars :score="collectionRoom.rate_percent"></score-stars>
+      <h4>{{ collectionRoom.name }} </h4>
+      <score-stars :score="collectionRoom.total"></score-stars>
       <p>{{ collectionRoom.district }}</p>
     </div>
     <div class="cr-image-container">

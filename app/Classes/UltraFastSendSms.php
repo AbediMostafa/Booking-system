@@ -4,12 +4,12 @@ namespace App\Classes;
 
 class UltraFastSendSms
 {
+    public $templateId = '';
 
     /**
      * gets API Ultra Fast Send Url.
      *
      * @return string Indicates the Url
-                                        
      */
     protected function getAPIUltraFastSendUrl()
     {
@@ -20,7 +20,6 @@ class UltraFastSendSms
      * gets Api Token Url.
      *
      * @return string Indicates the Url
-                                        
      */
     protected function getApiTokenUrl()
     {
@@ -32,9 +31,7 @@ class UltraFastSendSms
      *
      * @param string $APIKey API Key
      * @param string $SecretKey Secret Key
-                                        
      * @return void
-                                        
      */
     public function __construct()
     {
@@ -42,10 +39,9 @@ class UltraFastSendSms
 
         $this->APIKey = "d6b32876247b5e2ee7a70471";
         $this->SecretKey = "09123711964";
-        $this->templateId = "51595";
     }
 
-    public function generateData($mobile, $verificationCode)
+    public function activationSms($mobile, $verificationCode)
     {
         $this->data = [
             'ParameterArray' => [
@@ -54,12 +50,78 @@ class UltraFastSendSms
                     'ParameterValue' => $verificationCode
                 ]
             ],
-            'Mobile'=>$mobile,
-            'TemplateId'=>'51595'
+            'Mobile' => $mobile,
+            'TemplateId' => '51595'
         ];
-
         return $this;
     }
+
+    public function reservationSms($mobile, $user, $room, $date, $time, $transaction, $url)
+    {
+        $this->data = [
+            'ParameterArray' => [
+                [
+                    'Parameter' => 'user',
+                    'ParameterValue' => $user
+                ],
+                [
+                    'Parameter' => 'room',
+                    'ParameterValue' => $room
+                ],
+                [
+                    'Parameter' => 'date',
+                    'ParameterValue' => $date
+                ],
+                [
+                    'Parameter' => 'time',
+                    'ParameterValue' => $time
+                ],
+                [
+                    'Parameter' => 'transaction',
+                    'ParameterValue' => $transaction
+                ],
+                [
+                    'Parameter' => 'url',
+                    'ParameterValue' => $url
+                ],
+            ],
+            'Mobile' => $mobile,
+            'TemplateId' => '55708'
+        ];
+        return $this;
+    }
+
+    public function reservationSmsToAdmins($mobile, $userPhone, $user, $room, $date, $time)
+    {
+        $this->data = [
+            'ParameterArray' => [
+                [
+                    'Parameter' => 'user',
+                    'ParameterValue' => $user
+                ],
+                [
+                    'Parameter' => 'room',
+                    'ParameterValue' => $room
+                ],
+                [
+                    'Parameter' => 'date',
+                    'ParameterValue' => $date
+                ],
+                [
+                    'Parameter' => 'time',
+                    'ParameterValue' => $time
+                ],
+                [
+                    'Parameter' => 'mobile',
+                    'ParameterValue' => $userPhone
+                ],
+            ],
+            'Mobile' => $mobile,
+            'TemplateId' => '56015'
+        ];
+        return $this;
+    }
+
 
     /**
      * Ultra Fast Send Message.
@@ -97,7 +159,6 @@ class UltraFastSendSms
     /**
      * gets token key for all web service requests.
      *
-                                        
      * @return string Indicates the token key
      */
     private function GetToken()
@@ -177,33 +238,3 @@ class UltraFastSendSms
         return $result;
     }
 }
-
-// try {
-
-
-//     $data = array(
-//         "ParameterArray" => array(
-//             array(
-
-//                 "Parameter" => "FirstVariable",
-//                 "ParameterValue" => "xxxx"
-//             ),
-//             array(
-//                 "Parameter" => "SecondVariable",
-//                 "ParameterValue" => "xxxx"
-//             ),
-//             array(
-//                 "Parameter" => "ThirdVariable",
-//                 "ParameterValue" => "xxxx"
-//             )
-//         ),
-//         "Mobile" => "091xxxxxxxx",
-//         "TemplateId" => "26"
-//     );
-
-//     $SmsIR_UltraFastSend = new SmsIR_UltraFastSend($APIKey, $SecretKey);
-//     $UltraFastSend = $SmsIR_UltraFastSend->UltraFastSend($data);
-//     var_dump($UltraFastSend);
-// } catch (Exeption $e) {
-//     echo 'Error UltraFastSend : ' . $e->getMessage();
-// }

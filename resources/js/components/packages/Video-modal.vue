@@ -3,7 +3,7 @@
     :class="['fade-video-modal', showVideoModal ? 'visible-video-modal' : '']"
   >
     <img :src="iconPath" class="video-cancle-icon" @click="closeVideoModal" />
-    <video :src="src" ref="vid"></video>
+    <video :src="src" ref="vid" controls></video>
   </div>
 </template>
 

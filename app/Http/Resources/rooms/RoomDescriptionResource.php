@@ -24,12 +24,21 @@ class RoomDescriptionResource extends JsonResource
         $collectionMedia = $this->collection->medias()->first();
         $this->rateTitles = SiteVariables::where('variable', 'like', '%rate_%')->get();
 
-        if($this->rateAverage<3.5){
+        if($this->rateAverage == 0){
+            $rateTitle = 'معمولی';
+            $rateName='bronz';
+            $rateDescription='هنوز نظری برای این اتاق ثبت نشده است، اولین نفری باشید که برای این اتاق نظر ثبت می کنید';
+
+        }elseif ($this->rateAverage<3.5){
             $rateTitle = 'برنزی';
             $rateName = 'bronz';
+            $rateDescription='اتاق هایی که مجموع نظرهای ثبت شده برای آنها کمتر از 3.5 باشد در دسته اتاق های برنزی قرار می گیرند';
         }else{
-            $rateTitle = $this->rateAverage<4.5 ? 'نقری ای':'طلایی';
+            $rateTitle = $this->rateAverage<4.5 ? 'نقره ای':'طلایی';
             $rateName = $this->rateAverage<4.5 ? 'silver':'gold';
+            $rateDescription=$this->rateAverage<4.5?
+                'اتاق هایی که مجموع نظرهای ثبت شده برای آنها بیشتر از 3.5 و کمتر از 4.5 باشد در دسته اتاق های نقره ای قرار می گیرند':
+                'اتاق هایی که مجموع نظرهای ثبت شده برای آنها بیشتر از 4.5 باشد در دسته اتاق های طلایی قرار می گیرند';
         }
 
         return [
@@ -43,12 +52,18 @@ class RoomDescriptionResource extends JsonResource
             'price' => $this->price,
             'max_person' => $this->max_person,
             'min_person' => $this->min_person,
+            'lat'=>$this->lat,
+            'lon'=>$this->lon,
+            'room_order'=>$this->room_order,
+            'min_age'=>$this->min_age,
             'game_time' => $this->game_time,
             'hardness' => $this->hardness,
             'is_special' => $this->is_special,
             'is_new' => $this->is_new,
+            'reservable'=>$this->reservable,
             'has_discount' => $this->discount,
             'type' => $this->type,
+            'genres'=>$this->genres()->pluck('title'),
             'contact_infos' => [
                 'phone' => $this->phone,
                 'mobile' => $this->mobile,
@@ -61,6 +76,7 @@ class RoomDescriptionResource extends JsonResource
                 'rooms' => CollectionRoomResource::collection(
                     $this->collection
                     ->rooms()
+                    ->whereDisabled(0)
                     ->where('id', '!=', $this->id)
                     ->get()
                 ),
@@ -68,6 +84,7 @@ class RoomDescriptionResource extends JsonResource
             'rates' => [
                 'rateTitle'=>$rateTitle,
                 'rateName'=>$rateName,
+                'rateDescription'=>$rateDescription,
                 'total' => $this->rate_percent,
                 'rate_count' => $this->rates->count(),
                 'rate_average' => $this->rateAverage,
@@ -94,6 +111,7 @@ class RoomDescriptionResource extends JsonResource
                     ],
                 ],
             ],
+            'tags'=>$this->tags()->select('id', 'name')->get()
         ];
     }
 

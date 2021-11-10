@@ -3,7 +3,7 @@
     class="special-room-card learning-card"
     v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
     :href="getRoomPath"
-
+    dir="ltr"
   >
     <div class="sr-image-container sr-learning-image-container">
       <div :style="roomStyle" class="learning-card-image"></div>
@@ -42,7 +42,7 @@
       <h1>{{ room.name }}</h1>
       <h4>{{ room.collectionName }} ({{ room.collectionAddress }})</h4>
       <p></p>
-      <score-stars :score="room.totalScore"></score-stars>
+      <score-stars :score="room.totalScore" class="mb-12"></score-stars>
 
       <div class="carot-child-container">
         <img :src="rightArrow" class="card-left-carot" />
@@ -138,7 +138,7 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
     if (this.room.discount) {
       this.calculateTimer();
     }

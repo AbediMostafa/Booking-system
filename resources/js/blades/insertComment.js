@@ -16,11 +16,11 @@ const vue = new Vue({
         },
         postData: {
             scoresTitles: {
-                scariness: { title: '', selectedKey: '' },
-                room_decoration: { title: '', selectedKey: '' },
-                hobbiness: { title: '', selectedKey: '' },
-                creativeness: { title: '', selectedKey: '' },
-                mysteriness: { title: '', selectedKey: '' },
+                scariness: {title: '', selectedKey: ''},
+                room_decoration: {title: '', selectedKey: ''},
+                hobbiness: {title: '', selectedKey: ''},
+                creativeness: {title: '', selectedKey: ''},
+                mysteriness: {title: '', selectedKey: ''},
             },
 
             roomInfo,
@@ -29,6 +29,13 @@ const vue = new Vue({
         },
 
         digits: [1, 2, 3, 4, 5],
+        commentingRules,
+    },
+
+    computed: {
+        sendComment() {
+            return type == 'edit' ? "ویرایش نظر" : "ارسال نظر";
+        }
     },
 
     methods: {
@@ -43,7 +50,10 @@ const vue = new Vue({
         },
 
         submitComment() {
-            axios.post('/submit-comment', this.postData).then(response => {
+
+            let url = type == 'edit' ? `/edit-comment/${this.postData.roomInfo.id}` : '/submit-comment';
+
+            axios.post(url, this.postData).then(response => {
                 if (response && typeof response.data === 'object' && 'status' in response.data) {
 
                     let stat = response.data.status,
@@ -59,7 +69,7 @@ const vue = new Vue({
                     });
                 }
                 setTimeout(() => {
-                    // location.href = `/rooms/${this.postData.roomInfo.id}`
+                    location.href = `/rooms/${this.postData.roomInfo.id}`
                 }, 2000);
 
             }).catch(error => {
@@ -80,14 +90,18 @@ const vue = new Vue({
 
     created() {
         axios.post('/site-vars/rate-titles').then(response => {
+
+            if (type == 'edit') {
+                this.postData = comment;
+            }
+
             let titles = this.postData.scoresTitles;
 
             titles.scariness.title = response.data.scariness
-            titles.room_decoration.title = response.data.decoration
+            titles.room_decoration.title = response.data.room_decoration
             titles.hobbiness.title = response.data.hobbiness
             titles.creativeness.title = response.data.creativeness
             titles.mysteriness.title = response.data.mysteriness
-
         });
     },
 });

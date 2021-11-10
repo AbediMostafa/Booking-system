@@ -9,7 +9,7 @@
     </div>
 </section>
 
-<section class="special-rooms">
+<section>
     <div class="container">
         <collections></collections>
     </div>

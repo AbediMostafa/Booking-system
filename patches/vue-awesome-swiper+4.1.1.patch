@@ -1,0 +1,44 @@
+diff --git a/node_modules/vue-awesome-swiper/dist/index.d.ts b/node_modules/vue-awesome-swiper/dist/index.d.ts
+index 9f7eec2..33528f6 100644
+--- a/node_modules/vue-awesome-swiper/dist/index.d.ts
++++ b/node_modules/vue-awesome-swiper/dist/index.d.ts
+@@ -7,8 +7,8 @@ import SwiperClass from 'swiper';
+ declare const VueAwesomeSwiper: {
+     version: string;
+     install: import("./exporter").InstallFunction;
+-    directive: import("vue").DirectiveOptions;
+-    Swiper: import("vue/types/vue").ExtendedVue<import("vue").default, {
++    directive: Vue.DirectiveOptions;
++    Swiper: import("vue/types/vue").ExtendedVue<Vue.default, {
+         $swiper: SwiperClass | null;
+     }, {
+         handleSwiperClick(event: MouseEvent): void;
+@@ -28,7 +28,7 @@ declare const VueAwesomeSwiper: {
+         deleteInstanceOnDestroy: boolean;
+         cleanupStylesOnDestroy: boolean;
+     }>;
+-    SwiperSlide: import("vue/types/vue").ExtendedVue<import("vue").default, unknown, {
++    SwiperSlide: import("vue/types/vue").ExtendedVue<Vue.default, unknown, {
+         update(): void;
+     }, {
+         slideClass: string;
+@@ -36,8 +36,8 @@ declare const VueAwesomeSwiper: {
+ };
+ export declare const version: string;
+ export declare const install: import("./exporter").InstallFunction;
+-export declare const directive: import("vue").DirectiveOptions;
+-export declare const Swiper: import("vue/types/vue").ExtendedVue<import("vue").default, {
++export declare const directive: Vue.DirectiveOptions;
++export declare const Swiper: import("vue/types/vue").ExtendedVue<Vue.default, {
+     $swiper: SwiperClass | null;
+ }, {
+     handleSwiperClick(event: MouseEvent): void;
+@@ -57,7 +57,7 @@ export declare const Swiper: import("vue/types/vue").ExtendedVue<import("vue").d
+     deleteInstanceOnDestroy: boolean;
+     cleanupStylesOnDestroy: boolean;
+ }>;
+-export declare const SwiperSlide: import("vue/types/vue").ExtendedVue<import("vue").default, unknown, {
++export declare const SwiperSlide: import("vue/types/vue").ExtendedVue<Vue.default, unknown, {
+     update(): void;
+ }, {
+     slideClass: string;

@@ -69,14 +69,4 @@ export default {
   border-radius: 10px;
   box-shadow: 0 0px 27px 3px rgb(0 0 0 / 6%);
 }
-
-.d-media-of {
-  background: var(--second-color);
-  font-size: 0.6rem;
-  color: white;
-  border-radius: 0.5rem;
-  display: inline-block;
-  padding: 0.2rem 1rem;
-  margin-left: .2rem;
-}
 </style>

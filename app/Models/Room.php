@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
     use HasFactory;
+
     protected $table = "rooms";
     protected $appends = ['rate_average', 'rate_percent'];
     protected $casts = [
@@ -23,13 +24,20 @@ class Room extends Model
         static::deleting(function ($room) {
             $room->genres()->detach();
             $room->medias()->detach();
-
+            $room->extraHolidays()->delete();
+            $room->reservations()->delete();
+            $room->specificMedia()->delete();
 
             if ($room->comments) {
                 $room->comments->each(function ($comment) {
                     $comment->delete();
                 });
             }
+        });
+
+        static::created(function($room){
+            $room->room_order = $room->id*100 + 350000;
+            $room->save();
         });
     }
 
@@ -83,8 +91,48 @@ class Room extends Model
         return $this->morphToMany(Media::class, 'mediaable')->wherePivot('place', $place);
     }
 
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
     public function specificMedia()
     {
         return $this->hasOne(SpecificMedia::class);
+    }
+
+    public function reservations():object
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function closedHours():object
+    {
+        return $this->hasMany(ClosedHour::class);
+    }
+
+    public function hourType():object
+    {
+        return $this->belongsTo(HourType::class);
+    }
+
+    public function holidayType():object
+    {
+        return $this->belongsTo(HolidayType::class);
+    }
+
+    public function extraHolidays()
+    {
+        return $this->hasMany(ExtraHoliday::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'user_room');
+    }
+
+    public function customPrice()
+    {
+        return $this->hasMany(CustomPrice::class);
     }
 }

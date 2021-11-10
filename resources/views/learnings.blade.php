@@ -14,12 +14,18 @@
 <section class="learning">
     <div class="container">
         <div class="learning-card-container">
-            <learning-card v-for="learning in learnings" :key="learning.id" :card="learning" class="lp-learning-card"></learning-card>
+            <learning-card
+                v-for="learning in learnings"
+                :key="learning.id"
+                :card="learning"
+                uri="learn"
+                class="lp-learning-card"
+            ></learning-card>
         </div>
 
         <div class="pagination-container">
-            <div 
-                class="pagination-btns" 
+            <div
+                class="pagination-btns"
                 v-for="(pagination, key) in paginations"
                 @click=gotoPage(pagination.url)
                 :class="[pagination.active? 'active-pagination':'']"

@@ -23,10 +23,10 @@
             <div class="is-score-container" v-for="(scoreTitle , scoreTitleKey) in postData.scoresTitles" :key="scoreTitleKey">
                 <span class="is-score-title">{{scoreTitle.title}}</span>
                 <div class="is-score-digits">
-                    <span 
-                        v-for="digit in digits" 
+                    <span
+                        v-for="digit in digits"
                         :key="digit"
-                        @click="selectScore(scoreTitleKey, digit)" 
+                        @click="selectScore(scoreTitleKey, digit)"
                         :class="[scoreTitle.selectedKey == digit ? 'is-active-score-digit':'']">
                         {{digit}}
                     </span>
@@ -66,14 +66,24 @@
                     </span>
                 </div>
             </div>
+            @endverbatim
+
+
+            <div class="short-description mt-8 mb-0 ">
+                <img src="/images/icons/blue-grey-check.svg" class="ml-2 header-room-icons">
+                <div class="mr-4">
+                    {!! $commenting_rules!!}
+                  </div>
+            </div>
+            @verbatim
 
 
             <a class="is-submit-comment" @click="submitComment">
-                ارسال نظر
+                {{sendComment}}
             </a>
         </div>
     </div>
-        
+
     </div>
 </section>
 @endverbatim
@@ -82,9 +92,12 @@
 @section('scripts')
 <script>
     const roomInfo = {
-        name:'{{$roomName}}',
-        id:'{{$roomId}}',
-    }   
+        name:'@isset($roomName){{$roomName}}@endisset',
+        id:'@isset($roomId){{$roomId}}@endisset',
+    }
+    const type = '{{$type}}';
+    const comment = @isset($comment)@json($comment, JSON_PRETTY_PRINT)@endisset;
+    const commentingRules = '{{$commenting_rules}}'
 </script>
 <script src="{{asset('js/insertComment.js')}}"></script>
 @endsection

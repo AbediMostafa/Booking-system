@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Pagination;
 use App\Http\Resources\collections\AdminCollectionResource;
 use App\Models\Collection;
 use App\Models\Media;
@@ -11,7 +12,7 @@ class AdminCollectionController extends Controller
 {
     public function index()
     {
-        return AdminCollectionResource::collection(Collection::paginate(10));
+        return AdminCollectionResource::collection(Collection::paginate(Pagination::$dashboardEntity));
     }
 
     public function search(Request $request)
@@ -28,26 +29,9 @@ class AdminCollectionController extends Controller
             'collections.*' => 'exists:collections,id',
         ]);
 
-
-        try {
-
-            Collection::whereIn('id', $request->get('collections'))
-                ->get()
-                ->each(function ($collection) {
-                    $collection->delete();
-                });
-
-            return  [
-                'status' => true,
-                'msg' => 'مجموعه ها با موفقیت حذف شدند.'
-            ];
-        } catch (\Throwable $th) {
-
-            return [
-                'status' => false,
-                'msg' => 'مشکل در حذف مجموعه ها'
-            ];
-        }
+        return tryCatch(function (){
+            Collection::destroy(\request('collections'));
+        },'مجموعه ها با موفقیت حذف شدند.','مشکل در حذف مجموعه ها');
     }
 
     public function update(Collection $collection)
@@ -56,7 +40,7 @@ class AdminCollectionController extends Controller
         $media = $collection->mediaType()->first();
         return [
             'collectionName' => $collection->title,
-            'collection' => $collection->only('id', 'title'),
+            'collection' => $collection->only('id', 'title', 'collection_order'),
             'media' => [
                 'background' => $media ? $media->path : '',
                 'id' => $media ? $media->id : '',
@@ -85,23 +69,19 @@ class AdminCollectionController extends Controller
         ];
     }
 
-    public function change(Request $request, Collection $collection)
+    public function change(Request $request, Collection $collection):array
     {
-        $collection->update([
-            'title' => $request->input('title')
-        ]);
+       return tryCatch(function () use($request, $collection){
 
-        return [
-            'status' => true,
-            'msg' => 'بروزرسانی با موفقیت انجام شد.'
-        ];
-        try {
-        } catch (\Throwable $th) {
-            return [
-                'status' => false,
-                'msg' => 'مشکل در بروزرسانی '
-            ];
-        }
+            if($request->input('title')){
+                $collection->title = $request->input('title');
+            }
+            if($request->input('collection_order')){
+                $collection->collection_order = (int)$request->input('collection_order');
+            }
+            $collection->save();
+
+        },'بروزرسانی با موفقیت انجام شد.','مشکل در بروزرسانی ');
     }
 
     public function store(Request $request)
@@ -111,15 +91,15 @@ class AdminCollectionController extends Controller
             'media.id' => 'required|exists:media,id'
         ]);
 
-        $collection = Collection::create([
-            'title' => $request->input('collection.name')
-        ]);
+        return tryCatch(function () use ($request) {
 
-        $collection->medias()->attach($request->input('media.id'));
+            $collection = Collection::create([
+                'title' => $request->input('collection.name'),
+                'collection_order' => (int)$request->input('collection.order')
+            ]);
 
-        return [
-            'status' => true,
-            'msg' => 'مجموعه با موفقیت ایجاد شد'
-        ];
+            $collection->medias()->attach($request->input('media.id'));
+
+        }, 'مجموعه با موفقیت ایجاد شد', 'خطا در ایجاد مجموعه');
     }
 }
