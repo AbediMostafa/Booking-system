@@ -30,7 +30,7 @@ class AdminCityController extends Controller
 
         return tryCatch(function (){
             City::destroy(\request('cities'));
-        },'شهرها با موفقیت حذف شدند.','مشکل در حذف شهرها');
+        },'');
     }
 
     public function update(City $city)
@@ -53,7 +53,7 @@ class AdminCityController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'حذف مدیا با موفقیت انجام شد.'
+            'msg' => ''
         ];
     }
 
@@ -63,7 +63,7 @@ class AdminCityController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'مدیا با موفقیت اضافه شد'
+            'msg' => ''
         ];
     }
 
@@ -76,12 +76,12 @@ class AdminCityController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'بروزرسانی با موفقیت انجام شد.'
+                'msg' => ''
             ];
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'msg' => 'مشکل در بروزرسانی شهر'
+                'msg' => ''
             ];
         }
     }
@@ -101,7 +101,7 @@ class AdminCityController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'شهر با موفقیت ایجاد شد'
+            'msg' => ''
         ];
     }
 }
