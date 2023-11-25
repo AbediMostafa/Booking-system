@@ -44,7 +44,6 @@ class RoomCommentsResource extends JsonResource
             'situation' => $this->situation,
             'room' => $this->commentable->name,
             'roomId' => $this->commentable->id,
-            'date' => \Morilog\Jalali\Jalalian::forge($this->created_at)->format('%A %d %B %Y'),
             'childs' => AdminAnswerResource::collection($childs),
             'rates' => $this->when($isNotAnswer, function () use ($userRate) {
                 return [

@@ -2,20 +2,17 @@
   <div class="filter-container">
     <div class="end-flex">
       <sticker
-        text="اتاق ویژه"
         icon="new-icon.svg"
         inner-class="sr-right-sticker"
         class="mr-2"
         v-if="room.is_special"
       ></sticker>
       <sticker
-        text="اتاق جدید"
         icon="check.svg"
         inner-class="sr-left-sticker"
         v-if="room.is_new"
       ></sticker>
       <sticker
-        text="اتاق تخفیف دار"
         icon="check.svg"
         inner-class="sr-middle-sticker"
         v-if="room.has_discount"
@@ -25,16 +22,13 @@
     <div class="span-container header-span-container">
       <header-badget
         :icon="'grey-person'"
-        :text="`${room.min_person} - ${room.max_person} نفره`"
       ></header-badget>
       <header-badget
         :icon="'grey-timer'"
-        :text="`${room.game_time} دقیقه`"
       ></header-badget>
 
         <header-badget
             :icon="'grey-dollar'"
-            :text="`${room.price} تومان`"
         ></header-badget>
 
       <div class="header-icon-child">
@@ -46,7 +40,6 @@
             :key="hard"
           />
         </div>
-        <span class="header-icon-txt hardness-header-text">درجه سختی</span>
       </div>
     </div>
   </div>

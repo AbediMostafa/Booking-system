@@ -55,13 +55,13 @@ class MediaController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'فایل با موفقیت بارگزاری شد.'
+                'msg' => 'success'
             ];
         }
 
         return [
             'status' => false,
-            'msg' => 'مشکل در بارگزاری فایل'
+            'msg' => 'error'
         ];
     }
 
@@ -74,7 +74,7 @@ class MediaController extends Controller
 
         return tryCatch(function () {
             Media::destroy(\request('medias'));
-        }, 'مدیاها با موفقیت حذف شدند.', 'مشکل در حذف مدیا ها');
+        }, 'success', 'error');
     }
 
     public function modal(Request $request)

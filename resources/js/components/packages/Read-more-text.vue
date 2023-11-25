@@ -9,7 +9,6 @@
 export default {
   props: {
     txt:{
-      default:'اطلاعات بیشتر'
     },
     additionalClass:{
       default:''

@@ -25,8 +25,8 @@ class DiscountFactory extends Factory
     {
         return [
             'amount'=>$this->faker->numberBetween($min = 10, $max = 35),
-            'started_at'=>Carbon::now()->timezone('Asia/Tehran')->format('Y-m-d H:i:s'),
-            'ended_at'=>Carbon::tomorrow()->timezone('Asia/Tehran')->format('Y-m-d H:i:s'),
+            'started_at'=>Carbon::now()->timezone('Asia/Istanbul')->format('Y-m-d H:i:s'),
+            'ended_at'=>Carbon::tomorrow()->timezone('Asia/Istanbul')->format('Y-m-d H:i:s'),
             'room_id'=>Room::factory(),
         ];
     }

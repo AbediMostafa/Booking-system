@@ -3,7 +3,6 @@
     <div class="d-status-bar">
       <router-link to="/create/collection" class="d-add-item-cta">
         <img :src="iconPath('white-add.svg')" class="small-icon mr-2" />
-        <span> اضافه کردن مجموعه جدید </span>
       </router-link>
       <div class="search-container">
         <img :src="iconPath('search1.svg')" class="search-icon" />
@@ -11,14 +10,12 @@
           type="text"
           class="d-search-input pr-10"
           v-model="itemKey"
-          placeholder="جستجو بر روی همه مجموعه ها"
         />
       </div>
     </div>
      <div class="d-second-status-bar">
 
       <div class="d-delete-items-cta" v-if="selectedEntities.length" @click="deleteEntities">
-        حذف مجموعه های انتخاب شده
       </div>
     </div>
 
@@ -50,7 +47,6 @@
   </div>
 
     <div class="alert alert-danger" v-else>
-        شما اجازه دسترسی به این صفحه را ندارید
     </div>
 </template>
 

@@ -26,7 +26,6 @@
 
             </div>
             <hr>
-            <h3 class="my-room-type">اتاق {{ room.rates.rateTitle }}</h3>
             <p>{{ room.rates.rateDescription }}</p>
 
         </div>

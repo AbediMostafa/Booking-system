@@ -8,7 +8,6 @@
                     type="text"
                     class="d-search-input pr-10"
                     v-model="itemKey"
-                    placeholder="جستجو بر روی اتاق ها"
                 />
             </div>
         </div>
@@ -19,24 +18,20 @@
                         @click="itemTypeClicked('allComments')"
                         :class="[commentType === 'allComments' ? 'clicked-d-inner-filter' : '']"
                     >
-                        همه کامنت ها
                     </li>
                     <li
                         @click="itemTypeClicked('unApproved')"
                         :class="[commentType ==='unApproved' ? 'clicked-d-inner-filter' : '']"
                     >
-                        تایید نشده ها
                     </li>
                 </ul>
             </div>
 
             <div v-if="selectedEntities.length" class="flex-center">
                 <div class="d-delete-items-cta" @click="deleteEntities">
-                    حذف کامنت ها
                 </div>
 
                 <div v-if="commentType ==='unApproved'" class="d-delete-items-cta d-grant-cta" @click="grantEntities">
-                    دادن مجوز
                 </div>
             </div>
         </div>

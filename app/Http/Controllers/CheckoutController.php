@@ -71,7 +71,7 @@ class CheckoutController extends Controller
 
             return redirect()->back()->with([
                 'validationData' => $request->input('data'),
-                'errorMessage' => "خطا در ایجاد تراکنش"
+                'errorMessage' => "error"
             ]);
         }
     }
@@ -103,25 +103,25 @@ class CheckoutController extends Controller
         $zp = new Zarinpal();
         $result = $zp->verify($amount);
         $status = 0;
-        $msg = 'پرداخت ناموفق';
+        $msg = 'success';
         $refId = '';
 
         if (isset($result["Status"]) && $result["Status"] == 100) {
 
             $payment->status = 'success';
-            $payment->description = $payment->description . ' - تراکنش با موفقیت انجام شد' . $result["Authority"];
+            $payment->description = $payment->description . 'success' . $result["Authority"];
             $payment->transaction_id = $result["RefID"];
             $payment->save();
 
             $status = 1;
-            $msg = "پرداخت و رزرو با موفقیت انجام شد. شماره پیگیری : {$result['RefID']}";
+            $msg = "success{$result['RefID']}";
             $refId = $result["RefID"];
 
             $this->sendCheckoutSms($room, $payment);
 
         } else {
             $payment->status = 'failed';
-            $payment->description = "پرداخت ناموفق" . $result["Status"] . ' - ' . $result["Message"];
+            $payment->description = "error" . $result["Status"] . ' - ' . $result["Message"];
             $payment->save();
         }
 

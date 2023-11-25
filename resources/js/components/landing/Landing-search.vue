@@ -15,7 +15,6 @@
                     :max-height="2000"
                     :options="rooms"
                     id="ajax"
-                    placeholder="جستجو بر روی همه اتاق ها"
                     :searchable="true"
                     :loading="isLoading"
                     open-direction="bottom"
@@ -35,8 +34,6 @@
                         <img class="option__image" :src="props.option.image" :alt="props.option.name">
                     </template>
 
-                    <template slot="noOptions">هیچ اتاقی پیدا نشد</template>
-                    <span slot="noResult">هیچ اتاقی پیدا نشد</span>
                     <span slot="deselectLabel">  </span>
                 </Multiselect>
             </div>

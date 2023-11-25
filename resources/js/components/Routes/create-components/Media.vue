@@ -1,7 +1,6 @@
 <template>
     <div class="d-item-container" v-if="userHasAccessToCreate">
         <div class="d-status-bar flex-end">
-            <h3 class="create-media-title">ایجاد مدیای جدید</h3>
         </div>
 
         <div class="d-form-container">
@@ -12,7 +11,6 @@
                     </div>
                 </div>
 
-                <div class="dfuf-lable d-input-label hight-order">آپلود فایل</div>
                 <input
                     type="file"
                     ref="file-input"
@@ -24,7 +22,6 @@
             <div class="rs-diagram-and-text end-flex">
                 <div class="d-progressbar">
                     <div class="res-diagram-title">
-                        <h4 class="progressbar-txt">درصد پیشرفت</h4>
                     </div>
                     <div class="rs-diagram-shape-container">
                         <div class="rs-diagram-dynamic-shape" :style="`width: ${uploadPercentage}%`"></div>
@@ -36,17 +33,14 @@
                     class="d-entity-cta d-cancel-entity low-order"
                     @click="cancelMakingFile"
                 >
-                    انصراف
                 </div>
                 <div class="d-entity-cta d-make-entity high-order" @click="makeFile">
-                    ایجاد
                 </div>
             </div>
         </div>
     </div>
 
     <div class="alert alert-danger" v-else>
-        شما اجازه دسترسی به این صفحه را ندارید
     </div>
 </template>
 
@@ -60,7 +54,6 @@ export default {
     data() {
         return {
             selectedFile: "",
-            fileSelectTex: "انتخاب فایل",
             uploadPercentage: 0,
         };
     },

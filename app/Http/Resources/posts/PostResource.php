@@ -23,7 +23,6 @@ class PostResource extends JsonResource
             'date' => $this->date,
             'title' => $this->title,
             'brief' => $this->brief,
-            'date'=>\Morilog\Jalali\Jalalian::forge($this->created_at)->format('%A %d %B %Y')
         ];
     }
 }

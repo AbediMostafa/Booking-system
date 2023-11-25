@@ -20,7 +20,6 @@ const vue = new Vue({
 
         headerInfos: {
             imageSrc: sot.absImgPath('carousel/1.jpg'),
-            title: 'همه آموزش ها',
         },
 
         post: {},

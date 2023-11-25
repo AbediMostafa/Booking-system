@@ -39,7 +39,7 @@
             "enabled":true,
             "chatButtonSetting":{
                 "backgroundColor":"#4dc247",
-                "ctaText":"شروع گفتگو",
+                "ctaText":"",
                 "borderRadius":"25",
                 "marginLeft":"0",
                 "marginBottom":"50",
@@ -50,9 +50,7 @@
                 "brandName":"Miss Escape",
                 "brandSubTitle":"",
                 "brandImg":"https://cdn.clare.ai/wati/images/WATI_logo_square_2.png",
-                "welcomeText":"سلام\nچطور میتونم شما رو کمک کنم؟",
                 "backgroundColor":"#0a5f54",
-                "ctaText":"شروع گفتگو",
                 "borderRadius":"25",
                 "autoShow":false,
                 "phoneNumber":"989123711964"

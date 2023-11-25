@@ -17,13 +17,11 @@
                             <ul>
                                 <li class="logout-items">
                                     <a href="/logout" class="nav-logout-container">
-                                        <span> خروج </span>
                                         <img :src="iconPath('logout.svg')" class="log-in-out-img"/>
                                     </a>
                                 </li>
                                 <li class="logout-items mt-2">
                                     <a href="/dashboard" class="nav-logout-container">
-                                        <span> حساب کاربری </span>
                                         <svg style="color:#4b4b4b" viewBox="0 0 16 16" width="1em" height="1em"
                                              focusable="false" role="img" aria-label="basket fill"
                                              xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -40,7 +38,6 @@
 
                         <div class="nav-user-submenu" v-else>
                             <a href="/phone-check/home" class="nav-logout-container">
-                                <span> ورود </span>
                                 <img :src="iconPath('grey-user.svg')" class="log-in-out-img"/>
                             </a>
                         </div>
@@ -61,7 +58,6 @@
                         type="text"
                         class="d-search-input"
                         v-model="itemKey"
-                        placeholder="جستجو بر روی همه اتاق"
                     />
 
                     <div

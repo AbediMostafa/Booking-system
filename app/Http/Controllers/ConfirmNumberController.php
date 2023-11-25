@@ -28,7 +28,7 @@ class ConfirmNumberController extends Controller
             if(!$result){
                 return [
                     'status' => false,
-                    'msg' => 'خطا در ارسال پیامک'
+                    'msg' => 'error'
                 ];
             }
 
@@ -44,7 +44,7 @@ class ConfirmNumberController extends Controller
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'msg' => 'خطا در ارسال پیامک'
+                'msg' => 'error'
             ];
         }
     }
@@ -67,13 +67,13 @@ class ConfirmNumberController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'با موفقیت وارد سیستم شدید'
+                'msg' => 'success'
             ];
         }
 
         return [
             'status' => False,
-            'msg' => 'کد وارد شده صحیح نیست'
+            'msg' => 'success'
         ];
     }
 }

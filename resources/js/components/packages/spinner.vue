@@ -1,7 +1,7 @@
 <template>
     <div class="flex-start">
         <span class="d-form-lable">
-            {{ loading ? 'درحال بارگزاری':text }}
+            {{ loading ? 'Loading':text }}
         </span>
         <div v-if="loading" class="mr-4">
             <div class="spinner"></div>

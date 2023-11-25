@@ -39,7 +39,7 @@ class DayController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'تعطیلات با موفقیت اضافه شد.',
+            'msg' => 'success',
             'holidayId' => $holiday->id
         ];
     }
@@ -50,14 +50,14 @@ class DayController extends Controller
         if($holidayType->rooms()->exists()){
             return [
               'status'=>false,
-              'msg'=>'تعدادی از اتاق ها از این نوع تعطیلات استفاده می کنند. قبل از تغییر آنها این نوع تعطیلات نمی تواند پاک شود.'
+              'msg'=>''
             ];
         }
 
         tryCatch(function () use ($holidayType) {
             $holidayType->days()->detach();
             $holidayType->delete();
-        }, 'تعطیلات باموفقیت حذف شد', 'خطا در حذف تعطیلات');
+        }, 'success', 'error');
     }
 
     public function addHolidayDay(Request $request, HolidayType $holidayType)
@@ -69,7 +69,7 @@ class DayController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'روزهای تعطیلات با موفقیت بروزرسانی شدند'
+            'msg' => 'success'
         ];
     }
 }

@@ -22,7 +22,7 @@ class RoomFactory extends Factory
      * @return array
      */
     public function definition()
-    {  
+    {
         return [
             'name' => $this->faker->name,
             'description' => $this->faker->text,
@@ -36,17 +36,14 @@ class RoomFactory extends Factory
             'address' => $this->faker->address,
             'hardness'=>$this->faker->numberBetween($min = 1, $max = 5),
             'website' => $this->faker->randomElement([
-                'www.gameOnline/1.com',
-                'www.gameOnline/2.com',
-                'www.gameOnline/3.com',
             ]),
 
             'phone' => $this->faker->phoneNumber,
             'mobile' => $this->faker->e164PhoneNumber  ,
             'collection_id' => Collection::factory()  ,
             'city_id' => City::factory(),
-        ];  
+        ];
     }
-    
+
 
 }

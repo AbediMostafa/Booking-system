@@ -67,7 +67,7 @@ class ReservationController extends Controller
 
             $reservation->users()->attach([Auth::id() => ['user_type' => 'main']]);
 
-        }, 'رزرو با موفقیت انجام شد', 'خطا در انجام رزرو');
+        }, 'success', 'error');
     }
 
     public function doOpen(): array
@@ -80,14 +80,14 @@ class ReservationController extends Controller
                 $holiday->exists() ? $holiday->delete() : $holiday->create(['date' => $customReserve]);
             });
 
-        }, 'تعطیلات با موفقیت باز شدند', 'خطا در باز کردن تعطیلات');
+        }, 'success', 'error');
     }
 
     public function doClose(): array
     {
         return tryCatch(function () {
             $this->doOpen();
-        }, 'روزها با موفقیت تعطیل شدند', 'خطا در تعطیل کردن روزها');
+        }, 'success', 'error');
     }
 
     public function doCloseHours(): array
@@ -106,7 +106,7 @@ class ReservationController extends Controller
                 ]);
             });
 
-        }, 'ساعت ها با موفقیت ثبت شدند', 'خطا در ثبت ساعت ها');
+        }, 'success', 'error');
     }
 
     /**
@@ -173,7 +173,7 @@ class ReservationController extends Controller
     {
         return tryCatch(function () use ($id) {
             Reservation::destroy(json_decode($id));
-        }, 'رزروها با موفقیت حذف شدند', 'خطا در حذف رزروها');
+        }, 'success', 'error');
     }
 
     public function search(Request $request)

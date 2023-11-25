@@ -12,8 +12,6 @@ const vue = new Vue({
     data: {
         headerInfos: {
             imageSrc: sot.absImgPath('carousel/2.jpg'),
-            title: 'ورود',
-            text: `لطفا برای ورود به سایت شماره تلفن همراه خود را وارد کنید.
             `
         },
         username:'',
@@ -38,7 +36,7 @@ const vue = new Vue({
                     this.sendConfirmCodeStep = true;
                 } else {
                     Swal.fire({
-                        title: 'خطا',
+                        title: 'error',
                         text: response.data.msg,
                         icon: error,
                         showConfirmButton: true,
@@ -53,10 +51,10 @@ const vue = new Vue({
                     });
 
                     Swal.fire({
-                        title: 'خطا',
+                        title: 'error',
                         html: errors,
                         icon: 'error',
-                        confirmButtonText: 'باشه'
+                        confirmButtonText: 'Ok'
                     });
 
                 }
@@ -81,10 +79,10 @@ const vue = new Vue({
                     location.href = `/insert-comment/${this.backUrl}`;
                 } else {
                     Swal.fire({
-                        title: 'خطا',
+                        title: 'error',
                         html: response.data.msg,
                         icon: 'error',
-                        confirmButtonText: 'باشه'
+                        confirmButtonText: 'Ok'
                     });
                 }
             });

@@ -1,7 +1,7 @@
 <template>
-  <a 
+  <a
     :href="getCityPath"
-    class="special-room-card learning-card" 
+    class="special-room-card learning-card"
     v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation">
     <div class="sr-image-container sr-learning-image-container">
       <div :style="roomStyle" class="learning-card-image"></div>
@@ -9,9 +9,7 @@
 
     <div class="sr-text-container">
       <h1 class="city-card-title">{{ city.name }}</h1>
-      <h4 class="city-card-room-count">{{city.roomCount}} اتاق فرار</h4>
-      <read-more-text 
-        :txt="'لیست اتاق ها'" 
+      <read-more-text
         class="mt-4">
       </read-more-text>
     </div>

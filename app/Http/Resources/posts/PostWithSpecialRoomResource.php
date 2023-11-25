@@ -19,7 +19,6 @@ class PostWithSpecialRoomResource extends JsonResource
         $image = $this->mediaType()->first();
         $video = $this->mediaType('video')->first();
         $user = $this->user->type === 'admin' || $this->user->type === 'manager' ?
-            'ادمین' : $this->user->name;
 
         return [
             'post' => [
@@ -29,7 +28,6 @@ class PostWithSpecialRoomResource extends JsonResource
                 'image' => $image ? $image->path : '',
                 'video' => $video ? $video->path : '',
                 'user' => $user,
-                'date'=> \Morilog\Jalali\Jalalian::forge($this->created_at)->format('%A %d %B %Y'),
             ],
             'tags'=>$this->tags()->select('id', 'name')->get(),
             'special_rooms'=> LearningSpecialRoomResource::collection(Room::where('is_special', 1)->whereDisabled(0)->get())

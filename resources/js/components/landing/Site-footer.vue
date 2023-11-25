@@ -4,29 +4,19 @@
         <div class="footer-navs">
 
             <ul>
-                <li>اتاق های فرار</li>
                 <li>
-                    <a href="/cities">شهرها</a>
                 </li>
                 <li>
-                    <a href="/collections">مجموعه ها</a>
                 </li>
                 <li>
-                    <a href="/learn">آموزش ها</a>
                 </li>
                 <li>
-                    <a href="/rooms">جستجوی پیشرفته</a>
                 </li>
             </ul>
 
             <ul>
                 <li>Miss Escape</li>
                 <li>
-                    <a href="/about-us">داستان ما</a>
-                </li>
-
-                <li>
-                    <a href="/contact-us">تماس با ما</a>
                 </li>
             </ul>
         </div>
@@ -60,7 +50,6 @@
                     </a>
                 </div>
             </div>
-            <p>طراحی و پیاده سازِی توسط مسیح عیدوی، مصطفی عابدی</p>
         </div>
 
     </div>

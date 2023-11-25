@@ -39,43 +39,6 @@ use \App\Models\Tag;
 use \App\Http\Middleware\AuthorizeSuperUser;
 use \App\Http\Controllers\MultimediaController;
 
-Route::get('t', function () {
-
-    $collection='';
-    $city='';
-    $genre='';
-
-    $rooms = Room::leftJoin(
-        'rates',
-        'rooms.id', '=', 'rates.room_id')
-        ->selectRaw(
-            'AVG((rates.scariness+ rates.room_decoration + rates.hobbiness+rates.creativeness+rates.mysteriness)/5) as averages,
-            rooms.*',
-        )->with('collection')
-        ->whereDisabled(0)
-        ->groupBy('rooms.id')
-        ->orderBy('averages','DESC')
-        ->orderBy('page_views','DESC')
-//        ->orderBy('comments_count','DESC')
-//        ->orderBy('room_order')
-        ->pluck('id')->toArray();
-    dd($rooms);
-
-    dd(
-
-        Room::select('select AVG((scariness+ room_decoration + hobbiness+creativeness+mysteriness)/5) as averages, room_id from rates GROUP by room_id) AS new_rates', 'city.title')->get()
-    );
-    $rooms = Room::withCount('comments')
-        ->whereDisabled(0)
-        ->orderBy('page_views', 'DESC')
-        ->orderBy('comments_count', 'DESC')
-        ->orderBy('room_order')
-        ->get()
-        ->pluck('id')
-        ->toArray();
-
-    dd($rooms);
-});
 
 Route::view('/', 'landing')->name('home');
 Route::view('/login', 'login')->name('login');

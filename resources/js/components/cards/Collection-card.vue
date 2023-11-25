@@ -1,6 +1,6 @@
 <template>
-  <a 
-    class="collection-card" 
+  <a
+    class="collection-card"
     v-scrollAnimation="enterAnimations.leftWithExtraDelayAnimation"
     :href="getCollectionPath"
     >
@@ -10,11 +10,9 @@
 
     <div class="sr-collection-text-container">
       <h1 class="collection-card-title">{{ collection.title }}</h1>
-      <h4 class="collection-card-room-count">{{collection.roomCount}} اتاق فرار</h4>
-      <read-more-text 
-        :txt="'لیست اتاق ها'" 
-        :additionalClass="'collection-rm-txt'" 
-        :position="'center'" 
+      <read-more-text
+        :additionalClass="'collection-rm-txt'"
+        :position="'center'"
         class="mt-4">
       </read-more-text>
     </div>

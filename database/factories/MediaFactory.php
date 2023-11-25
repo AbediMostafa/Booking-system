@@ -25,9 +25,6 @@ class MediaFactory extends Factory
             'display_name' => $this->faker->name,
             'store_name' => $this->faker->name,
             'path' => $this->faker->randomElement([
-                'images/carousel/1.jpg',
-                'images/carousel/2.jpg',
-                'images/carousel/3.jpg',
             ]),
             'place' => $this->faker->randomElement([
                 'front', 'banner', 'other', 'video'

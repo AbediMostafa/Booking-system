@@ -4,7 +4,6 @@
     >
         <div class="d-card-text">{{card.name}}</div>
 
-        <div class="d-edit-card" @click.stop="editCard">ویرایش</div>
     </div>
 </template>
 

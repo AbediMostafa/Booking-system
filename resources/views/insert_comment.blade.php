@@ -14,10 +14,8 @@
     <div class="is-comment-score-container">
         <div class="is-scoring-container is-box-shadow">
             <h3 class="is-header">
-                امتیازدهی
             </h3>
             <p class="is-text">
-            به عناوین زیر از 1 تا 5 چه امتیازی می دهید؟
             </p>
 
             <div class="is-score-container" v-for="(scoreTitle , scoreTitleKey) in postData.scoresTitles" :key="scoreTitleKey">
@@ -36,12 +34,9 @@
 
         <div class="is-commenting-container is-box-shadow">
             <h3 class="is-header">
-            ارسال نظر
             </h3>
             <p class="is-text">
-            لطفا نظر خود را درمورد اتاق
             {{postData.roomInfo.name}}
-            بیان کنید
             </p>
 
             <textarea v-model="postData.comment" cols="30" rows="10" class="is-texarea"></textarea>
@@ -50,19 +45,15 @@
                 <div :class="['is-status-icon-text', postData.selectedStatus == 'disagree' ? 'is-active-score-digit':'']" @click="statusClicked('disagree')">
                     <img :src="iconPath('red-uncheck.svg')" class="small-icon">
                     <span>
-                        توصیه نمی کنم
                     </span>
                 </div>
                 <div :class="['is-status-icon-text', postData.selectedStatus == 'agree' ? 'is-active-score-digit':'']" @click="statusClicked('agree')">
                     <img :src="iconPath('blue-check.svg')" class="small-icon">
                     <span>
-                        توصیه می کنم
-                    </span>
                 </div>
                 <div :class="['is-status-icon-text', postData.selectedStatus == 'no_idea' ? 'is-active-score-digit':'']" @click="statusClicked('no_idea')">
                     <img :src="iconPath('blue-check.svg')" class="small-icon">
                     <span>
-                        نظری ندارم
                     </span>
                 </div>
             </div>

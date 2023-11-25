@@ -5,7 +5,6 @@
             <input
                 type="text"
                 class="search-input search-filter-input"
-                placeholder="جستجو بر روی همه اتاق ها"
                 v-model="selectedFilters.searchKey"
             />
         </div>
@@ -34,7 +33,6 @@
                         @click="personCountClicked(personCount)"
                         class="pc-ab-span ab-span"
                     >
-                        {{ personCount }} نفره
                     </div>
                 </div>
             </div>
@@ -97,7 +95,6 @@
                         type="text"
                         class="ab-input"
                         v-model="searches.collection"
-                        placeholder="جستجو بر روی مجموعه ها"
                     />
                     <div class="ab-collection-container">
                         <div
@@ -139,7 +136,6 @@
                         type="text"
                         class="ab-input"
                         v-model="searches.city"
-                        placeholder="جستجو بر روی شهرها"
                     />
                     <div class="ab-collection-container">
                         <div
@@ -178,24 +174,16 @@ export default {
             },
             filter: {
                 personCount: {
-                    defaultText: "تعداد نفرات",
-                    text: "تعداد نفرات",
                     displayAbsoluteBox: false,
                 },
                 genres: {
-                    defaultText: "ژانرها",
-                    text: "ژانرها",
                     displayAbsoluteBox: false,
                 },
                 collections: {
-                    defaultText: "مجموعه ها",
-                    text: "مجموعه ها",
                     displayAbsoluteBox: false,
                     collectionsTmp: [],
                 },
                 cities: {
-                    defaultText: "شهرها",
-                    text: "شهرها",
                     displayAbsoluteBox: false,
                     citiesTmp: [],
                 },

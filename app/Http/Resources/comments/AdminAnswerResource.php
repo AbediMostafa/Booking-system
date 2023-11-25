@@ -19,7 +19,6 @@ class AdminAnswerResource extends JsonResource
             'body' => $this->body,
             'status' => $this->status,
             'situation' => $this->situation,
-            'date' => \Morilog\Jalali\Jalalian::forge($this->created_at)->format('%A %d %B %Y'),
             'user' => $this->getUsername(),
             'userIsManager'=> $this->when($this->userIsManager(), 1)
         ];
@@ -36,9 +35,9 @@ class AdminAnswerResource extends JsonResource
         $roomOwnerIds = $this->commentable->user->pluck('id')->toArray();
 
         if ($this->userIsManager()) {
-            return 'ادمین سایت';
+            return 'Admin';
         }
 
-        return in_array($this->user->id, $roomOwnerIds) ? 'صاحب مجموعه' : $this->user->name;
+        return in_array($this->user->id, $roomOwnerIds) ? 'owner' : $this->user->name;
     }
 }

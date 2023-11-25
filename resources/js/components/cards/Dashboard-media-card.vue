@@ -33,28 +33,21 @@ export default {
   },
 
   methods: {
-    cardType(type = "بدون دسته") {
+    cardType(type = "") {
       switch (type) {
         case "room":
-          type = "اتاق";
           break;
         case "city":
-          type = "شهر";
           break;
         case "collection":
-          type = "مجموعه";
           break;
         case "genre":
-          type = "ژانر";
           break;
         case "post":
-          type = "آموزش";
           break;
         case "specific-media":
-          type = "مدیای خاص";
           break;
         case "site-variable":
-          type = "متغیرهای سایت";
           break;
       }
       return type;

@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Morilog\Jalali\Jalalian;
 
 class DatabaseBackUp extends Command
 {
@@ -39,7 +38,6 @@ class DatabaseBackUp extends Command
      */
     public function handle()
     {
-        $filename = "backup-" . Jalalian::now()->format('Y-m-d-h:i:s') . ".gz";
 
         $command = "mysqldump --user=mos --password=lzW7v55UoljQ0yc8 --host=" . env('DB_HOST') . " --databases miss-escape " . env('DB_DATABASE') . "  | gzip > /backup/db-backup/" . $filename;
 

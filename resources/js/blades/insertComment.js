@@ -10,7 +10,6 @@ const vue = new Vue({
 
     data: {
         headerInfos: {
-            title: 'ثبت نظر',
             text: `
             `
         },
@@ -34,7 +33,6 @@ const vue = new Vue({
 
     computed: {
         sendComment() {
-            return type == 'edit' ? "ویرایش نظر" : "ارسال نظر";
         }
     },
 
@@ -62,7 +60,7 @@ const vue = new Vue({
                     Swal.fire({
                         position: stat ? "bottom-end" : "",
                         icon: stat ? "success" : "error",
-                        title: stat ? "" : "خطا",
+                        title: stat ? "" : "error",
                         text: msg,
                         showConfirmButton: !stat,
                         timer: stat ? 2500 : "",
@@ -79,10 +77,10 @@ const vue = new Vue({
                 });
 
                 Swal.fire({
-                    title: 'خطا',
+                    title: 'error',
                     html: errors,
                     icon: 'error',
-                    confirmButtonText: 'باشه'
+                    confirmButtonText: 'Ok'
                 });
             });
         }

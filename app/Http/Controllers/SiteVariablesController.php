@@ -95,14 +95,14 @@ class SiteVariablesController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'اتصال مدیا با موفقیت انجام شد'
+                'msg' => 'success'
             ];
 
         } catch (\Throwable $th) {
 
             return [
                 'status' => false,
-                'msg' => 'مشکل در اتصال مدیا'
+                'msg' => 'error'
             ];
         }
     }
@@ -116,14 +116,14 @@ class SiteVariablesController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'حذف مدیا با موفقیت انجام شد'
+                'msg' => 'success'
             ];
 
         } catch (\Throwable $th) {
 
             return [
                 'status' => false,
-                'msg' => 'مشکل در حذف مدیا'
+                'msg' => 'error'
             ];
         }
     }
@@ -138,6 +138,6 @@ class SiteVariablesController extends Controller
                     'value' => $singleRequest
                 ]);
             }
-        }, 'بروزرسانی با موفقیت انجام شد', 'خطا در انجام بروزرسانی');
+        }, 'success', 'error');
     }
 }

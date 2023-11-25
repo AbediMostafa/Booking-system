@@ -12,18 +12,4 @@ class GenreSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        DB::table('genres')->insert([
-            [
-                'title'=>'ترسناک',
-            ],
-            [
-                'title'=>'جنایی',
-            ],
-            [
-                'title'=>'معمایی',
-            ]
-        ]);
-    }
 }

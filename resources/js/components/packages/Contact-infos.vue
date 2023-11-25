@@ -1,6 +1,5 @@
 <template>
   <div class="rs-each-box-container mt-8">
-    <h1 class="rs-box-title">اطلاعات تماس</h1>
     <div class="rs-contact-infos rs-box-shadow">
       <each-contact-info
         icon="location.svg"

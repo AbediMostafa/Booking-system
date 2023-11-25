@@ -47,7 +47,7 @@ class MultimediaController extends Controller
              Multimedia::truncate();
              Multimedia::insert(\request('multimedias'));
 
-            },'بروزرسانی با موفقیت انجام شد.','خطا در انجام بروزرسانی');
+            },'success','error');
         });
     }
 }

@@ -8,31 +8,26 @@
     <div class="sr-image-container sr-learning-image-container">
       <div :style="roomStyle" class="learning-card-image"></div>
       <div class="discount-countdown" v-if="room.discount">
-        <div class="discount-sentence">{{ room.discount.amount }}% تخفیف</div>
         <div class="discount-timer">
           <div class="discount-period">
             <div class="discount-time-var">
               {{ second }}
             </div>
-            <div class="discount-time-word">ثانیه</div>
           </div>
           <div class="discount-period">
             <div class="discount-time-var">
               {{ minute }}
             </div>
-            <div class="discount-time-word">دقیقه</div>
           </div>
           <div class="discount-period">
             <div class="discount-time-var">
               {{ hour }}
             </div>
-            <div class="discount-time-word">ساعت</div>
           </div>
           <div class="discount-period">
             <div class="discount-time-var">
               {{ day }}
             </div>
-            <div class="discount-time-word">روز</div>
           </div>
         </div>
       </div>
@@ -48,20 +43,17 @@
         <img :src="rightArrow" class="card-left-carot" />
         <div class="end-flex">
           <sticker
-            text="ویژه"
             icon="new-icon.svg"
             inner-class="sr-right-sticker"
             v-if="isSpecial"
             class="mr-2"
           ></sticker>
           <sticker
-            text="جدید"
             icon="check.svg"
             inner-class="sr-left-sticker"
             v-if="isNew"
           ></sticker>
           <sticker
-            text="تخفیف دار"
             icon="check.svg"
             inner-class="sr-middle-sticker"
             v-if="discounted"

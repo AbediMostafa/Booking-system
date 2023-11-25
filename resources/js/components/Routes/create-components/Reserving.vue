@@ -2,25 +2,22 @@
     <div class="d-item-container">
         <div class="d-status-bar flex-end">
             <h3 class="create-media-title">
-                عملیات رزرو و تعطیلی
             </h3>
         </div>
 
         <div class="d-form-container">
             <div class="small-alert">
                     <span>
-                        در این مکان می توانید تعطیلی و رزرو را بصورت دستی انجام دهیی
                     </span>
                 <b-icon icon="patch-exclamation" class="ml-2"></b-icon>
                 <br>
                 <span>
-                        ابتدا اتاق موردنظر را انتخاب کنید تا تعطیلات و رزروها بر روی تقویم بارگزاری شود
                     </span>
             </div>
 
             <div class="d-form-row d-form flex-start">
                 <div class="d-flex-30 ml-4 select-option mt-6">
-                    <span class="d-form-lable">می خواهم : </span>
+                    <span class="d-form-lable"></span>
                     <div class="d-form-input">
                         <multiselect
                             v-model="tmp.option"
@@ -30,7 +27,7 @@
                             :searchable="false"
                             :show-labels="false"
                             @input="changeOption"
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
                         </multiselect>
                     </div>
                 </div>
@@ -39,7 +36,7 @@
             <div class="d-form-row d-form flex-start" v-if="is.rooms.visible">
                 <!-- rooms -->
                 <div class="d-flex-30 ml-4 select-option">
-                    <spinner :loading="is.rooms.loading" text="اتاق"></spinner>
+                    <spinner :loading="is.rooms.loading" text="room"></spinner>
                     <div class="d-form-input">
                         <multiselect
                             v-model="postData.room"
@@ -49,7 +46,7 @@
                             track-by="id"
                             :show-labels="false"
                             @input="changeRoom"
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
                         </multiselect>
                     </div>
                 </div>
@@ -59,25 +56,13 @@
             <div class="d-form-row d-form flex-start" v-if="is.calendar.visible">
                 <!-- date -->
                 <div class="d-flex-30 ml-4">
-                    <spinner :loading="is.calendar.loading" text="تقویم"></spinner>
-                    <vue-persian-datetime-picker
-                        v-model="postData.customReserves"
-                        :multiple="current.option === 'doOpen' || current.option === 'doClose'"
-                        clearable
-                        :highlight="highlight"
-                        :disabled="is.calendar.loading"
-                        :auto-submit="current.option === 'doReserve' || current.option === 'doCloseHours'"
-                        :disable="checkDate"
-                        @change="changeDate"
-                    >
-                    </vue-persian-datetime-picker>
                 </div>
             </div>
 
             <!--  days-->
             <div class="d-form-row d-form flex-start" v-if="is.days.visible">
                 <div class="d-flex-30 ml-4 select-option">
-                    <spinner :loading="is.days.loading" text="روز"></spinner>
+                    <spinner :loading="is.days.loading" text=""></spinner>
                     <div class="d-form-input">
                         <multiselect
                             v-model="postData.day"
@@ -87,7 +72,7 @@
                             :show-labels="false"
                             track-by="id"
                             @input="changeDay"
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
 
                             <template slot="singleLabel" slot-scope="props">
                                 <span class="option__title">
@@ -116,7 +101,7 @@
             <div class="d-form-row d-form flex-start" v-if="is.hours.visible">
                 <!-- hours -->
                 <div class="d-flex-30 ml-4 select-option">
-                    <spinner :loading="is.hours.loading" text="ساعت"></spinner>
+                    <spinner :loading="is.hours.loading" text=""></spinner>
                     <div class="d-form-input">
                         <multiselect
                             v-model="postData.hours"
@@ -128,7 +113,7 @@
                             :taggable="current.option === 'doCloseHours'"
                             :close-on-select="current.option !== 'doCloseHours'"
                             track-by="id"
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
 
                             <template slot="tag" slot-scope="{ option, remove }">
 
@@ -151,12 +136,10 @@
 
                                 <span class="hour-range-price checkout-reserved-option"
                                       v-if="props.option.passedAway">
-                                        زمان سپری شده
                                 </span>
                                 <template v-else>
                                     <span class="hour-range-price checkout-reserved-option"
                                           v-if="props.option.isReserved">
-                                        رزرو شده
                                     </span>
 
                                 </template>
@@ -173,7 +156,6 @@
                     class="d-entity-cta d-make-entity high-order"
                     @click="mainAction"
                 >
-                    ثبت
                 </div>
             </div>
         </div>
@@ -182,14 +164,12 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-import VuePersianDatetimePicker from "vue-persian-datetime-picker";
 import spinner from "../../packages/spinner";
 import moment from 'moment-jalaali'
 
 export default {
     components: {
         Multiselect,
-        VuePersianDatetimePicker,
         spinner
     },
     data() {
@@ -308,7 +288,7 @@ export default {
             //~~ calendar highlight
             this.calendar.highlight = (formatted, dateMoment) => ({
                 class: this.hasReservedBefore(formatted) ? 'extra-holiday' : '',
-                title: this.hasFullyReserved(formatted) ? 'رزرو کامل' : (this.hasReservedBefore(formatted) ? 'روز دارای رزرو' : '')
+                title: this.hasFullyReserved(formatted) ? '' : (this.hasReservedBefore(formatted) ? '' : '')
             });
         },
         doCloseHours() {
@@ -370,18 +350,14 @@ export default {
 
             if (this.hasFullyReserved(formatted)) {
                 attributes['class'] = 'extra-holiday';
-                attributes['title'] = 'رزرو کامل';
 
             } else if (this.hasReservedBefore(formatted)) {
                 attributes['class'] = 'extra-holiday';
-                attributes['title'] = 'روز دارای رزرو';
 
             } else if (this.hasOrdinaryHoliday(dateMoment.day()) && this.hasCustomHoliday(formatted)) {
 
             } else if (this.hasOrdinaryHoliday(dateMoment.day())) {
-                attributes['title'] = 'تعطیلات عادی اتاق'
             } else if (this.hasCustomHoliday(formatted)) {
-                attributes['title'] = 'تعطیلات خارج از عرف اتاق'
             }
 
             return attributes;
@@ -478,25 +454,17 @@ export default {
             let options = [
                 {
                     action: 'doReserve',
-                    text: 'بصورت دستی رزرو کنم',
-                    description: 'در صفحه کاربر این ساعت ها با عنوان رزرو شده نمایش داده می شوند'
                 },
                 {
                     action: 'doOpen',
-                    text: 'چند روز تعطیل را باز کنم',
-                    description: 'روزهای تعطیل شده در صفحه کاربر غیرفعال می شوند'
                 },
                 {
                     action: 'doClose',
-                    text: 'چند روز باز را تعطیل کنم',
-                    description: 'روزهای باز شده در صفحه کاربر قابل رزرو کردن هستند'
                 },
             ];
 
             user.isManager() && options.push({
                 action: 'doCloseHours',
-                text: 'چند سانس را ببندم',
-                description: 'سانس های بسته شده در لیست ساعت های کاربر سایت نشان داده نمی شوند.'
             });
 
             return options

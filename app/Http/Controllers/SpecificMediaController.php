@@ -20,7 +20,7 @@ class SpecificMediaController extends Controller
                     'place' => $request->input('type') === 'video' ? 'video' : 'front'
                 ]]
             );
-        }, 'مدیا با موفقیت اضافه شد.', 'مشکل در اضافه کردن مدیا');
+        }, 'success', 'error');
     }
 
     public function attachDynamicMedia(SpecificMedia $specificMedia, Media $media)
@@ -36,14 +36,14 @@ class SpecificMediaController extends Controller
 
                 return [
                     'status' => true,
-                    'msg' => 'مدیا با موفقیت تعویض شد.',
+                    'msg' => 'success',
                     'sm_id' => $specificMedia->id
                 ];
 
             } catch (\Throwable $th) {
                 return [
                     'status' => false,
-                    'msg' => 'مشکل در اضافه کردن مدیا'
+                    'msg' => 'success'
                 ];
             }
         });
@@ -67,14 +67,14 @@ class SpecificMediaController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'مدیا با موفقیت اضافه شد.',
+                'msg' => 'success',
                 'sm_id' => $specificMedia->id
             ];
 
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'msg' => 'مشکل در اضافه کردن مدیا'
+                'msg' => 'error'
             ];
         }
     }
@@ -91,12 +91,12 @@ class SpecificMediaController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'مدیا با موفقیت حذف شد'
+                'msg' => 'success'
             ];
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'msg' => 'مشکل در حذف کردن مدیا'
+                'msg' => 'error'
             ];
         }
     }
@@ -106,7 +106,7 @@ class SpecificMediaController extends Controller
         return ifIsSuperUser(function () use ($specificMedia) {
             return tryCatch(function () use ($specificMedia) {
                 $specificMedia->delete();
-            }, 'مدیا با موفقیت حذف شد', 'مشکل در حذف کردن مدیا');
+            }, 'success', 'error');
         });
     }
 

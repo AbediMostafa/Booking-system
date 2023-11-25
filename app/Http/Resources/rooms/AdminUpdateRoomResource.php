@@ -3,7 +3,6 @@
 namespace App\Http\Resources\rooms;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Morilog\Jalali\Jalalian;
 
 class AdminUpdateRoomResource extends JsonResource
 {
@@ -18,12 +17,6 @@ class AdminUpdateRoomResource extends JsonResource
         $img = $this->mediaType()->first();
         $banner = $this->mediaType('banner')->first();
         $video = $this->mediaType('video')->first();
-
-        $startedAt = $this->discount ?
-            Jalalian::forge($this->discount->started_at)->format('Y/m/d') : '';
-
-        $endedAt = $this->discount ?
-            Jalalian::forge($this->discount->ended_at)->format('Y/m/d') : '';
 
         $genres = $this->genres()->select('id', 'title as text')->get();
         $tags = $this->tags()->select('id', 'name')->get();

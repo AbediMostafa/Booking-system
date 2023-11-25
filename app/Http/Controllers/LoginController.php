@@ -22,7 +22,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'نام کاربری و یا گذرواژه صحیح نیست',
+            'email' => '',
         ]);
     }
 

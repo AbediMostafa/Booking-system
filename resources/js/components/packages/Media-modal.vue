@@ -14,7 +14,6 @@
                 type="text"
                 class="d-search-input pr-10"
                 v-model="itemKey"
-                placeholder="جستجو بر روی همه مدیاها"
             />
         </div>
         <div class="d-cards-container d-modal-card-container">

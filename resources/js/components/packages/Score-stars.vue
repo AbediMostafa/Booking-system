@@ -1,7 +1,6 @@
 <template>
   <div class="score-container">
       <div class="rates-count" v-if="rates_count">
-          {{` از مجموع ${rates_count} امتیاز`}}
       </div>
 
     <div class="star-container">

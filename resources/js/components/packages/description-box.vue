@@ -1,14 +1,10 @@
 <template>
     <div class="rs-box-shadow rsd-image-text-container">
         <div class="map">
-            <iframe width="100%" height="100%"
-                    :src="`https://map.ir/lat/${room.lat}/lng/${room.lon}/z/14/p/محل اتاق فرار`"></iframe>
-
             <div class="map-direction-container">
                 <a :href="`http://maps.google.com/maps?daddr=${room.lat},${room.lon}`"
                    class="routing__container--item mr-2">
                     <span class="mr-2">
-                        مسیریابی با گوگل
                     </span>
 
                     <img src="/images/icons/google.svg" class="header-room-icons" alt="google icon">
@@ -16,7 +12,6 @@
                 <a :href="`https://waze.com/ul?ll=${room.lat},${room.lon}&zoom=15&navigate=yes`"
                    class="routing__container--item">
                     <span class="mr-2">
-                        مسیریابی با ویز
                     </span>
                     <img src="/images/icons/waze.svg" class="header-room-icons" alt="waze icon">
                 </a>
@@ -25,7 +20,6 @@
 
         <div class="rsd-descripton-text">
             <h4 class="rsd-h">
-                اطلاعات تکمیلی
             </h4>
             <div class="end-flex flex-wrap mb-4">
                     <span v-for="(tag, key) in room.tags" class="rs-room-genre tag-addition">
@@ -65,7 +59,6 @@
 
             <div class="rsd-cta-collection-container" v-if="room.reservable">
                 <a class="rsd-cta description-rsd-cta" @click="reserveRomm">
-                    <span class="lc-read-more">رزرو اتاق</span>
                     <img :src="iconPath('white-pencil.svg')" class="card-right-arrow"/>
                 </a>
             </div>
@@ -81,7 +74,6 @@
                 </svg>
 
                 <span class="mr-2">
-                    برای رزرو اتاق حتما با مجموعه تماس بگیرید.
                 </span>
             </div>
         </div>

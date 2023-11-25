@@ -5,34 +5,13 @@ window.axios = require('axios');
 window.Swal = require('sweetalert2')
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.sot = require('./sot').sot;
-window.cc = (msg, msg1 = null, msg2 = null) => {
-
-    if (msg1) {
-        console.log(msg, msg1)
-        return
-    }
-
-    if (msg2 && msg1) {
-        console.log(msg, msg1, msg2)
-        return
-    }
-
-    if (msg2) {
-        console.log(msg, msg2)
-        return
-    }
-    console.log(msg)
-}
 
 window.swalDelete = callB =>
     Swal.fire({
-        title: "آیا از حذف اطمینان دارید",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        cancelButtonText: "خیر",
-        confirmButtonText: "بله، پاکش کن",
     }).then(result => result.isConfirmed && callB());
 
 
@@ -45,10 +24,10 @@ window.displayErrors = (errorArray, callB) => {
     });
 
     Swal.fire({
-        title: 'خطا',
+        title: 'error',
         html: errors,
         icon: 'error',
-        confirmButtonText: 'باشه'
+        confirmButtonText: 'Ok'
     });
 }
 window.successProcess = response => {
@@ -60,7 +39,7 @@ window.successProcess = response => {
     Swal.fire({
         position: stat ? "bottom-end" : "",
         icon: stat ? "success" : "error",
-        title: stat ? "" : "خطا",
+        title: stat ? "" : "error",
         text: msg,
         showConfirmButton: !stat,
         timer: stat ? 2500 : "",

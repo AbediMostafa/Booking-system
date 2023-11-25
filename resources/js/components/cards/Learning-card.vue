@@ -12,7 +12,6 @@
       <h4>{{ card.date }}</h4>
       <h1>{{ card.title }}</h1>
       <p>{{ chupedBrief }}</p>
-      <read-more :txt="'مطالعه بیشتر'"></read-more>
     </div>
   </a>
 </template>

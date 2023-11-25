@@ -74,7 +74,6 @@ const vue = new Vue({
             axios.post('/site-vars/special-rooms').then(response => {
                 this.specialRoomData = response.data.data;
                 this.navigationProcess();
-                this.headerInfos.title = 'اتاق های ویژه'
                 this.headerInfos.text = response.data.data.text
             })
         },

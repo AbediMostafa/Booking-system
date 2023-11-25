@@ -1,13 +1,11 @@
 <template>
     <div class="d-item-container" v-if="userHasAccessToCreate">
         <div class="d-status-bar flex-end">
-            <h3 class="create-media-title">اضافه کردن مجموعه جدید</h3>
         </div>
 
         <div class="d-form-container">
             <div class="d-form-row d-form flex-start">
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> نام مجموعه </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -18,7 +16,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25 mr-4">
-                    <span class="d-form-lable">ترتیب</span>
                     <div class="d-form-input">
                         <input
                             type="number"
@@ -41,7 +38,6 @@
                         class="shadowed-icon"
                         @click.stop="removeSelectedMedia()"
                     />
-                    <span v-else> انتخاب عکس</span>
                 </div>
             </div>
 
@@ -55,20 +51,17 @@
                     class="d-entity-cta d-cancel-entity low-order"
                     @click="cancelCreatingRoom"
                 >
-                    انصراف
                 </div>
                 <div
                     class="d-entity-cta d-make-entity high-order"
                     @click="createEntity"
                 >
-                    ایجاد
                 </div>
             </div>
         </div>
     </div>
 
     <div class="alert alert-danger" v-else>
-        شما اجازه دسترسی به این صفحه را ندارید
     </div>
 
 </template>

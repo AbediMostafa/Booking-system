@@ -63,7 +63,7 @@ class CustomPriceController extends Controller
                     $request->except('price')
                     , ['price' => $request->input('price')]
                 );
-            }, 'قیمت با موفقیت بروزرسانی - ثبت شد.', 'خطا در ثبت قیمت');
+            }, 'success', 'error');
         });
 
     }
@@ -101,6 +101,6 @@ class CustomPriceController extends Controller
     {
         return tryCatch(function () use ($id) {
             CustomPrice::findOrFail($id)->delete();
-        }, 'قیمت با موفقیت حذف شد', 'خطا در حذف قیمت');
+        }, 'success', 'error');
     }
 }

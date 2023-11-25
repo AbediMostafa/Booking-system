@@ -2,7 +2,6 @@
     <div class="d-item-container">
         <div class="d-status-bar flex-end">
             <h3 class="create-media-title">
-                قیمت جدید
             </h3>
         </div>
 
@@ -11,7 +10,6 @@
             <div class="d-form-row d-form flex-start">
                 <!-- rooms -->
                 <div class="mb-4 d-flex-30 ml-4">
-                    <span class="d-form-lable">اتاق</span>
                     <div class="d-form-input">
                         <multiselect
                             v-model="postData.room"
@@ -20,7 +18,7 @@
                             track-by="id"
                             :taggable="true"
                             :selectLabel="''"
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
                         </multiselect>
 
                     </div>
@@ -29,7 +27,7 @@
 
                 <!-- days -->
                 <div class="mb-4 d-flex-30 ml-4">
-                    <span class="d-form-lable">روز</span>
+                    <span class="d-form-lable"></span>
                     <div class="d-form-input">
                         <multiselect
                             v-model="postData.day"
@@ -37,7 +35,7 @@
                             label="name"
                             track-by="id"
                             :selectLabel="''"
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
                         </multiselect>
 
                     </div>
@@ -48,7 +46,7 @@
             <div class="d-form-row d-form flex-start">
                 <!-- hours -->
                 <div class="mb-4 d-flex-30 ml-4">
-                    <span class="d-form-lable">ساعت ها</span>
+                    <span class="d-form-lable"></span>
                     <div class="d-form-input">
                         <multiselect
                             v-model="postData.hour"
@@ -56,14 +54,14 @@
                             :selectLabel="''"
                             label="name"
                             track-by="id"
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
                         </multiselect>
                     </div>
                 </div>
 
                 <!-- price -->
                 <div class="mb-4 d-flex-30 ml-4">
-                    <span class="d-form-lable">قیمت</span>
+                    <span class="d-form-lable"></span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -87,13 +85,11 @@
                     class="d-entity-cta d-make-entity high-order"
                     @click="addPrice"
                 >
-                    ایجاد
                 </div>
             </div>
         </div>
 
         <div class="alert alert-danger" v-else>
-            شما اجازه دسترسی به این صفحه را ندارید
         </div>
     </div>
 </template>
@@ -179,7 +175,7 @@ export default {
 
                 return {
                     id: hour.id,
-                    name: `${hour.start_time} (${price} تومان)`
+                    name: `${hour.start_time} (${price} )`
                 }
             });
         }

@@ -7,7 +7,6 @@
                     <div class="rtl-dir text-sm chkout-dtil-cntinr">
                         <p class="checkout-room-details-header mt-0">
                             <strong>
-                                پاسخ به کامنت
                             </strong>
                         </p>
 
@@ -22,7 +21,6 @@
                                 ></b-form-textarea>
 
                                 <b-button variant="success" @click="sendAnswer" class="btn-sm mt-4">
-                                    <span>ارسال پاسخ</span>
                                 </b-button>
                             </b-form>
                         </div>
@@ -32,19 +30,16 @@
 
             </b-modal>
         </div>
-        <p class="comment-date">{{ comment.date }} - {{ comment.isComment ? 'کامنت' : 'پاسخ به کامنت' }}</p>
 
         <div :class="[comment.situation === 'promoted' ? 'between-flex':'']">
 
             <div>
                 <span class="admin-comment-answer admin-comment-answer-delete ml-2" @click.stop="deleteAnswers()"
                       v-if="selectedEntities.length && userHasAccess">
-                        حذف پاسخ ها
                 </span>
 
                 <span class="admin-comment-answer" @click.stop="answerToComment(comment)"
                       v-if="comment.situation === 'promoted'">
-                    پاسخ دادن
                 </span>
             </div>
 
@@ -54,11 +49,9 @@
         <template v-if="comment.isComment">
             <score-stars :score="comment.user.rate"></score-stars>
             <div class="comment-recommend" v-if="comment.status == 'agree'">
-                <span class="recomend-text">توصیه می کنم</span>
                 <img class="recommend-icons" :src="iconPath('blue-check.svg')"/>
             </div>
             <div class="comment-recommend" v-if="comment.status == 'disagree'">
-                <span class="not-recomend-text">توصیه نمی کنم</span>
                 <img class="recommend-icons" :src="iconPath('red-uncheck.svg')"/>
             </div>
             <ul class="end-flex flex-wrap mt-2" v-if="comment.rates">

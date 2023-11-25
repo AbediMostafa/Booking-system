@@ -4,11 +4,9 @@
         <h4>{{ userName }}</h4>
         <score-stars :score="commentRate"></score-stars>
         <div class="comment-recommend" v-if="comment.status == 'agree'">
-            <span class="recomend-text">توصیه می کنم</span>
             <img class="recommend-icons" :src="iconPath('blue-check.svg')"/>
         </div>
         <div class="comment-recommend" v-if="comment.status == 'disagree'">
-            <span class="not-recomend-text">توصیه نمی کنم</span>
             <img class="recommend-icons" :src="iconPath('red-uncheck.svg')"/>
         </div>
 
@@ -17,7 +15,6 @@
         <div v-for="(child , key) in comment.childs" class="admin-comment-answer-box">
 
             <div class="flex-start">
-                <img src="/images/icons/logo.svg" class="answer-logo" alt="لوگوی سایت" v-if="child.userIsManager">
                 <h5 class="acab-username mr-2">{{ child.user }}</h5>
             </div>
             <p class="acab-body">{{ child.body }}</p>
@@ -26,7 +23,6 @@
 
         <div class="mt-8">
 
-            <span class="d-form-lable"> پاسخ شما </span>
             <div class="d-form-input">
                 <textarea
                     type="text"
@@ -35,7 +31,6 @@
                 >
                 </textarea>
 
-                <a class="user-answer-cta" @click="sendAnswer">ارسال پاسخ</a>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@ class AuthorizeSuperUser
 
         if(!Auth::user()->isSuperUser()){
             return response()->json([
-                'message' => 'شما اجازه دسترسی به این صفحه را ندارید'
+                'message' => 'Access problem'
             ], 403);
         }
 

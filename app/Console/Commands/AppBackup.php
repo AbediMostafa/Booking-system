@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Morilog\Jalali\Jalalian;
 
 class AppBackup extends Command
 {
@@ -39,8 +38,6 @@ class AppBackup extends Command
      */
     public function handle()
     {
-        $filename = "backup-" . Jalalian::now()->format('Y-m-d-h:i:s') . ".gz";
-
         $command = "zip -r /backup/app-backup/$filename /opt/Missescape-vue/";
 
         $returnVar = NULL;

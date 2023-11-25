@@ -30,14 +30,14 @@ class HourController extends Controller
     {
         $request->validate([
             'start_time' => ['date_format:H:i'],
-//            'end_time' => [
-//                'date_format:H:i'
-//                , 'after:start_time'
-//                , Rule::unique('hours')->where(function ($query) use ($request) {
-//                    return $query->where('start_time', $request->input('start_time'))
-//                        ->where('end_time', $request->input('end_time'));
-//                })
-//            ],
+            'end_time' => [
+                'date_format:H:i'
+                , 'after:start_time'
+                , Rule::unique('hours')->where(function ($query) use ($request) {
+                    return $query->where('start_time', $request->input('start_time'))
+                        ->where('end_time', $request->input('end_time'));
+                })
+            ],
         ]);
 
         return ifIsSuperUser(function () use ($request) {
@@ -45,7 +45,7 @@ class HourController extends Controller
                 Hour::create([
                     'start_time' => $request->input('start_time'),
                 ]);
-            }, 'بازه زمانی با موفقیت ثبت شد.', 'خطا در ثبت بازه زمانی');
+            }, 'success', 'error');
         });
     }
 
@@ -93,6 +93,6 @@ class HourController extends Controller
     {
         return tryCatch(function () use ($id) {
             Hour::findOrFail($id)->delete();
-        }, 'ساعت با موفقیت حذف شد', 'مشکل در حذف ساعت');
+        }, 'success', 'error');
     }
 }

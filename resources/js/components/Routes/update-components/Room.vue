@@ -2,7 +2,6 @@
     <div class="d-item-container" v-if="userHasAccessToCreate">
         <div class="d-status-bar flex-end">
             <h3 class="create-media-title">
-                ویرایش اتاق
                 {{ this.postData.room.name }}
             </h3>
         </div>
@@ -10,7 +9,6 @@
         <div class="d-form-container">
             <div class="d-form-row d-form">
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> نام اتاق </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -21,7 +19,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> زمان بازی (به دقیقه) </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -32,7 +29,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> قیمت (به تومان) </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -43,7 +39,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> درجه سختی </span>
                     <div class="d-form-input">
                         <vueselect
                             class="vue-select1"
@@ -58,7 +53,6 @@
 
             <div class="d-form-row d-form">
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> حداقل نفرات </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -69,7 +63,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> حداکثر نفرات </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -80,7 +73,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> تلفن </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -91,7 +83,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> موبایل </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -104,7 +95,6 @@
 
             <div class="d-form-row d-form">
                 <div class="d-flex-100">
-                    <span class="d-form-lable"> آدرس </span>
                     <div class="d-form-input">
             <textarea
                 type="text"
@@ -119,7 +109,6 @@
                 <div class="d-for-group d-flex-25">
                     <multiselect
                         v-model="postData.selectedGenres"
-                        placeholder="یک ژانر انتخاب کنید"
                         label="text"
                         track-by="id"
                         :options="genres"
@@ -130,7 +119,6 @@
                     ></multiselect>
                 </div>
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> مجموعه </span>
                     <div class="d-form-input">
                         <vueselect
                             name="select1"
@@ -143,7 +131,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> شهر </span>
 
                     <vueselect
                         class="vue-select1"
@@ -156,12 +143,10 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> محله </span>
                     <div class="d-form-input">
                         <input
                             type="text"
                             class="d-search-input"
-                            placeholder="مثلا : سعادت آباد"
                             v-model="postData.room.district"
                         />
                     </div>
@@ -170,7 +155,6 @@
 
             <div class="d-form-row d-form">
                 <div class="px-1 col-12 col-lg-3 col-md-6">
-                    <span class="d-form-lable"> حداقل سن </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -180,7 +164,6 @@
                     </div>
                 </div>
                 <div class="px-1 col-12 col-lg-3 col-md-6">
-                    <span class="d-form-lable">ساعات کاری</span>
                     <multiselect
                         v-model="postData.hour_type"
                         :options="hourTypes"
@@ -188,11 +171,10 @@
                         label="text"
                         track-by="id"
                         :close-on-select="true"
-                        placeholder="ساعات کاری">
+                        placeholder="">
                     </multiselect>
                 </div>
                 <div class="px-1 col-12 col-lg-3 col-md-6">
-                    <span class="d-form-lable">روزهای تعطیلی</span>
                     <multiselect
                         v-model="postData.holiday_type"
                         :options="holidayTypes"
@@ -200,11 +182,9 @@
                         track-by="id"
                         :searchable="false"
                         :close-on-select="true"
-                        placeholder="روزهای تعطیلی">
                     </multiselect>
                 </div>
                 <div class="px-1 col-12 col-lg-3 col-md-6">
-                    <span class="d-form-lable">تعداد تیکت های دریافتی</span>
                     <input
                         type="text"
                         class="d-search-input"
@@ -218,7 +198,6 @@
 
             <div class="d-form-row d-form">
                 <div class="mb-4 d-flex-100">
-                    <span class="d-form-lable"> توضیحات </span>
                     <div class="d-form-input">
             <textarea
                 type="text"
@@ -233,7 +212,6 @@
 
             <div class="d-form-row d-form">
                 <div class="mb-4 d-flex-100">
-                    <span class="d-form-lable"> توضیحات تکمیلی </span>
                     <div class="d-form-input">
             <textarea
                 type="text"
@@ -251,7 +229,6 @@
                     <div class="short-description mr-6">
                         <img src="/images/icons/blue-grey-check.svg" class="ml-2 header-room-icons">
                         <span>
-                  ابتدا آدرس اتاق مورد نظر را در نقشه جستجو کنید، سپس برروی محل موردنظر راست کلیک کرده و پس از کلیک برروی گزینه "اینجا کجاست" طول و عرض جغرافیایی را در محل های موردنظر کپی کنید.
                   </span>
                     </div>
                     <iframe width="100%" class="height-30"
@@ -261,7 +238,6 @@
 
             <div class="d-form-row d-form">
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable">عرض جغرافیایی</span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -272,7 +248,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable">طول جغرافیایی</span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -283,7 +258,6 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable">ترتیب نمایش</span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -294,10 +268,9 @@
                 </div>
 
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable">تگ</span>
+                    <span class="d-form-lable">   </span>
                     <multiselect
                         v-model="postData.selectedTags"
-                        placeholder="یک تگ انتخاب کنید"
                         :options="tags"
                         label="name"
                         :show-labels="false"
@@ -323,7 +296,6 @@
                   postData.room.is_special === 0 ? 1 : 0
               "
                         >
-                            اتاق ویژه
                         </div>
                         <div
                             :class="[
@@ -332,7 +304,6 @@
               ]"
                             @click="postData.room.is_new = postData.room.is_new === 0 ? 1 : 0"
                         >
-                            اتاق جدید
                         </div>
                         <div
                             :class="[
@@ -341,7 +312,6 @@
               ]"
                             @click="postData.hasDiscount = !postData.hasDiscount"
                         >
-                            <div>اتاق تخفیف دار:</div>
                         </div>
                     </div>
                 </div>
@@ -349,32 +319,22 @@
 
             <div class="d-form-row d-form flex-start" v-if="postData.hasDiscount">
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable"> مقدار تخفیف </span>
                     <div class="d-form-input">
                         <input
                             type="text"
                             class="d-search-input"
-                            placeholder="به درصد"
                             v-model="postData.discount.amount"
                         />
                     </div>
                 </div>
 
                 <div class="d-for-group d-flex-25 mr-4">
-                    <span class="d-form-lable"> زمان شروع تخفیف </span>
                     <div class="d-form-input">
-                        <vue-persian-datetime-picker
-                            v-model="postData.discount.started_at"
-                        ></vue-persian-datetime-picker>
                     </div>
                 </div>
 
                 <div class="d-for-group d-flex-25 mr-4">
-                    <span class="d-form-lable"> زمان پایان تخفیف </span>
                     <div class="d-form-input">
-                        <vue-persian-datetime-picker
-                            v-model="postData.discount.ended_at"
-                        ></vue-persian-datetime-picker>
                     </div>
                 </div>
             </div>
@@ -391,7 +351,6 @@
                         class="shadowed-icon"
                         @click.stop="removeSelectedMedia('front')"
                     />
-                    <span v-else> انتخاب عکس اصلی </span>
                 </div>
                 <div
                     class="d-each-image-select"
@@ -404,7 +363,6 @@
                         v-if="postData.medias.banner.background"
                         @click.stop="removeSelectedMedia('banner')"
                     />
-                    <span v-else> انتخاب عکس بنر </span>
                 </div>
                 <div class="d-each-image-select" @click="selectMedia('video', 'video')">
                     <div v-if="postData.medias.video.background">
@@ -425,7 +383,6 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <span v-else> انتخاب ویدئوی تیزر </span>
                 </div>
             </div>
 
@@ -439,17 +396,17 @@
                     class="d-entity-cta d-cancel-entity low-order"
                     @click="cancelCreatingRoom"
                 >
-                    انصراف
+                     cancel
                 </div>
                 <div class="d-entity-cta d-make-entity high-order" @click="updateRoom">
-                    بروزرسانی
+                     update
                 </div>
             </div>
         </div>
     </div>
 
     <div class="alert alert-danger" v-else>
-        شما اجازه دسترسی به این صفحه را ندارید
+
     </div>
 
 </template>
@@ -459,7 +416,6 @@ import dropdown from "vue-dropdowns";
 import vueselect from "v-select2-component";
 import Multiselect from "vue-multiselect";
 import MediaModal from "../../packages/Media-modal.vue";
-import VuePersianDatetimePicker from "vue-persian-datetime-picker";
 import moment from 'moment-jalaali';
 
 export default {
@@ -467,7 +423,6 @@ export default {
         dropdown,
         vueselect,
         MediaModal,
-        VuePersianDatetimePicker,
         Multiselect,
     },
     data() {
@@ -546,7 +501,6 @@ export default {
             tags:[],
             hourTypes: [],
             holidayTypes: [],
-            fileSelectTex: "انتخاب فایل",
             selectedFile: "",
             backgrounds: {
                 front: "",

@@ -9,7 +9,6 @@ const vue = new Vue({
 
     data: {
         headerInfos: {
-            title: 'تماس با ما',
             text: '',
             media: ''
         }

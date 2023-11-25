@@ -70,12 +70,12 @@ class MovieController extends Controller
                         ]
                     ]);
                 }
-            }, 'رکورد فیلم با موفقیت ساحته شد', 'مشکل در ایجاد رکورد فیلم');
+            }, 'success', 'error');
         }
 
         return [
             'status' => false,
-            'msg' => 'شما مجوز انجام این کار ندارید!'
+            'msg' => 'access errro'
         ];
     }
 
@@ -120,7 +120,7 @@ class MovieController extends Controller
                     'place' => $type
                 ]
             ]);
-        }, 'مدیا با موفقیت اضافه شد', 'مشکل در اضافه کردن مدیا');
+        }, 'success', 'error');
     }
 
     public function actionDetachMedia()
@@ -130,7 +130,7 @@ class MovieController extends Controller
 
         tryCatch(function () use ($movie, $type) {
             $movie->mediaType($type)->detach();
-        }, 'حذف مدیا با موفقیت انجام شد.', 'مشکل در حذف مدیا');
+        }, 'success', 'error');
     }
 
     public function actionUpdate()
@@ -147,7 +147,7 @@ class MovieController extends Controller
                 'movie_order' => \request('movie_order'),
                 'description' => \request('description'),
             ]);
-        }, 'بروزرسانی با موفقیت انجام شد.', 'مشکل در بروزرسانی ');
+        }, 'success', 'error');
     }
 
     public function actionDelete()
@@ -159,7 +159,7 @@ class MovieController extends Controller
 
         return tryCatch(function () {
             Movie::destroy(\request('movies'));
-        }, 'فیلم ها با موفقیت حذف شدند.', 'مشکل در حذف فیلم ها');
+        }, 'success', 'error');
     }
 
     public function siteIndex()

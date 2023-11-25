@@ -31,7 +31,7 @@ class TagContoller extends Controller
 
         return tryCatch(function () {
             Tag::destroy(\request('tags'));
-        }, 'خبر ها با موفقیت حذف شدند.', 'مشکل در حذف خبر ها');
+        }, 'success', 'error');
     }
 
     public function actionAdd()
@@ -41,7 +41,7 @@ class TagContoller extends Controller
                 'name' => \request('tag.name')
             ]);
 
-        }, 'تگ با موفقیت ثبت شد', 'مشکل در ایجاد تگ');
+        }, 'success', 'error');
     }
 
     public function actionUpdate()
@@ -55,6 +55,6 @@ class TagContoller extends Controller
         return tryCatch(function () use ($tag) {
             $tag->name = \request('tag.name');
             $tag->save();
-        }, 'تگ با موفقیت بروزرسانی شد', 'خطا در بروزرسانی تگ');
+        }, 'success', 'error');
     }
 }

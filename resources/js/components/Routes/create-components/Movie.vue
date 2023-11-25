@@ -1,13 +1,11 @@
 <template>
     <div class="d-item-container" v-if="userHasAccessToCreate">
         <div class="d-status-bar flex-end">
-            <h3 class="create-media-title">اضافه کردن فیلم جدید</h3>
         </div>
 
         <div class="d-form-container">
             <div class="d-form-row d-form d-special-room-container">
                 <div class="d-for-group d-flex-30">
-                    <span class="d-form-lable"> نام فیلم </span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -19,7 +17,6 @@
 
                 <!--  brief-->
                 <div class="d-for-group d-flex-70 mr-4">
-                    <span class="d-form-lable"> خلاصه </span>
                     <div class="d-form-input">
                         <textarea
                             type="text"
@@ -31,7 +28,6 @@
                 </div>
 
                 <div class="d-for-group mr-4">
-                    <span class="d-form-lable"> ترتیب نمایش </span>
                     <div class="d-form-input">
                         <input
                             type="number"
@@ -42,10 +38,8 @@
                 </div>
 
                 <div class="d-for-group">
-                    <span class="d-form-lable">تگ</span>
                     <multiselect
                         v-model="selectedTags"
-                        placeholder="یک تگ انتخاب کنید"
                         :options="tags"
                         label="name"
                         :show-labels="false"
@@ -73,7 +67,6 @@
                         class="shadowed-icon"
                         @click.stop="removeSelectedMedia('image')"
                     />
-                    <span v-else> انتخاب عکس</span>
                 </div>
 
                 <div class="d-each-image-select mr-4" @click="selectMedia('video')">
@@ -95,7 +88,6 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <span v-else> انتخاب ویدئو </span>
                 </div>
             </div>
 
@@ -109,20 +101,17 @@
                     class="d-entity-cta d-cancel-entity low-order"
                     @click="cancelCreatingRoom"
                 >
-                    انصراف
                 </div>
                 <div
                     class="d-entity-cta d-make-entity high-order"
                     @click="createEntity"
                 >
-                    ایجاد
                 </div>
             </div>
         </div>
     </div>
 
     <div class="alert alert-danger" v-else>
-        شما اجازه دسترسی به این صفحه را ندارید
     </div>
 
 </template>

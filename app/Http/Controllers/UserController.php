@@ -33,7 +33,6 @@ class UserController extends Controller
     public function getInitialEntities()
     {
         return [
-            'roles' => Role::select('id', 'name', 'persian_name')->whereNotIn('name', ['admin', 'user'])->get(),
             'rooms' => Room::select('id', 'name')->get(),
             'days' => Day::select('id', 'name')->get(),
             'hours' => Hour::select('id', 'start_time', 'end_time')
@@ -80,7 +79,7 @@ class UserController extends Controller
 
                 $user->rooms()->sync($request->input('rooms'));
 
-            }, 'کاربر با موفقیت ایجاد شد', 'خطا در ایجاد کاربر');
+            }, 'success', 'error');
         });
 
     }
@@ -129,7 +128,7 @@ class UserController extends Controller
 
             $user->save();
 
-        }, 'بروزرسانی با موفقیت انجام شد', 'خطایی در بروزرسانی بوجود آمده');
+        }, 'success', 'error');
     }
 
     /**
@@ -145,11 +144,11 @@ class UserController extends Controller
         return $user->isAdmin()
             ? [
                 'status' => false,
-                'msg' => 'کاربر ادمین نمی تواند پاک شود'
+                'msg' => ''
             ]
             : tryCatch(function () use ($user) {
                 $user->delete();
-            }, 'کاربر با موفقیت حذف شد', 'خطا در حذف کاربر');
+            }, 'success', 'error');
     }
 
     public function getUserAndRoles(Request $request, $id = null)
@@ -157,7 +156,6 @@ class UserController extends Controller
         return ifIsSuperUser(function () use ($id){
             $updatingUser = User::where('id', $id)->select('id', 'name', 'email', 'phone', 'role_id', 'score')->with([
                 'role' => function ($role) {
-                    $role->select('id', 'name', 'persian_name');
                 },
                 'rooms' => function ($q) {
                     $q->select('rooms.id', 'name');
@@ -167,7 +165,6 @@ class UserController extends Controller
             return [
                 'updatingUser' => $updatingUser,
                 'roles' => Auth::user()->isSuperUser() ?
-                    Role::select('id', 'name', 'persian_name')->whereNotIn('name', ['admin', 'user'])->get()
                     : []
                 , 'rooms' => Auth::user()->isSuperUser() ?
                     Room::select('id', 'name')->get() :
@@ -184,7 +181,6 @@ class UserController extends Controller
                 'user' => Auth::check() ? Auth::user()->only(['id', 'name', 'email', 'type']) : '',
                 'users' => User::with([
                     'role' => function ($q) {
-                        $q->select('id', 'name', 'persian_name');
                     },
                     'rooms' => function ($q) {
                         $q->select('rooms.id', 'name');

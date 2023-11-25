@@ -77,13 +77,6 @@ class AdminGenreController extends Controller
             'status' => true,
             'msg' => 'success'
         ];
-        try {
-        } catch (\Throwable $th) {
-            return [
-                'status' => false,
-                'msg' => ' '
-            ];
-        }
     }
 
     public function store(Request $request)

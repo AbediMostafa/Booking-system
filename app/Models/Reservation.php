@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Morilog\Jalali\Jalalian;
 
 class Reservation extends Model
 {
@@ -12,12 +11,6 @@ class Reservation extends Model
 
     protected $guarded = [];
     protected $appends = ['jalaliDate'];
-
-    public function getJalaliDateAttribute()
-    {
-        return $this->created_at ? Jalalian::fromCarbon($this->created_at)
-            ->toString() : '-';
-    }
 
     public function users(): object
     {

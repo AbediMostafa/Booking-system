@@ -16,21 +16,18 @@
                 <div class="count-parts">
                     <a class="count-text-part" href="/cities" target="_blank">
                         <span>+{{ countData ? countData.city : '' }}</span>
-                        <span>شهر</span>
                     </a>
                     <img src="/images/icons/white-city.svg" class="white-icons"/>
                 </div>
                 <div class="count-parts">
                     <a class="count-text-part" href="/collections" target="_blank">
                         <span>+{{ countData ? countData.collection : '' }}</span>
-                        <span>مجموعه</span>
                     </a>
                     <img src="/images/icons/white-collection.svg" class="white-icons"/>
                 </div>
                 <div class="count-parts">
                     <a class="count-text-part" href="/rooms" target="_blank">
                         <span>+{{ countData ? countData.room : '' }}</span>
-                        <span>اتاق فرار</span>
                     </a>
                     <img src="/images/icons/white-escape.svg" class="white-icons"/>
                 </div>

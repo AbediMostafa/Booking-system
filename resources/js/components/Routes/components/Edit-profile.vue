@@ -2,7 +2,6 @@
     <div class="d-item-container">
         <div class="d-status-bar flex-end">
             <h3 class="create-media-title">
-                ویرایش مشخصات
                 {{ $route.params.email }}
             </h3>
         </div>
@@ -13,7 +12,6 @@
                 <!-- full name -->
                 <div class="d-for-group d-flex-25 ml-4">
                     <span class="d-form-lable">
-                        {{ isNormalUser ? 'نام کاربری' : 'نام و نام خانوادگی' }}
                     </span>
                     <div class="d-form-input">
                         <input
@@ -26,7 +24,6 @@
 
                 <!-- username -->
                 <div class="d-for-group d-flex-25" v-if="!isNormalUser">
-                    <span class="d-form-lable">نام کاربری</span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -40,7 +37,6 @@
             <div class="d-form-row d-form flex-start" v-if="!isNormalUser">
                 <!-- phone-->
                 <div class="d-for-group d-flex-25 ml-4">
-                    <span class="d-form-lable">موبایل</span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -52,7 +48,6 @@
 
                 <!-- score-->
                 <div class="d-for-group d-flex-25 ml-4" v-if="postData.role.name = 'user'">
-                    <span class="d-form-lable">امتیاز</span>
                     <div class="d-form-input">
                         <input
                             type="text"
@@ -65,7 +60,6 @@
             <div class="d-form-row d-form flex-start" v-if="!isNormalUser">
                 <!-- password-->
                 <div class="d-for-group d-flex-25 ml-4">
-                    <span class="d-form-lable">پسوورد</span>
                     <div class="d-form-input">
                         <input
                             type="password"
@@ -77,7 +71,6 @@
 
                 <!-- password repeat-->
                 <div class="d-for-group d-flex-25">
-                    <span class="d-form-lable">تکرار پسوورد</span>
                     <div class="d-form-input">
                         <input
                             type="password"
@@ -90,17 +83,14 @@
             <div class="d-form-row d-form flex-start" v-if="!isNormalUser">
                 <!-- authentication-->
                 <div class="d-for-group d-flex-25 ml-4" v-if="showRole">
-                    <span class="d-form-lable">سطح دسترسی</span>
                     <div class="d-form-input">
                         <multiselect
                             v-model="postData.role"
                             :options="roles"
                             :searchable="false"
-                            label="persian_name"
                             :selectLabel="''"
                             :close-on-select="true"
-                            @input="onChange"
-                            placeholder="انتخاب کنید ..">
+                            @input="onChange">
                         </multiselect>
 
                     </div>
@@ -108,7 +98,6 @@
 
                 <!-- rooms-->
                 <div class="d-for-group d-flex-25" v-if="showRooms">
-                    <span class="d-form-lable">همه اتاق ها</span>
                     <div class="d-form-input">
                         <multiselect
                             v-model="selectedRooms"
@@ -122,7 +111,7 @@
                             :close-on-select="false"
                             :disabled="roomDisabled"
 
-                            placeholder="انتخاب کنید ..">
+                            placeholder="">
                         </multiselect>
 
                     </div>
@@ -142,13 +131,11 @@
                     class="d-entity-cta d-make-entity high-order"
                     @click="updateEntity"
                 >
-                    بروزرسانی
                 </div>
             </div>
         </div>
         <div v-else>
             <div class="alert alert-danger">
-                شما اجازه دسترسی به این صفحه ندارید.
             </div>
         </div>
     </div>
@@ -201,9 +188,9 @@ export default {
             let data = this.postData;
             this.errors = [];
 
-            !data.email && this.errors.push('نام کاربری ضروری است');
+            !data.email && this.errors.push();
 
-            data.password !== data.repeatPassword && this.errors.push('گذرواژه و تکرار آن یکی نیستند')
+            data.password !== data.repeatPassword && this.errors.push()
 
             return this.errors.length;
         },

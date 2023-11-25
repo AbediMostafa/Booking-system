@@ -35,7 +35,7 @@ class CommentController extends Controller
         if ($ratedBefore || $commentedBefore) {
             return [
                 'status' => false,
-                'msg' => 'شما قبلا به این اتاق نظر داده اید.'
+                'msg' => ''
             ];
         }
 
@@ -59,12 +59,12 @@ class CommentController extends Controller
 
             return [
                 'status' => true,
-                'msg' => 'نظر شما با موفقیت ثبت، و پس از بررسی اضافه خواهد شد'
+                'msg' => ''
             ];
         } catch (\Throwable $th) {
             return [
                 'status' => true,
-                'msg' => 'مشکل در ثبت نظر'
+                'msg' => 'success'
             ];
         }
     }
@@ -88,7 +88,7 @@ class CommentController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'نظر شما با موفقیت بروزرسانی و پس از بررسی ثبت خواهد شد.'
+            'msg' => ''
         ];
     }
 
@@ -98,9 +98,7 @@ class CommentController extends Controller
             'answer' => 'required'
         ]);
 
-        $successMsg = $this->isSuperUser() ?
-            'پاسخ با موفقیت ارسال شد' :
-            'پاسخ با موفقیت ارسال شد و پس از بررسی ثبت خواهد شد';
+        $successMsg = $this->isSuperUser() ? '' : '';
 
         return tryCatch(function () use ($comment, $request) {
 
@@ -113,7 +111,7 @@ class CommentController extends Controller
                 'situation' => $this->isSuperUser() ? 'promoted' : 'not_seen'
             ]);
 
-        }, $successMsg, 'خطا در ارسال پاسخ');
+        }, $successMsg, 'error');
     }
 
     public function isSuperUser()

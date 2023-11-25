@@ -1,5 +1,4 @@
 import HeaderPart from '../components/packages/Header-part.vue';
-import VuePersianDatetimePicker from "vue-persian-datetime-picker";
 import vueselect from "v-select2-component";
 import Multiselect from "vue-multiselect";
 import moment from 'moment-jalaali'
@@ -9,7 +8,6 @@ const vue = new Vue({
     el: '#app',
     components: {
         HeaderPart,
-        VuePersianDatetimePicker,
         vueselect,
         Multiselect
     },
@@ -17,8 +15,6 @@ const vue = new Vue({
     data: {
         headerInfos: {
             imageSrc: sot.absImgPath('carousel/2.jpg'),
-            title: 'رزرو',
-            text: `لطفا حتما ماسک به همراه خود داشته باشید.`
         },
         tmpDay: '',
         tmpHour: '',
@@ -151,7 +147,6 @@ const vue = new Vue({
 
             if (this.hasFullyReserved(formattedDay)) {
                 attributes['class'] = 'extra-holiday';
-                attributes['title'] = 'تمام روز رزرو شده';
             }
 
             return attributes;

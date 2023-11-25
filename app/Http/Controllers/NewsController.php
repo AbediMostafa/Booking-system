@@ -67,12 +67,12 @@ class NewsController extends Controller
                         ]
                     ]);
                 }
-            }, 'رکورد خبر با موفقیت ساحته شد', 'مشکل در ایجاد رکورد خبر');
+            }, 'success', 'error');
         }
 
         return [
             'status' => false,
-            'msg' => 'شما مجوز انجام این کار ندارید!'
+            'msg' => 'access error'
         ];
     }
 
@@ -120,7 +120,7 @@ class NewsController extends Controller
                         'place' => $type
                     ]
                 ]);
-            }, 'مدیا با موفقیت اضافه شد', 'مشکل در اضافه کردن مدیا');
+            }, 'success', 'error');
         });
     }
 
@@ -132,7 +132,7 @@ class NewsController extends Controller
 
             return tryCatch(function () use ($news, $type) {
                 $news->mediaType($type)->detach();
-            }, 'حذف مدیا با موفقیت انجام شد.', 'مشکل در حذف مدیا');
+            }, 'success', 'error');
         });
     }
 
@@ -151,7 +151,7 @@ class NewsController extends Controller
                     'news_order' => \request('news_order'),
                     'description' => \request('description'),
                 ]);
-            }, 'بروزرسانی با موفقیت انجام شد.', 'مشکل در بروزرسانی ');
+            }, 'success', 'error');
         });
     }
 
@@ -166,7 +166,7 @@ class NewsController extends Controller
 
             return tryCatch(function () {
                 News::destroy(\request('news'));
-            }, 'خبر ها با موفقیت حذف شدند.', 'مشکل در حذف خبر ها');
+            }, 'success', 'error');
         });
     }
 

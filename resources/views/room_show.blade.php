@@ -13,15 +13,10 @@
                                 <img :src="ratingIcon">
                             </div>
                             <p class="text-xsm mb-2">
-                                امتیاز
                                 <span>{{room.rates?room.rates.rate_average.toFixed(1):''}}</span>
 
-                                از مجموع {{room.rates? room.rates.rate_count:''}} امتیاز
                             </p>
 
-                            <h3 class="m-0 tex-xlg">اتاق
-                                {{room.rates? room.rates.rateTitle:0}}
-                            </h3>
 
                             <score-stars :score="room.rates? room.rates.total:'0'"
                                          class="justify-center"></score-stars>
@@ -31,7 +26,6 @@
                             </p>
 
                             <a class="rsd-cta" @click="sendComment">
-                                <span class="lc-read-more">ثبت نظر</span>
                                 <img :src="iconPath('white-pencil.svg')" class="card-right-arrow"/>
                             </a>
 
@@ -68,7 +62,6 @@
                                 </div>
 
                                 <a class="rsd-cta" @click="reserveRoom" v-if="room.reservable">
-                                    <span class="lc-read-more">رزرو اتاق</span>
                                     <img :src="iconPath('white-pencil.svg')" class="card-right-arrow"/>
                                 </a>
                                 <play-icon v-if="room.teaser"
@@ -91,14 +84,11 @@
                 <div class="show-room-container">
                     <div class="rs-other-infos">
                         <scores :rates="room.rates"></scores>
-                        <h1 class="rs-box-title">اتاق های همین مجموعه</h1>
                         <div class="rs-box-shadow" v-if="collectionRooms.length">
 
                             <collection-room v-for="(collectionRoom, key) in collectionRooms" :key="key"
                                              :collection-room="collectionRoom"></collection-room>
                         </div>
-                        <no-entity v-else image="no-room.svg" text="این مجموعه همین یک اتاق را دارد!"
-                                   image-width="50"></no-entity>
                     </div>
 
                     <div class="rs-description">
@@ -110,9 +100,6 @@
                                     <modal-comment :comment="currentComment"></modal-comment>
                                 </div>
                             </div>
-                            <h1 class="rs-box-title">نظرات کاربران</h1>
-                            <no-entity v-if="comments.length == 0" image="no-comment.svg"
-                                       text="هنوز نظری راجع به این اتاق ثبت نشده است" image-width="30"></no-entity>
                             <div class="des-comments-container" v-else>
                                 <comment
                                     v-for="(comment, key) in comments"

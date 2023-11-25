@@ -4,7 +4,6 @@
             <div>
                 <span class="comment-edit" v-if="comment.user.is_owner">
                     <a :href="`/edit-comment/${comment.id}`">
-                        ویرایش
                     </a>
                 </span>
             </div>
@@ -16,11 +15,9 @@
         </div>
         <score-stars :score="comment.user.rate"></score-stars>
         <div class="comment-recommend" v-if="comment.status == 'agree'">
-            <span class="recomend-text">توصیه می کنم</span>
             <img class="recommend-icons" :src="iconPath('blue-check.svg')"/>
         </div>
         <div class="comment-recommend" v-if="comment.status == 'disagree'">
-            <span class="not-recomend-text">توصیه نمی کنم</span>
             <img class="recommend-icons" :src="iconPath('red-uncheck.svg')"/>
         </div>
 
@@ -37,13 +34,11 @@
         </div>
         <div class="admin-comment-answer-box" v-if="comment.childs.length">
             <div class="flex-start">
-                <img src="/images/icons/logo.svg" class="answer-logo" alt="لوگوی سایت" v-if="comment.childs[0].userIsManager">
                 <h5 class="acab-username mr-2">{{comment.childs[0].user}}</h5>
             </div>
             <p class="acab-body">{{comment.childs[0].body | truncate(200, ' ... ')}}</p>
         </div>
         <div class="load-more-answers" v-if="comment.childs.length>1">
-            {{`مشاهده ${comment.childs.length - 1} پاسخ دیگر`  }}
         </div>
     </div>
 </template>
@@ -74,10 +69,10 @@ export default {
                     .then((result) => {
                         if (!result.data.status) {
                             Swal.fire({
-                                title: "خطا",
-                                html: "مشکلی در ثبت نظر به وجود آمده",
+                                title: "error",
+                                html: "error",
                                 icon: "error",
-                                confirmButtonText: "باشه",
+                                confirmButtonText: "Ok",
                             });
                             return;
                         }

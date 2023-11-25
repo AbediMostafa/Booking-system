@@ -64,7 +64,7 @@ class AdminLearnController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'حذف مدیا با موفقیت انجام شد.'
+            'msg' => 'success'
         ];
     }
 
@@ -80,7 +80,7 @@ class AdminLearnController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'مدیا با موفقیت اضافه شد'
+            'msg' => 'success'
         ];
     }
 
@@ -92,7 +92,7 @@ class AdminLearnController extends Controller
             if ($starredLearnsCount >= 2) {
                 return [
                     'status' => false,
-                    'msg' => 'تعداد آموزش های ستاره دار بیش از حد مجاز است.'
+                    'msg' => 'too much changes'
                 ];
             }
         }
@@ -105,7 +105,7 @@ class AdminLearnController extends Controller
                 'description' => $request->input('description'),
                 'starred' => $request->input('starred'),
             ]);
-        }, 'بروزرسانی با موفقیت انجام شد.', 'مشکل در بروزرسانی ');
+        }, 'success', 'error');
     }
 
     public function store(Request $request)
@@ -117,7 +117,7 @@ class AdminLearnController extends Controller
             if ($starredLearnsCount >= 2) {
                 return [
                     'status' => false,
-                    'msg' => 'تعداد آموزش های ستاره دار بیش از حد مجاز است.'
+                    'msg' => 'stared learnings exceeded'
                 ];
             }
         }
@@ -156,6 +156,6 @@ class AdminLearnController extends Controller
                 ]);
             }
 
-        },'آموزش با موفقیت ایجاد شد','خطا در ایجاد آموزش');
+        },'success','error');
     }
 }

@@ -16,7 +16,6 @@ use App\Models\Media;
 use App\Models\Room;
 use App\Models\Tag;
 use Illuminate\Http\Request;
-use Morilog\Jalali\Jalalian;
 
 class AdminRoomController extends Controller
 {
@@ -60,31 +59,31 @@ class AdminRoomController extends Controller
     {
         return tryCatch(function () {
             Room::destroy(\request('roomIds'));
-        }, 'اتاق ها با موفقیت حذف شدند.', 'مشکل در حذف اتاق ها');
+        }, 'success', 'error');
     }
 
     public function actionToggleDeactivation()
     {
-        $msgType = \request('type') === 'disable' ? 'غیرفعال':'فعال';
+        $msgType = \request('type') === 'disable' ? 'inactive':'active';
 
         return tryCatch(function () {
             Room::whereIn('id', \request('roomIds'))
                 ->update([
                     'disabled' => \request('type') === 'disable' ? 1 : 0
                 ]);
-        }, "اتاق ها با موفقیت $msgType شدند", "مشکل در $msgType  کردن اتاق ها ");
+        }, 'success', "error");
     }
 
     public function actionToggleReservation()
     {
-        $msgType = \request('type') === 'disable' ? 'غیرفعال':'فعال';
+        $msgType = \request('type') === 'disable' ? 'inactive':'active';
 
         return tryCatch(function () {
             Room::whereIn('id', \request('roomIds'))
                 ->update([
                     'reservable' => \request('type') === 'disable' ? 0 : 1
                 ]);
-        }, "رزرو اتاق ها با موفقیت $msgType شدند ", "مشکل در $msgType کردن رزرو اتاق ها");
+        }, "success", "error");
     }
 
     public function store(AdminRoomRequest $request)
@@ -100,7 +99,7 @@ class AdminRoomController extends Controller
             $room->genres()->attach($request->input('genreIds'));
             $room->tags()->attach($request->input('tagIds'));
 
-        }, 'اتاق با موفقیت ایجاد شد.', 'مشکل در ایجاد اتاق.');
+        }, 'success', 'error');
     }
 
     public function addRoomMedias($room)
@@ -118,22 +117,9 @@ class AdminRoomController extends Controller
         }
     }
 
-    public function convertDiscountDateToJalalian()
-    {
-        return [
-            'started_at' => Jalalian::fromFormat('Y/m/d', request()->input('discount.started_at'))
-                ->toCarbon()
-                ->toDateTimeString(),
-            'ended_at' => Jalalian::fromFormat('Y/m/d', request()->input('discount.ended_at'))
-                ->toCarbon()
-                ->toDateTimeString()
-        ];
-    }
 
     public function addRoomDiscount($room)
     {
-        $dates = $this->convertDiscountDateToJalalian();
-
         $room->discount()->create([
             'started_at' => $dates['started_at'],
             'ended_at' => $dates['ended_at'],
@@ -153,7 +139,6 @@ class AdminRoomController extends Controller
         $room->tags()->sync($request->input('tagIds'));
 
         if ($request->input('hasDiscount')) {
-            $dates = $this->convertDiscountDateToJalalian();
 
             $queryType = $room->discount ? 'update' : 'create';
 
@@ -168,7 +153,7 @@ class AdminRoomController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'بروزرسانی با موفقیت انجام شد.'
+            'msg' => 'success'
         ];
     }
 
@@ -178,7 +163,7 @@ class AdminRoomController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'حذف مدیا با موفقیت انجام شد.'
+            'msg' => 'success'
         ];
     }
 
@@ -192,7 +177,7 @@ class AdminRoomController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'مدیا با موفقیت اضافه شد'
+            'msg' => 'success'
         ];
     }
 }

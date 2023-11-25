@@ -45,7 +45,7 @@ class HourTypeController extends Controller
 
                 $entity::find($request->input('id'))->update(['name' => $request->input('value')]);
 
-            }, 'بروزرسانی با موفقیت انجام شد', 'خطا در انجام بروزرسانی');
+            }, 'success', 'error');
         });
     }
 
@@ -64,7 +64,7 @@ class HourTypeController extends Controller
         return ifIsSuperUser(function () use ($request) {
             return tryCatch(function () use ($request) {
                 HourType::create($request->all());
-            }, 'ساعات روزانه با موفقیت ایجاد شد', 'مشکل در ایجاد ساعات روزانه');
+            }, 'success', 'error');
         });
     }
 
@@ -81,6 +81,6 @@ class HourTypeController extends Controller
 
         return tryCatch(function () use ($request, $hourType) {
             $hourType->hours()->sync($request->input('hourIds'));
-        }, 'ساعت ها با موفقیت ثبت شدند', 'مشکل در ثبت ساعات');
+        }, 'success', 'error');
     }
 }

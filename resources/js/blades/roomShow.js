@@ -107,10 +107,10 @@ const vue = new Vue({
 
         paymentCallbackProcess() {
             Swal.fire({
-                title: reserveStatus == 1 ? 'رزرو با موفقیت انجام شد' : 'خطا',
+                title: reserveStatus == 1 ? 'success' : 'error',
                 text: msg,
                 icon: reserveStatus == 1 ? 'success' : 'error',
-                confirmButtonText: "باشه",
+                confirmButtonText: "Ok",
             });
         }
     },

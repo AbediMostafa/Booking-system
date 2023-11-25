@@ -41,7 +41,7 @@ if(!function_exists('ifIsSuperUser')){
         }
 
         return response()->json([
-            'message'=>'شما اجازه دسترسی به این صفحه را ندارید'
+            'message'=>'access error'
         ],403);
     }
 }

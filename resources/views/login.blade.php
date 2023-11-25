@@ -13,20 +13,17 @@
         <form action="/login" method="POST">
             @csrf
             <div class="li_form_group">
-                <span class="li_label">نام کاربری</span>
                 <div class="li_input">
                     <input type="text" name='email' class="d-search-input p-4">
                 </div>
             </div>
 
             <div class="li_form_group">
-                <span class="li_label">پسوورد</span>
                 <div class="li_input">
                     <input type="password" name="password" class="d-search-input p-4">
                 </div>
             </div>
 
-            <button type="submit" class="li_login_btn">ورود</button>
             @if ($errors->any())
             <div class="alert alert-danger rtl-dir">
                 <ul>

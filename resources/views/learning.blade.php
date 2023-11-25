@@ -18,7 +18,6 @@
     <div class="container">
         <div class="learn-container">
             <div class="l-special-rooms">
-            <h2 class="l-post-title"> اتاق های ویژه</h2>
 
                 <div class="global-card-container">
                     <complicated-room-card

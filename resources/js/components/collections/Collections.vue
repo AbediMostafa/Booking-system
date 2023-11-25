@@ -6,7 +6,6 @@
                 type="text"
                 class="search-input"
                 v-model="collectionKey"
-                placeholder="جستجو بر روی همه مجموعه ها"
             />
         </div>
         <div class="global-card-container">
