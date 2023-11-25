@@ -13,7 +13,7 @@ class UltraFastSendSms
      */
     protected function getAPIUltraFastSendUrl()
     {
-        return "http://RestfulSms.com/api/UltraFastSend";
+        return "http://PiraSMS.com/api/UltraFastSend";
     }
 
     /**
@@ -23,7 +23,7 @@ class UltraFastSendSms
      */
     protected function getApiTokenUrl()
     {
-        return "http://RestfulSms.com/api/Token";
+        return "http://PiraSms.com/api/Token";
     }
 
     /**
@@ -35,7 +35,7 @@ class UltraFastSendSms
      */
     public function __construct()
     {
-        date_default_timezone_set("Asia/Tehran");
+        date_default_timezone_set("Asia/Istanbul");
 
         $this->APIKey = "d6b32876247b5e2ee7a70471";
         $this->SecretKey = "09123711964";
