@@ -31,7 +31,7 @@ class AdminLearnController extends Controller
 
         return tryCatch(function () use ($request) {
             Post::destroy(\request('posts'));
-        }, 'آموزش ها با موفقیت حذف شدند.', 'مشکل در حذف آموزش ها');
+        }, '');
     }
 
     public function update(Post $post)
