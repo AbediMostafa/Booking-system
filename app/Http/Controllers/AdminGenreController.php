@@ -30,7 +30,7 @@ class AdminGenreController extends Controller
 
         return tryCatch(function (){
             Genre::destroy(\request('genres'));
-        },'ژانرها با موفقیت حذف شدند.','مشکل در حذف ژانرها');
+        },'');
     }
 
     public function update(Genre $genre)
@@ -53,7 +53,7 @@ class AdminGenreController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'حذف مدیا با موفقیت انجام شد.'
+            'msg' => ''
         ];
     }
 
@@ -63,7 +63,7 @@ class AdminGenreController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'مدیا با موفقیت اضافه شد'
+            'msg' => ''
         ];
     }
 
@@ -75,13 +75,13 @@ class AdminGenreController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'بروزرسانی با موفقیت انجام شد.'
+            'msg' => 'success'
         ];
         try {
         } catch (\Throwable $th) {
             return [
                 'status' => false,
-                'msg' => 'مشکل در بروزرسانی '
+                'msg' => ' '
             ];
         }
     }
@@ -101,7 +101,7 @@ class AdminGenreController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'ژانر با موفقیت ایجاد شد'
+            'msg' => 'success'
         ];
     }
 }
