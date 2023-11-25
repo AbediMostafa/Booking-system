@@ -31,7 +31,7 @@ class AdminCollectionController extends Controller
 
         return tryCatch(function (){
             Collection::destroy(\request('collections'));
-        },'مجموعه ها با موفقیت حذف شدند.','مشکل در حذف مجموعه ها');
+        },'');
     }
 
     public function update(Collection $collection)
@@ -54,7 +54,7 @@ class AdminCollectionController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'حذف مدیا با موفقیت انجام شد.'
+            'msg' => '.'
         ];
     }
 
@@ -65,7 +65,7 @@ class AdminCollectionController extends Controller
 
         return [
             'status' => true,
-            'msg' => 'مدیا با موفقیت اضافه شد'
+            'msg' => ''
         ];
     }
 
@@ -81,7 +81,7 @@ class AdminCollectionController extends Controller
             }
             $collection->save();
 
-        },'بروزرسانی با موفقیت انجام شد.','مشکل در بروزرسانی ');
+        },'');
     }
 
     public function store(Request $request)
@@ -100,6 +100,6 @@ class AdminCollectionController extends Controller
 
             $collection->medias()->attach($request->input('media.id'));
 
-        }, 'مجموعه با موفقیت ایجاد شد', 'خطا در ایجاد مجموعه');
+        }, '');
     }
 }
