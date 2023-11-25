@@ -71,7 +71,7 @@ class AdminCommentController extends Controller
 
         tryCatch(function () use ($request) {
             Comment::destroy(\request('comments'));
-        }, 'نظرها با موفقیت حذف شدند.', 'مشکل در حذف نظرها');
+        }, '');
     }
 
     public function grant(Request $request)
@@ -88,6 +88,6 @@ class AdminCommentController extends Controller
                 $comment->save();
             });
 
-        }, 'نظرها با موفقیت دارای مجوز شدند.', 'مشکل در دادن مجوز به نظرها');
+        }, '');
     }
 }
